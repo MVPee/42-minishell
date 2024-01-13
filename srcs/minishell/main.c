@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/13 21:48:30 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/01/13 21:53:22 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ int main(void)
     while ((line = get_next_line(0)))
     {
         if (ft_strcmp(line, "exit\n") == 0)
+        {
+            free(line);
             break;
+        }
         ft_printf("%s", line);
+        free(line);
     }
     return (0);
 }

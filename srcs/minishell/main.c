@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/12 18:52:51 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:55:59 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int main(int ac, char **argv, char **env)
 
     while (777)
     {
-        line = readline("\nMinishell: ");
-        if (ft_strcmp(line, "exit") == 0)
+        line = readline(line);
+        if (ft_strcmp(line, "exit\n") == 0)
         {
             free(line);
             break;

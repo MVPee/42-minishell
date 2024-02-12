@@ -14,5 +14,14 @@
 #define MINISHELL_H
 
 #include "../srcs/libft/includes/libft.h"
+#include <readline/readline.h>
+
+
+typedef struct s_env
+{
+	int		shell_level;
+	char	*pwd;
+	char	**path;
+}	t_env;
 
 #endif

@@ -6,8 +6,8 @@ SRCS = 	srcs/minishell/main.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) -Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft
+CFLAGS = -I$(LIBFT) -ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L$(LIBFT) -lft -lreadline -ggdb3 -fsanitize=address -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m
@@ -16,7 +16,7 @@ NC=\033[0m
 all: $(NAME)
 
 $(LIBFT)/libft.a:
-	$(MAKE) -C $(LIBFT)
+	$(MAKE) -C $(LIBFT) 
 
 $(NAME): $(OBJS) $(LIBFT)/libft.a
 	@gcc $(OBJS) $(LDFLAGS) -o $(NAME)

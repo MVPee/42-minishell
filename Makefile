@@ -3,11 +3,11 @@ NAME = minishell
 LIBFT = srcs/libft
 
 SRCS = 	srcs/minishell/main.c \
-		srcs/minishell/buildins/echo.c
+		srcs/minishell/builtins/echo.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) -Wall -Werror -Wextra
+CFLAGS = -I$(LIBFT) #-Wall -Werror -Wextra
 LDFLAGS = -L$(LIBFT) -lft -lreadline
 
 RED=\033[0;31m
@@ -17,7 +17,7 @@ NC=\033[0m
 all: $(NAME)
 
 $(LIBFT)/libft.a:
-	$(MAKE) -C $(LIBFT)
+	$(MAKE) -C $(LIBFT) 
 
 $(NAME): $(OBJS) $(LIBFT)/libft.a
 	@gcc $(OBJS) $(LDFLAGS) -o $(NAME)

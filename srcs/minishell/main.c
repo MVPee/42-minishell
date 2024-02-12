@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/01/13 21:53:22 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/12 17:26:18 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 int main(void)
 {
-    char *line;
+    char *line = NULL;
 
-    while ((line = get_next_line(0)))
+    while (1)
     {
+        line = readline(line);
         if (ft_strcmp(line, "exit\n") == 0)
         {
             free(line);
             break;
         }
         ft_printf("%s", line);
-        free(line);
+        ft_free(1, &line);
     }
     return (0);
 }

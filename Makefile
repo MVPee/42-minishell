@@ -7,7 +7,7 @@ SRCS = 	srcs/minishell/main.c
 OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -I$(LIBFT) -Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft
+LDFLAGS = -L$(LIBFT) -lft -lreadline
 
 RED=\033[0;31m
 GREEN=\033[0;32m
@@ -26,7 +26,7 @@ $(NAME): $(OBJS) $(LIBFT)/libft.a
 	@echo   "${RED}██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     ${NC}"
 	@echo   "${RED}██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗${NC}"
 	@echo   "${RED}╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝${NC}"
-	@echo   "${GREEN}./minishell]${NC}\n"
+	@echo   "${GREEN}./minishell${NC}\n"
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -o $@

@@ -2,7 +2,8 @@ NAME = minishell
 
 LIBFT = srcs/libft
 
-SRCS = 	srcs/minishell/main.c
+SRCS = 	srcs/minishell/main.c \
+		srcs/minishell/buildins/echo.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/12 17:53:24 by mvan-pee         ###   ########.fr       */
+/*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
+/*   Updated: 2024/02/12 17:48:17 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-int main(void)
+void ft_echo(char *str)
 {
-    char *line = NULL;
-
-    while (777)
-    {
-        line = readline("minihell: ");
-        if (ft_strcmp(line, "exit") == 0)
-        {
-            free(line);
-            break;
-        }
-    }
-    return (0);
+    ft_printf("%d", str);
 }

@@ -6,7 +6,7 @@ SRCS = 	srcs/minishell/main.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) -Wall -Werror -Wextra
+CFLAGS = -I$(LIBFT) #-Wall -Werror -Wextra
 LDFLAGS = -L$(LIBFT) -lft -lreadline
 
 RED=\033[0;31m
@@ -16,7 +16,7 @@ NC=\033[0m
 all: $(NAME)
 
 $(LIBFT)/libft.a:
-	$(MAKE) -C $(LIBFT)
+	$(MAKE) -C $(LIBFT) 
 
 $(NAME): $(OBJS) $(LIBFT)/libft.a
 	@gcc $(OBJS) $(LDFLAGS) -o $(NAME)

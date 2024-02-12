@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/12 17:28:45 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:43:19 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 
     while (777)
     {
-        line =readline(line);
+        line = readline(line);
         if (ft_strcmp(line, "exit\n") == 0)
         {
             free(line);

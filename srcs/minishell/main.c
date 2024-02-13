@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 10:22:09 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/13 11:16:59 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	env_init(t_env *env)
 	env->path = NULL;
 	env->pwd = NULL;
 	env->shell_level = 0;
+	env->var_env = 0;
 }
 
 static t_env	ft_extract_env(char **envs)
@@ -64,6 +65,16 @@ static char	*get_str_readline(t_env env)
 	return (str_readline);
 }
 
+static void process(t_env env, char *line)
+{
+	char **split = ft_split(line, " ");
+	if (!ft_strcmp(split[0], "echo"))
+		ft_echo(env, split);
+	else
+		ft_printf("%s: command not found\n", line);
+	ft_free_matrix(1, &split);
+}
+
 int	main(int ac, char **argv, char **envs)
 {
 	char	*line;
@@ -82,6 +93,7 @@ int	main(int ac, char **argv, char **envs)
 			free(line);
 			break ;
 		}
+		process(env, line);
 		free(line);
 	}
 	ft_free(1, &env.pwd);

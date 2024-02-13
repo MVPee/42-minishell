@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 10:22:26 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/13 11:13:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@
 
 # include "../srcs/libft/includes/libft.h"
 # include <readline/readline.h>
-
-// Buildins
-void		ft_echo(char *str);
+# include "stdbool.h"
 
 typedef struct s_env
 {
 	int		shell_level;
+	int		var_env; // $?
 	char	*pwd;
 	char	**path;
 }			t_env;
+
+// Buildins
+void		ft_echo(t_env env, char **split);
 
 #endif

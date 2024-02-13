@@ -6,48 +6,50 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 09:34:19 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/13 10:06:50 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
 
-static void	extract_int(char *env, t_env *env_vars, char **splitted_env)
+static void	extract_int(char *envs, t_env *env_vars)
 {
-	if (!ft_strncmp(env, "SHLVL", 5))
+	char **splitted_env;
+
+	if (!ft_strncmp(envs, "SHLVL", 5))
 	{
-		splitted_env = ft_split(env, "=");
+		splitted_env = ft_split(envs, "=");
 		env_vars->shell_level = ft_atoi(splitted_env[1]);
 		ft_free_matrix(1, &splitted_env);
 	}	
 }
 
-static void	extract_str(char *env, t_env *env_vars, char **splitted_env)
+static void	extract_str(char *envs, t_env *env_vars)
 {
-	if (!ft_strncmp(env, "PWD", 3))
+	char **splitted_env;
+
+	if (!ft_strncmp(envs, "PWD", 3))
 	{
-		splitted_env = ft_split(env, "=");
-		env_vars->pwd = splitted_env[1];
+		splitted_env = ft_split(envs, "=");
+		env_vars->pwd = ft_strdup(splitted_env[1]);
 		ft_free_matrix(1, &splitted_env);
 	}
-	else if(!ft_strncmp(env, "PATH", 4))
+	else if(!ft_strncmp(envs, "PATH", 4))
 	{
-		env_vars->path = ft_split(env, "=:");
+		env_vars->path = ft_split(envs, "=:");
 	}
 }
 
-static t_env	ft_extract_env(char **env)
+static t_env	ft_extract_env(char **envs)
 {
-	char	**splitted_env;
 	t_env	env_vars;
 	
-	env_vars.pwd = NULL;
-	while (*env)
+	while (*envs)
 	{
-		extract_int(*env, &env_vars, splitted_env);
-		extract_str(*env, &env_vars, splitted_env);
-		env++;
+		extract_int(*envs, &env_vars);
+		extract_str(*envs, &env_vars);
+		envs++;
 	}
 	return (env_vars);
 }
@@ -59,6 +61,15 @@ static void env_init(t_env *env)
     env->shell_level = 0;
 }
 
+static char *get_str_readline(t_env env)
+{
+	char *temp = ft_strjoin(YELLOW BOLD, env.pwd);
+    char *str_pwd = ft_strjoin(temp, RESET);
+	char *str = ft_strjoin(RED BOLD "minihell " RESET, str_pwd);
+	char *str_readline = ft_strjoin(str, ": ");
+	return (ft_free(3, &str, &str_pwd, &temp), str_readline);
+}
+
 int main(int ac, char **argv, char **envs)
 {
     char *line = NULL;
@@ -67,17 +78,18 @@ int main(int ac, char **argv, char **envs)
     env_init(&env);
     env = ft_extract_env(envs);
 
-    ft_printf("shlevel: %d\n", env.shell_level);
-    ft_printf("pwd: %s\n", env.pwd);
-    ft_printf("path0: %s\n", env.path[0]);
     while (1)
     {
-        line = readline("minihell: ");
-        if (ft_strcmp(line, "exit") == 0)
+		char *str_readline = get_str_readline(env);
+        line = readline(str_readline);
+		ft_free(1, &str_readline);
+        if (!ft_strcmp(line, "exit"))
         {
             free(line);
             break;
         }
     }
+	ft_free(1, &env.pwd);
+	ft_free_matrix(1, &env.path);
     return (0);
 }

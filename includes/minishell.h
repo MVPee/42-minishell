@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 13:46:04 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/13 14:06:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_env
 	int 	var_env; // $?
 	char	*pwd;
 	char	**path;
-	char 	**env; //With the correct shell level (need to implements)
+	char 	**env; //With the correct shell level and pwd (need to implements)
 }			t_env;
 
 // Buildins

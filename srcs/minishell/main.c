@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/12 19:11:35 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:34:19 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int main(int ac, char **argv, char **envs)
     ft_printf("shlevel: %d\n", env.shell_level);
     ft_printf("pwd: %s\n", env.pwd);
     ft_printf("path0: %s\n", env.path[0]);
-    while (777)
+    while (1)
     {
         line = readline("minihell: ");
         if (ft_strcmp(line, "exit") == 0)

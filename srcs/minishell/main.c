@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 16:25:31 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:41:13 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ static void process(t_env env, char *line)
 int	main(int ac, char **argv, char **envs)
 {
 	char	*line;
-	t_env	*env;
+	
 	char	*str_readline;
 
 	line = NULL;
-	env_init(envs, env);
+	env_init(envs);
 	
 	// while (1)
 	// {

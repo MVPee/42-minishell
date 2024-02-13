@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 16:24:43 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/13 21:41:35 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # include "../srcs/libft/includes/libft.h"
 # include <readline/readline.h>
-# include "stdbool.h"
+# include <stdbool.h>
 
 typedef struct s_env
 {
@@ -36,7 +36,7 @@ typedef struct s_env
 }			t_env;
 
 //env init
-void	env_init(char **envs, t_env *head);
+void	env_init(char **envs);
 t_env	*find_key(t_env *head, char *key);
 //env operation
 char	*get_pwd(t_env *head);

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 11:13:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/13 13:46:04 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,20 @@
 # define WHITE "\x1b[37m"
 
 # include "../srcs/libft/includes/libft.h"
-# include <readline/readline.h>
 # include "stdbool.h"
+# include <readline/readline.h>
 
 typedef struct s_env
 {
 	int		shell_level;
-	int		var_env; // $?
+	int 	var_env; // $?
 	char	*pwd;
 	char	**path;
+	char 	**env; //With the correct shell level (need to implements)
 }			t_env;
 
 // Buildins
 void		ft_echo(t_env env, char **split);
+void		ft_env(t_env env, char **split);
 
 #endif

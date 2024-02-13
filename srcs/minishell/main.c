@@ -6,19 +6,20 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 11:16:59 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/13 13:50:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
 
-static void	env_init(t_env *env)
+static void	env_init(t_env *env, char **envs)
 {
 	env->path = NULL;
 	env->pwd = NULL;
 	env->shell_level = 0;
 	env->var_env = 0;
+	env->env = ft_splitdup((const char **)envs);
 }
 
 static t_env	ft_extract_env(char **envs)
@@ -26,7 +27,7 @@ static t_env	ft_extract_env(char **envs)
 	t_env	env_data;
 	char	**splitted_env;
 
-	env_init(&env_data);
+	env_init(&env_data, envs);
 	while (*envs)
 	{
 		if (!ft_strncmp(*envs, "PWD", 3))
@@ -70,6 +71,8 @@ static void process(t_env env, char *line)
 	char **split = ft_split(line, " ");
 	if (!ft_strcmp(split[0], "echo"))
 		ft_echo(env, split);
+	else if (!ft_strcmp(split[0], "env"))
+		ft_env(env, split);
 	else
 		ft_printf("%s: command not found\n", line);
 	ft_free_matrix(1, &split);
@@ -97,6 +100,6 @@ int	main(int ac, char **argv, char **envs)
 		free(line);
 	}
 	ft_free(1, &env.pwd);
-	ft_free_matrix(1, &env.path);
+	ft_free_matrix(2, &env.path, &env.env);
 	return (0);
 }

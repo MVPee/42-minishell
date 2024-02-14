@@ -6,21 +6,20 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 21:01:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/14 21:04:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
 
-static char	*get_str_readline(t_env *head)
+static char	*get_str_readline()
 {
 	char	*temp;
 	char	*str_pwd;
 	char	*str_readline;
 	char	buffer[500];
 
-	(void)head;
 	temp = ft_strjoin(YELLOW BOLD, getcwd(buffer, 500));
 	str_pwd = ft_strjoin(temp, RESET);
 	ft_free(1, &temp);
@@ -115,7 +114,7 @@ int	main(int ac, char **argv, char **envs)
 	line = NULL;
 	while (1)
 	{
-		str_readline = get_str_readline(head);
+		str_readline = get_str_readline();
 		line = readline(str_readline);
 		ft_free(1, &str_readline);
 		if (ft_strcmp(line, "\0"))

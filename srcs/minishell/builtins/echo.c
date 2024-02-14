@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/14 10:52:49 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:57:28 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	ft_echo(t_data *data, char **split)
 		{
 			i++;
 			flag = false;
-		}
+            if (!split[i])
+                return ;
+        }
 		if (split[i + 1] == NULL)
 			ft_printf("%s", split[i]);
 		else

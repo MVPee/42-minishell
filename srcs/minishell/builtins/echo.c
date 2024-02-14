@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/13 11:20:33 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/14 10:22:03 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void ft_echo(t_env env, char **split)
+void ft_echo(t_data *data, char **split)
 {
     int i;
     bool flag;
@@ -33,4 +33,5 @@ void ft_echo(t_env env, char **split)
     }
     if (flag)
         ft_printf("\n");
+    data->env_var = 0;
 }

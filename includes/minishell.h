@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 21:41:35 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/14 10:22:13 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,19 @@ typedef struct s_env
 	struct s_env	*prv;
 }			t_env;
 
+typedef struct s_data
+{
+	int env_var;
+}			t_data;
+
 //env init
-void	env_init(char **envs);
+t_env	*env_init(char **envs);
 t_env	*find_key(t_env *head, char *key);
 //env operation
 char	*get_pwd(t_env *head);
 
 
 // Buildins
-void		ft_echo(t_env env, char **split);
+void ft_echo(t_data *data, char **split);
 
 #endif

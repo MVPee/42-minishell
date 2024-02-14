@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 11:16:17 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:48:06 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static char	*get_str_readline(t_env *head)
 	return (str_readline);
 }
 
-static void process(t_env *head, t_data *data, char *line)
+static bool builtins(t_env *head, t_data *data, char *line)
 {
+	if (line[0] == '\0')
+		return true;
 	char **split = ft_split(line, " ");
 	if (!ft_strcmp(split[0], "echo"))
 		ft_echo(data, split);
@@ -41,8 +43,59 @@ static void process(t_env *head, t_data *data, char *line)
 	// else if(!ft_strcmp(split[0], "cd"))
 	// 	ft_cd(env, split);
 	else
-		ft_printf("%s: command not found\n", line);
+	{
+		ft_free_matrix(1, &split);
+		return false;
+	}
 	ft_free_matrix(1, &split);
+	return true;
+}
+
+static char	*find_executable_path(char **paths, char *cmd)
+{
+	int		i;
+	char	*path;
+	char	*temp;
+
+	if (!paths)
+		return (NULL);
+	i = -1;
+	while (paths[++i])
+	{
+		ft_printf("%d %s\n", i, paths[i]);
+		temp = ft_strjoin(paths[i], "/");
+		if (!temp)
+			return (ft_free_matrix(1, &paths), NULL);
+		path = ft_strjoin(temp, cmd);
+		if (!path)
+			return (ft_free_matrix(1, &paths), ft_free(1, &temp), NULL);
+		if (access(path, F_OK) == 0)
+			return (ft_free_matrix(1, &paths), ft_free(1, &temp), path);
+		ft_free(2, &path, &temp);
+	}
+	ft_free_matrix(1, &paths);
+	return (NULL);
+}
+
+static void process(t_env *head, t_data *data, char *line, char **envs)
+{
+	return ;
+	char **split = ft_split(line, " ");
+	char *path = find_executable_path(ft_split((const char *)get_path(head), ":"), split[0]);
+	ft_printf("%p\n", path);
+	if (path)
+	{
+		ft_printf("%s: Path is good\n", line);
+		pid_t pid = fork();
+		if (pid == 0)
+		{
+			ft_printf("Je suis le fork\n");
+			execve(split[0], split + 1, envs);
+		}
+			
+	}
+	else
+		ft_printf("%s: command not found\n", line);
 }
 
 int	main(int ac, char **argv, char **envs)
@@ -62,11 +115,12 @@ int	main(int ac, char **argv, char **envs)
 		ft_free(1, &str_readline);
 		if (!ft_strcmp(line, "exit"))
 		{
-			free(line);
+			ft_free(1, &line);
 			break ;
 		}
-		process(head, &data, line);
-		free(line);
+		if (!builtins(head, &data, line))
+			process(head, &data, line, envs);
+		ft_free(1, &line);
 	}
 	return (0);
 }

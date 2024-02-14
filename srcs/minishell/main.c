@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 11:01:19 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:16:17 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int ac, char **argv, char **envs)
 
 	data.env_var = 0;
 	head = env_init(envs);
-	find_key(head, "PWD");
 	line = NULL;
 	while (1)
 	{

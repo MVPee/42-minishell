@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 11:09:54 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:16:32 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_pwd(t_env *head)
 
 void get_env(t_env *head)
 {
-	while(head->next)
+	while(head)
 	{
 		ft_printf("%s=%s\n", head->key, head->value);
 		head = head->next;

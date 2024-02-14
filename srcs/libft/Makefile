@@ -30,6 +30,7 @@ LIBFT_SRCS =	srcs/libft/ft_isalpha.c \
 				srcs/libft/ft_atoi.c \
 				srcs/libft/ft_calloc.c \
 				srcs/libft/ft_strdup.c \
+				srcs/libft/ft_strndup.c \
 				srcs/libft/ft_substr.c \
 				srcs/libft/ft_strjoin.c \
 				srcs/libft/ft_strtrim.c \

@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/11 10:10:17 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 16:08:09 by nechaara         ###   ########.fr       */
+/*   Created: 2024/02/14 16:47:54 by nechaara          #+#    #+#             */
+/*   Updated: 2024/02/14 16:48:40 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strndup(const char *s, size_t n)
 {
-	int		i;
-	int		j;
-	char	*str;
+	size_t	len;
+	char	*dup;
 
-	if (!s1 || !s2)
+	len = ft_strlen(s);
+	if (len > n)
+		len = n;
+	dup = (char *)malloc((len + 1) * sizeof(char));
+	if (!dup)
 		return (NULL);
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s1[++i])
-		str[j++] = s1[i];
-	i = -1;
-	while (s2[++i])
-		str[j++] = s2[i];
-	str[j] = '\0';
-	return (str);
+	ft_memcpy(dup, s, len);
+	dup[len] = '\0';
+	return (dup);
 }

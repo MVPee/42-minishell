@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 14:17:57 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:23:43 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void process(t_env *head, t_data *data, char *line, char **envs)
 			waitpid(pid, &status, 0);
 	}
 	else
-		ft_printf("%s: command not found\n", line);
+		ft_printf("%s: No such file or directory\n", line);
 }
 
 int	main(int ac, char **argv, char **envs)

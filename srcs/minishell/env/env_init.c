@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 10:19:49 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:50:55 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
+
+char	**env_split(char *env)
+{
+	char	**result;
+	char	*split;
+	size_t	len;
+
+	split = ft_strchr(env, '=');
+	if (!split || split == env)
+		return (NULL);
+	len = split - env;
+	result = (char **)malloc(3 * sizeof(char *));
+	if (!result)
+		return (NULL);
+	result[0] = ft_strndup(env, len);
+	if (!result[0])
+	{
+		free(result);
+		return (NULL);
+	}
+	result[1] = strdup(split + 1);
+	result[2] = NULL;
+	return (result);
+}
 
 static t_env	*create_node(char *entry)
 {
@@ -20,10 +44,12 @@ static t_env	*create_node(char *entry)
 	created_node = (t_env *)malloc(sizeof(t_env));
 	if (!created_node)
 		return (NULL);
-	splitted_arguments = ft_split(entry, "=");
+	splitted_arguments = env_split(entry);
 	if (!splitted_arguments)
-		return (NULL);
-	created_node->key = ft_strdup(splitted_arguments[0]);
+		return (free(created_node), created_node = NULL, NULL);
+	created_node->key = NULL;
+	if (splitted_arguments[0])
+		created_node->key = ft_strdup(splitted_arguments[0]);
 	created_node->value = NULL;
 	if (splitted_arguments[1])
 		created_node->value = ft_strdup(splitted_arguments[1]);
@@ -64,18 +90,20 @@ void	env_remove_entry(t_env *head, char *key)
 	next_entry = current_entry->next;
 	previous_entry->next = next_entry;
 	next_entry->prv = previous_entry;
+	ft_free(3, &current_entry->key, &current_entry->value, &current_entry);
 }
 
 t_env	*env_init(char **envs)
 {	
-	t_env	*head = NULL;
-	
-	int i = 0;
+	t_env	*head;
+	int		i;
+
+	head = NULL;
+	i = 0;
 	while (envs[i])
 	{
 		head = env_add_entry(head, envs[i]);
 		i++;
 	}
-	return head;
+	return (head);
 }
-

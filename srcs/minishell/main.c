@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:55:03 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:01:19 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void process(t_env *head, t_data *data, char *line)
 		ft_echo(data, split);
 	else if (!ft_strcmp(split[0], "env"))
 		ft_env(data, head, split);
+	else if (!ft_strcmp(split[0], "pwd"))
+		ft_pwd(data, head);
 	// else if(!ft_strcmp(split[0], "cd"))
 	// 	ft_cd(env, split);
 	else

@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:54:04 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:00:56 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void				get_env(t_env *head);
 // Buildins
 void				ft_echo(t_data *data, char **split);
 void				ft_env(t_data *data, t_env *head, char **split);
+void				ft_pwd(t_data *data, t_env *head);
 
 #endif

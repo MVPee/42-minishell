@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 16:50:55 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:35:11 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ static t_env	*create_node(char *entry)
 		created_node->key = ft_strdup(splitted_arguments[0]);
 	created_node->value = NULL;
 	if (splitted_arguments[1])
-		created_node->value = ft_strdup(splitted_arguments[1]);
+	{
+		if (!ft_strcmp(created_node->key, "SHLVL"))
+			created_node->value = ft_itoa(ft_atoi(splitted_arguments[1]) + 1);
+		else
+			created_node->value = ft_strdup(splitted_arguments[1]);
+	}
 	created_node->next = NULL;
 	created_node->prv = NULL;
 	ft_free_matrix(1, &splitted_arguments);

@@ -3,35 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/14 10:22:03 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:59:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void ft_echo(t_data *data, char **split)
+void	ft_echo(t_data *data, char **split)
 {
-    int i;
+    int i = 0, j = 0;
     bool flag;
 
     flag = true;
-    i = 0;
+    if (split[1] && !ft_strcmp(split[1], "-n"))
+    {
+        flag = false;
+        i++;
+    }
     while(split[++i])
     {
-        if (i == 1 && ft_strncmp(split[i], "-n\0", 3) == 0)
+        j = -1;
+        while(split[i][++j])
         {
-            i++;
-            flag = false;
+            if (split[i][j] == '$' && split[i][j + 1] == '?')
+            {
+                ft_printf("%d", data->env_var);
+                j += 1;
+            }
+            else
+                ft_printf("%c", split[i][j]);
         }
-        if (split[i + 1] == NULL)
-            ft_printf("%s", split[i]);
-        else
-            ft_printf("%s ", split[i]);
+        if (split[i + 1] != NULL)
+ 		    ft_printf(" ");
     }
     if (flag)
         ft_printf("\n");
-    data->env_var = 0;
 }

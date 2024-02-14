@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 18:39:48 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 21:34:02 by nechaara         ###   ########.fr       */
+/*   Created: 2024/02/14 10:59:48 by mvan-pee          #+#    #+#             */
+/*   Updated: 2024/02/14 16:09:57 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../../includes/minishell.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_pwd(t_data *data, t_env *head)
 {
-	size_t	i;
+	char buffer[500];
 
-	i = 0;
-	if (!str)
-		return (i);
-	while (str[i])
-		i++;
-	return (i);
+	ft_printf("%s\n", getcwd(buffer, 500));
+	data->env_var = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 16:58:35 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:32:15 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,40 @@
 # include "../srcs/libft/includes/libft.h"
 # include <readline/readline.h>
 # include <stdbool.h>
-# include <stdio.h>
+# include <sys/wait.h>
+# include <readline/history.h>
 
 typedef struct s_env
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_env	*next;
 	struct s_env	*prv;
-}			t_env;
+}					t_env;
 
 typedef struct s_data
 {
-	int env_var;
-}			t_data;
+	int				env_var;
+}					t_data;
 
-//env init
-t_env	*env_init(char **envs);
-//env operation
-t_env	*find_key(t_env *head, char *key);
-char	*get_value(t_env *head, char *key);
-size_t	get_size(t_env *head);
-//env conversion
-char    **env_to_tab(t_env *head);
-t_env   *tab_to_env(char **envp);
+// env init
+t_env				*env_init(char **envs);
+
+// env operation
+char				**env_to_tab(t_env *head);
+t_env				*tab_to_env(char **envp);
+size_t				get_size(t_env *head);
+
+void				env_remove_entry(t_env *head, char *key);
+t_env				*find_key(t_env *head, char *key);
+char				*get_value(t_env *target_node);
+void				get_env(t_env *head);
+char				*get_path(t_env *head);
 
 // Buildins
-void ft_echo(t_data *data, char **split);
+void				ft_echo(t_data *data, char **split);
+void				ft_env(t_data *data, t_env *head, char **split);
+void				ft_pwd(t_data *data, t_env *head);
+void				ft_unset(t_env *head, t_data *data, char **split);
 
 #endif

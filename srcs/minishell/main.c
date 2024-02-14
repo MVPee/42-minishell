@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 16:08:11 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:01:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*find_executable_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-static void	process(t_env *head, t_data *data, char *line, char **envs)
+static void	process(t_env *head, t_data *data, char *line)
 {
 	int		status;
 	char	**split;
@@ -95,7 +95,7 @@ static void	process(t_env *head, t_data *data, char *line, char **envs)
 	{
 		pid = fork();
 		if (pid == 0)
-			execve(path, split, envs);
+			execve(path, split, env_to_tab(head));
 		else
 			waitpid(pid, &status, 0);
 	}
@@ -126,7 +126,7 @@ int	main(int ac, char **argv, char **envs)
 			break ;
 		}
 		if (!builtins(head, &data, line))
-			process(head, &data, line, envs);
+			process(head, &data, line);
 		ft_free(1, &line);
 	}
 	return (0);

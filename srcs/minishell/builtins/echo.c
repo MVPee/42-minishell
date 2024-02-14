@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/14 14:40:11 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:59:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_echo(t_data *data, char **split)
     bool flag;
 
     flag = true;
-    if (!split[i] && !ft_strcmp(split[1], "-n"))
+    if (split[1] && !ft_strcmp(split[1], "-n"))
     {
         flag = false;
         i++;

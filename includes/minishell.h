@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 16:10:30 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 21:02:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "../srcs/libft/includes/libft.h"
 # include <readline/readline.h>
 # include <stdbool.h>
+# include <sys/wait.h>
+# include <readline/history.h>
 
 typedef struct s_env
 {
@@ -44,6 +46,10 @@ typedef struct s_data
 t_env				*env_init(char **envs);
 
 // env operation
+char				**env_to_tab(t_env *head);
+t_env				*tab_to_env(char **envp);
+size_t				get_size(t_env *head);
+
 void				env_remove_entry(t_env *head, char *key);
 t_env				*find_key(t_env *head, char *key);
 char				*get_value(t_env *target_node);

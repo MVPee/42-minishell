@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:25:12 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:34:12 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*get_str_readline(t_env *head)
 	char	*str_pwd;
 	char	*str_readline;
 
-	temp = ft_strjoin(YELLOW BOLD, "PWD");
+	temp = ft_strjoin(YELLOW BOLD, get_pwd(head));
 	str_pwd = ft_strjoin(temp, RESET);
 	ft_free(1, &temp);
 	temp = ft_strjoin(RED BOLD "minihell " RESET, str_pwd);

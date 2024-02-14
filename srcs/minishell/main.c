@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:37:03 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:05:28 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
 static char	*get_str_readline(t_env *head)
 {
@@ -20,7 +19,7 @@ static char	*get_str_readline(t_env *head)
 	char	*str_pwd;
 	char	*str_readline;
 
-	temp = ft_strjoin(YELLOW BOLD, get_pwd(head));
+	temp = ft_strjoin(YELLOW BOLD, get_value(head, "PWD"));
 	str_pwd = ft_strjoin(temp, RESET);
 	ft_free(1, &temp);
 	temp = ft_strjoin(RED BOLD "minihell " RESET, str_pwd);
@@ -51,7 +50,12 @@ int	main(int ac, char **argv, char **envs)
 
 	data.env_var = 0;
 	head = env_init(envs);
-	find_key(head, "PWD");
+	int index = 0;
+	char **test  = env_to_tab(head);
+	while (*test)
+	{
+		printf("%s\n",*test++);
+	}
 	line = NULL;
 	while (1)
 	{

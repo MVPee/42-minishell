@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:37:37 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:53:52 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:49:53 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_env(t_data *data, t_env *head, char **split)
 	else
     {
         get_env(head);
+        ft_printf("_=/usr/bin/env\n");
         data->env_var = 0;
     }
 		

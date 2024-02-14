@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 15:39:57 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:52:39 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ t_env	*env_init(char **envs)
 		head = env_add_entry(head, envs[i]);
 		i++;
 	}
-	head = env_add_entry(head, "_=/usr/bin/env");
 	return head;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:37:16 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:54:04 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,28 @@
 
 typedef struct s_env
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_env	*next;
 	struct s_env	*prv;
-}			t_env;
+}					t_env;
 
 typedef struct s_data
 {
-	int env_var;
-}			t_data;
+	int				env_var;
+}					t_data;
 
-//env init
-t_env	*env_init(char **envs);
-t_env	*find_key(t_env *head, char *key);
-//env operation
-t_env	*find_key(t_env *head, char *key);
-char	*get_pwd(t_env *head);
-char	*get_value(t_env *target_node);
+// env init
+t_env				*env_init(char **envs);
+t_env				*find_key(t_env *head, char *key);
+// env operation
+t_env				*find_key(t_env *head, char *key);
+char				*get_pwd(t_env *head);
+char				*get_value(t_env *target_node);
+void				get_env(t_env *head);
 
 // Buildins
-void ft_echo(t_data *data, char **split);
+void				ft_echo(t_data *data, char **split);
+void				ft_env(t_data *data, t_env *head, char **split);
 
 #endif

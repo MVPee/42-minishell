@@ -3,28 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:37:37 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/13 13:58:00 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/14 10:53:52 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void ft_env(t_env env, char **split)
+void	ft_env(t_data *data, t_env *head, char **split)
 {
-    int i;
-
-    i = -1;
-    if (split[1])
+	if (split[1])
     {
-        ft_printf("env : %s: No such file or directory\n", split[1]);
-        env.var_env = 127;
-        return ;
+        ft_printf("env: %s: No such file or directory\n", split[1]);
+        data->env_var = 127;
     }
-    else
-        while(env.env[++i])
-            ft_printf("%s\n", env.env[i]);
-    env.var_env = 0;
+		
+	else
+    {
+        get_env(head);
+        data->env_var = 0;
+    }
+		
 }

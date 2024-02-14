@@ -7,7 +7,8 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/env/env_operations.c \
 		srcs/minishell/builtins/echo.c \
 		srcs/minishell/builtins/env.c \
-		srcs/minishell/builtins/pwd.c
+		srcs/minishell/builtins/pwd.c \
+		srcs/minishell/builtins/unset.c
 
 OBJS = $(SRCS:.c=.o)
 

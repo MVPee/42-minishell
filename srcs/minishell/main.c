@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 12:59:00 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:17:57 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static bool builtins(t_env *head, t_data *data, char *line)
 		ft_env(data, head, split);
 	else if (!ft_strcmp(split[0], "pwd"))
 		ft_pwd(data, head);
+	else if (!ft_strcmp(split[0], "unset"))
+		ft_unset(head, data, split);
 	// else if(!ft_strcmp(split[0], "cd"))
 	// 	ft_cd(env, split);
 	else

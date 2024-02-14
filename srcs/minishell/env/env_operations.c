@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 12:16:32 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:20:39 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_env	*find_key(t_env *head, char *key)
 
 char	*get_value(t_env *target_node)
 {
-	return (target_node->value);
+	if (target_node)
+		return (target_node->value);
+	return (NULL);
 }
 
 char *get_path(t_env *head)

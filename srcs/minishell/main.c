@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 12:48:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:59:00 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static char	*find_executable_path(char **paths, char *cmd)
 	i = -1;
 	while (paths[++i])
 	{
-		ft_printf("%d %s\n", i, paths[i]);
 		temp = ft_strjoin(paths[i], "/");
 		if (!temp)
 			return (ft_free_matrix(1, &paths), NULL);
@@ -79,20 +78,16 @@ static char	*find_executable_path(char **paths, char *cmd)
 
 static void process(t_env *head, t_data *data, char *line, char **envs)
 {
-	return ;
+	int status;
 	char **split = ft_split(line, " ");
 	char *path = find_executable_path(ft_split((const char *)get_path(head), ":"), split[0]);
-	ft_printf("%p\n", path);
 	if (path)
 	{
-		ft_printf("%s: Path is good\n", line);
 		pid_t pid = fork();
 		if (pid == 0)
-		{
-			ft_printf("Je suis le fork\n");
-			execve(split[0], split + 1, envs);
-		}
-			
+			execve(path, split, envs);
+		else
+			waitpid(pid, &status, 0);
 	}
 	else
 		ft_printf("%s: command not found\n", line);

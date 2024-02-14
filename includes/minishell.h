@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 11:00:56 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:11:09 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ t_env				*env_init(char **envs);
 t_env				*find_key(t_env *head, char *key);
 // env operation
 t_env				*find_key(t_env *head, char *key);
-char				*get_pwd(t_env *head);
 char				*get_value(t_env *target_node);
 void				get_env(t_env *head);
+char				*get_path(t_env *head);
+char				*get_pwd(t_env *head);
 
 // Buildins
 void				ft_echo(t_data *data, char **split);

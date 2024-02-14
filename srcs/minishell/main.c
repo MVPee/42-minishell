@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 15:43:22 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:47:06 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ int	main(int ac, char **argv, char **envs)
 	{
 		str_readline = get_str_readline(head);
 		line = readline(str_readline);
+		ft_free(1, &str_readline);
 		if (ft_strcmp(line, "\0"))
 			add_history(line);
-		ft_free(1, &str_readline);
 		if (!ft_strcmp(line, "exit"))
 		{
 			ft_free(1, &line);

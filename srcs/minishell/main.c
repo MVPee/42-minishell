@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 15:47:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:08:11 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 static char	*get_str_readline(t_env *head)
 {
-	(void)head;
 	char	*temp;
 	char	*str_pwd;
 	char	*str_readline;
-	char 	buffer[500];
+	char	buffer[500];
 
+	(void)head;
 	temp = ft_strjoin(YELLOW BOLD, getcwd(buffer, 500));
 	str_pwd = ft_strjoin(temp, RESET);
 	ft_free(1, &temp);
@@ -30,11 +30,13 @@ static char	*get_str_readline(t_env *head)
 	return (str_readline);
 }
 
-static bool builtins(t_env *head, t_data *data, char *line)
+static bool	builtins(t_env *head, t_data *data, char *line)
 {
+	char	**split;
+
 	if (line[0] == '\0')
-		return true;
-	char **split = ft_split(line, " ");
+		return (true);
+	split = ft_split(line, " ");
 	if (!ft_strcmp(split[0], "echo"))
 		ft_echo(data, split);
 	else if (!ft_strcmp(split[0], "env"))
@@ -48,10 +50,10 @@ static bool builtins(t_env *head, t_data *data, char *line)
 	else
 	{
 		ft_free_matrix(1, &split);
-		return false;
+		return (false);
 	}
 	ft_free_matrix(1, &split);
-	return true;
+	return (true);
 }
 
 static char	*find_executable_path(char **paths, char *cmd)
@@ -79,14 +81,19 @@ static char	*find_executable_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-static void process(t_env *head, t_data *data, char *line, char **envs)
+static void	process(t_env *head, t_data *data, char *line, char **envs)
 {
-	int status;
-	char **split = ft_split(line, " ");
-	char *path = find_executable_path(ft_split((const char *)get_path(head), ":"), split[0]);
+	int		status;
+	char	**split;
+	char	*path;
+	pid_t	pid;
+
+	split = ft_split(line, " ");
+	path = find_executable_path(ft_split((const char *)get_path(head), ":"),
+		split[0]);
 	if (path)
 	{
-		pid_t pid = fork();
+		pid = fork();
 		if (pid == 0)
 			execve(path, split, envs);
 		else
@@ -98,8 +105,8 @@ static void process(t_env *head, t_data *data, char *line, char **envs)
 
 int	main(int ac, char **argv, char **envs)
 {
-	t_env *head;
-	t_data data;
+	t_env	*head;
+	t_data	data;
 	char	*line;
 	char	*str_readline;
 

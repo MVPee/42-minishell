@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:59:48 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/14 11:01:53 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:09:57 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_pwd(t_data *data, t_env *head)
 {
-	ft_printf("%s\n", get_pwd(head));
+	char buffer[500];
+
+	ft_printf("%s\n", getcwd(buffer, 500));
 	data->env_var = 0;
 }

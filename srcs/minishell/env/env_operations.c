@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 14:20:39 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:10:25 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ char	*get_value(t_env *target_node)
 char *get_path(t_env *head)
 {
 	return (get_value(find_key(head, "PATH")));
-}
-
-char	*get_pwd(t_env *head)
-{
-	return (get_value(find_key(head, "PWD")));
 }
 
 void get_env(t_env *head)

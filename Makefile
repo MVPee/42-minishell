@@ -5,12 +5,13 @@ LIBFT = srcs/libft
 SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/env/env_init.c \
 		srcs/minishell/env/env_operations.c \
+		srcs/minishell/env/env_conversion.c \
 		srcs/minishell/builtins/echo.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) #-ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft -lreadline# -ggdb3 -fsanitize=address -g
+CFLAGS = -I$(LIBFT) -ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L$(LIBFT) -lft -lreadline -ggdb3 -fsanitize=address -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m

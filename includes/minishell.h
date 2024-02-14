@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 10:37:16 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:58:35 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "../srcs/libft/includes/libft.h"
 # include <readline/readline.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 typedef struct s_env
 {
@@ -42,11 +43,13 @@ typedef struct s_data
 
 //env init
 t_env	*env_init(char **envs);
-t_env	*find_key(t_env *head, char *key);
 //env operation
 t_env	*find_key(t_env *head, char *key);
-char	*get_pwd(t_env *head);
-char	*get_value(t_env *target_node);
+char	*get_value(t_env *head, char *key);
+size_t	get_size(t_env *head);
+//env conversion
+char    **env_to_tab(t_env *head);
+t_env   *tab_to_env(char **envp);
 
 // Buildins
 void ft_echo(t_data *data, char **split);

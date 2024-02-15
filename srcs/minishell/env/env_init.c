@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 12:45:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 14:38:36 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,11 @@ t_env	*env_init(char **envs)
 	}
 	if (find_key(head, "SHLVL") == NULL)
 		head = env_add_entry(head, "SHLVL=0");
+	else
+	{
+		head = find_key(head, "SHLVL");
+		if (ft_atoi(head->value) >= 1000)
+			head->value = ft_itoa(1);
+	}
 	return (head);
 }

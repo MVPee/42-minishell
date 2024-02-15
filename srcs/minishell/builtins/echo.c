@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/14 20:59:48 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 18:00:44 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ void	ft_echo(t_data *data, char **split)
     }
     if (flag)
         ft_printf("\n");
+    data->env_var = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 09:43:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 12:57:01 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static bool	builtins(t_env *head, t_data *data, char *line)
 		ft_pwd(data, head);
 	else if (!ft_strcmp(split[0], "unset"))
 		ft_unset(head, data, split);
+	else if (!ft_strcmp(split[0], "export"))
+		ft_export(head, data, split);
 	// else if(!ft_strcmp(split[0], "cd"))
 	// 	ft_cd(env, split);
 	else
@@ -98,7 +100,10 @@ static void	process(t_env *head, t_data *data, char *line)
 			waitpid(pid, &status, 0);
 	}
 	else
+	{
 		ft_printf("%s: command not found\n", line);
+		data->env_var = 127;
+	}
 }
 
 int	main(int ac, char **argv, char **envs)

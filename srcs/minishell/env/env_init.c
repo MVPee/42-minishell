@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 21:35:11 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:45:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,7 @@ t_env	*env_init(char **envs)
 		head = env_add_entry(head, envs[i]);
 		i++;
 	}
+	if (find_key(head, "SHLVL") == NULL)
+		head = env_add_entry(head, "SHLVL=0");
 	return (head);
 }

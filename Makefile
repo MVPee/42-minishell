@@ -9,12 +9,13 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/builtins/echo.c \
 		srcs/minishell/builtins/env.c \
 		srcs/minishell/builtins/pwd.c \
-		srcs/minishell/builtins/unset.c
+		srcs/minishell/builtins/unset.c \
+		srcs/minishell/builtins/export.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) -ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft -lreadline -ggdb3 -fsanitize=address -g
+CFLAGS = -I$(LIBFT) #-ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L$(LIBFT) -lft -lreadline #-ggdb3 -fsanitize=address -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m

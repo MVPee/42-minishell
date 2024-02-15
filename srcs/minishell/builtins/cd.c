@@ -6,27 +6,29 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 17:47:23 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:53:13 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int ft_cd_others(t_env *head, char **split)
+static int	ft_cd_others(t_env *head, char **split)
 {
-	char buffer[500];
+	char	buffer[500];
 
 	if (chdir(split[1]) != 0)
 		return (perror(split[1]), 1);
-	find_key(head, "OLDPWD")->value = find_key(head, "PWD")->value;
-	find_key(head, "PWD")->value = ft_strdup(getcwd(buffer, 500));
+	if (find_key(head, "OLDPWD"))
+		find_key(head, "OLDPWD")->value = find_key(head, "PWD")->value;
+	if (find_key(head, "PWD"))
+		find_key(head, "PWD")->value = ft_strdup(getcwd(buffer, 500));
 	return (0);
 }
 
-static int ft_cd_with_minus(t_env *head, char **split)
+static int	ft_cd_with_minus(t_env *head, char **split)
 {
-	char buffer[500];
-	char *temp;
+	char	buffer[500];
+	char	*temp;
 
 	temp = ft_strdup(getcwd(buffer, 500));
 	if (!find_key(head, "OLDPWD"))
@@ -36,29 +38,35 @@ static int ft_cd_with_minus(t_env *head, char **split)
 	}
 	if (chdir(find_key(head, "OLDPWD")->value) != 0)
 		return (perror(split[0]), 1);
-	ft_printf("%s\n", find_key(head, "OLDPWD")->value);
-	find_key(head, "OLDPWD")->value = ft_strdup(temp);
-	find_key(head, "PWD")->value = ft_strdup(getcwd(buffer, 500));
+	if (find_key(head, "OLDPWD"))
+	{
+		ft_printf("%s\n", find_key(head, "OLDPWD")->value);
+		find_key(head, "OLDPWD")->value = ft_strdup(temp);
+	}
+	if (find_key(head, "PWD"))
+		find_key(head, "PWD")->value = ft_strdup(getcwd(buffer, 500));
 	return (ft_free(1, &temp), 0);
 }
 
-static int ft_cd_with_no_arguments(t_env *head, char **split)
+static int	ft_cd_with_no_arguments(t_env *head, char **split)
 {
-	char buffer[500];
-	char *temp;
+	char	buffer[500];
+	char	*temp;
 
 	temp = ft_strdup(getcwd(buffer, 500));
 	if (chdir(getenv("HOME")) != 0)
 		return (perror(split[0]), 1);
-	find_key(head, "OLDPWD")->value = ft_strdup(temp);
-	find_key(head, "PWD")->value = ft_strdup(getcwd(buffer, 500));
+	if (find_key(head, "OLDPWD"))
+		find_key(head, "OLDPWD")->value = ft_strdup(temp);
+	if (find_key(head, "PWD"))
+		find_key(head, "PWD")->value = ft_strdup(getcwd(buffer, 500));
 	return (ft_free(1, &temp), 0);
 }
 
 void	ft_cd(t_env *head, t_data *data, char **split)
 {
-	char buffer[500];
-	char *temp;
+	char	buffer[500];
+	char	*temp;
 
 	data->env_var = 0;
 	if (ft_splitlen((const char **)split) > 2)
@@ -71,5 +79,5 @@ void	ft_cd(t_env *head, t_data *data, char **split)
 	else if (!ft_strcmp(split[1], "-"))
 		data->env_var = ft_cd_with_minus(head, split);
 	else
-		data-> env_var = ft_cd_others(head, split);
+		data->env_var = ft_cd_others(head, split);
 }

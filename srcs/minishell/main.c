@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 13:24:35 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:24:39 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*get_str_readline()
 	return (str_readline);
 }
 
-static bool	builtins(t_env *head, t_data *data, char *line)
+static bool	builtins(t_env **head, t_data *data, char *line)
 {
 	char	**split;
 
@@ -123,7 +123,7 @@ int	main(int ac, char **argv, char **envs)
 			ft_free(1, &line);
 			break ;
 		}
-		if (!builtins(head, &data, line))
+		if (!builtins(&head, &data, line))
 			process(head, &data, line);
 		ft_free(1, &line);
 	}

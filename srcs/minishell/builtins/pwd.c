@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:59:48 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/14 16:09:57 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:50:41 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	ft_pwd(t_data *data, t_env *head)
+void	ft_pwd(t_data *data, t_env **head)
 {
 	char buffer[500];
 

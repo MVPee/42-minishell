@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 15:14:06 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:18:48 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,32 @@ t_env	*env_add_entry(t_env *head, char *entry)
 	return (head);
 }
 
-void	env_remove_entry(t_env **head, char *key)
+t_env	*env_remove_entry(t_env **head, char *key)
 {
 	t_env	*previous_entry;
 	t_env	*current_entry;
 	t_env	*next_entry;
-	
+
 	current_entry = find_key(*head, key);
 	if (!current_entry)
-		return ;
-	// PROBLEME DE REFERENCE AVEC LE HAUT DE LA LISTE CHAINEE
-	previous_entry = current_entry->prv;
-	next_entry = current_entry->next;
-	if (previous_entry)
-		previous_entry->next = next_entry;
-	if (next_entry)
-		next_entry->prv = previous_entry;
+		return (*head);
+	if (*head == current_entry)
+	{
+		*head = current_entry->next;
+		current_entry->prv = NULL;
+		current_entry = NULL;
+	}
+	else
+	{
+		previous_entry = current_entry->prv;
+		next_entry = current_entry->next;
+		if (previous_entry)
+			previous_entry->next = next_entry;
+		if (next_entry)
+			next_entry->prv = previous_entry;
+	}
+	free(current_entry);
+	return (*head);
 }
 
 t_env	*env_init(char **envs)

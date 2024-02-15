@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 15:13:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 16:18:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,9 @@ void	ft_cd(t_env *head, t_data *data, char **split)
 		if (chdir(getenv("HOME")) != 0)
 			perror(split[0]);
 	}
-	else if (!ft_strcmp(split[1], ".."))
+	else if (chdir(split[1]) != 0)
 	{
-		if (chdir("..") != 0)
-		{
-			perror(split[1]);
-			data->env_var = 1;
-		}
-	}
-	else
-	{
-		if (chdir(split[1]) != 0)
-		{
-			perror(split[1]);
-			data->env_var = 1;
-		}
+		perror(split[1]);
+		data->env_var = 1;
 	}
 }

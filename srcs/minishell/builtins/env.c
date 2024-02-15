@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:37:37 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 09:43:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 14:13:40 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	ft_env(t_data *data, t_env *head, char **split)
 		
 	else
     {
-        while(head)
+        while (head)
         {
+            ft_printf("%x\n",head);
             ft_printf("%s=%s\n", head->key, head->value);
             head = head->next;
         }

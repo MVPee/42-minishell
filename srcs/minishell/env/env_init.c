@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 21:35:11 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:14:06 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,22 @@ t_env	*env_add_entry(t_env *head, char *entry)
 	return (head);
 }
 
-void	env_remove_entry(t_env *head, char *key)
+void	env_remove_entry(t_env **head, char *key)
 {
 	t_env	*previous_entry;
 	t_env	*current_entry;
 	t_env	*next_entry;
 	
-	current_entry = find_key(head, key);
+	current_entry = find_key(*head, key);
 	if (!current_entry)
 		return ;
+	// PROBLEME DE REFERENCE AVEC LE HAUT DE LA LISTE CHAINEE
 	previous_entry = current_entry->prv;
 	next_entry = current_entry->next;
-	previous_entry->next = next_entry;
-	next_entry->prv = previous_entry;
-	ft_free(3, &current_entry->key, &current_entry->value, &current_entry);
+	if (previous_entry)
+		previous_entry->next = next_entry;
+	if (next_entry)
+		next_entry->prv = previous_entry;
 }
 
 t_env	*env_init(char **envs)

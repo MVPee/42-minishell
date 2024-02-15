@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 13:07:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 14:59:07 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	builtins(t_env *head, t_data *data, char *line)
 		ft_unset(head, data, split);
 	else if (!ft_strcmp(split[0], "export"))
 		ft_export(head, data, split);
-	// else if(!ft_strcmp(split[0], "cd"))
-	// 	ft_cd(env, split);
+	else if(!ft_strcmp(split[0], "cd"))
+		ft_cd(head, data, split);
 	else
 		return (ft_free_matrix(1, &split), false);
 	return (ft_free_matrix(1, &split), true);

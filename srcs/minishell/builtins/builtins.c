@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 14:59:07 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 18:20:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 bool	builtins(t_env *head, t_data *data, char *line)
 {
 	char	**split;
-
-	if (line[0] == '\0')
-		return (true);
+	char *temp;
+	
+	temp = ft_strtrim(line, " ");
+	if (!ft_strcmp(temp, "\0"))
+		return (ft_free(1, &temp), true);
 	split = ft_split(line, " ");
 	if (!ft_strcmp(split[0], "echo"))
 		ft_echo(data, split);
@@ -32,6 +34,6 @@ bool	builtins(t_env *head, t_data *data, char *line)
 	else if(!ft_strcmp(split[0], "cd"))
 		ft_cd(head, data, split);
 	else
-		return (ft_free_matrix(1, &split), false);
-	return (ft_free_matrix(1, &split), true);
+		return (ft_free(1, &temp), ft_free_matrix(1, &split), false);
+	return (ft_free(1, &temp), ft_free_matrix(1, &split), true);
 }

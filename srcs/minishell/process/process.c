@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 14:52:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 18:36:54 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ void	process(t_env *head, t_data *data, char *line)
 	{
 		pid = fork();
 		if (pid == 0)
-            execve(path, split, env_to_tab(head));
+		{
+			execve(path, split, env_to_tab(head));
+			perror(line);
+		}
 		else
         {
-            waitpid(pid, &status, 0);
+            if (waitpid(pid, &status, 0) == -1)
+				perror("waitpid");
             if (WIFEXITED(status))
                 data->env_var = WEXITSTATUS(status);
         }

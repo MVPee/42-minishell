@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:37:37 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 21:32:05 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:43:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@ void	ft_env(t_data *data, t_env *head, char **split)
 {
 	if (split[1])
     {
-        ft_printf("env: %s: No such file or directory\n", split[1]);
+        ft_printf("env: ‘%s’: No such file or directory\n", split[1]);
         data->env_var = 127;
     }
 		
 	else
     {
-        get_env(head);
+        while(head)
+        {
+            ft_printf("%s=%s\n", head->key, head->value);
+            head = head->next;
+        }
         ft_printf("_=/usr/bin/env\n");
         data->env_var = 0;
     }
-		
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 21:32:15 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:43:29 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ t_env				*env_init(char **envs);
 char				**env_to_tab(t_env *head);
 t_env				*tab_to_env(char **envp);
 size_t				get_size(t_env *head);
-
 void				env_remove_entry(t_env *head, char *key);
 t_env				*find_key(t_env *head, char *key);
 char				*get_value(t_env *target_node);
-void				get_env(t_env *head);
-char				*get_path(t_env *head);
 
 // Buildins
 void				ft_echo(t_data *data, char **split);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/14 21:31:54 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:43:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	process(t_env *head, t_data *data, char *line)
 	pid_t	pid;
 
 	split = ft_split(line, " ");
-	path = find_executable_path(ft_split((const char *)get_path(head), ":"),
+	path = find_executable_path(ft_split((const char *)get_value(find_key(head, "PATH")), ":"),
 		split[0]);
 	if (path)
 	{
@@ -98,7 +98,7 @@ static void	process(t_env *head, t_data *data, char *line)
 			waitpid(pid, &status, 0);
 	}
 	else
-		ft_printf("%s: No such file or directory\n", line);
+		ft_printf("%s: command not found\n", line);
 }
 
 int	main(int ac, char **argv, char **envs)
@@ -127,5 +127,6 @@ int	main(int ac, char **argv, char **envs)
 			process(head, &data, line);
 		ft_free(1, &line);
 	}
+	rl_clear_history();
 	return (0);
 }

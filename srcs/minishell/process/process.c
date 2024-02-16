@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 18:36:54 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/15 19:46:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	process(t_env *head, t_data *data, char *line)
 	}
 	else
 	{
-		perror(line);
+		ft_printf("%s: command not found\n", split[0]);
 		data->env_var = 127;
 	}
 }

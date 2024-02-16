@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 15:00:17 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/16 18:16:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WHITE "\x1b[37m"
 # define BLACK "\033[30m"
 
+# include "parsing.h"
 # include "../srcs/libft/includes/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>

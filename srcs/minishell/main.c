@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 19:46:44 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/16 18:36:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void print_welcome_message(t_env *head)
+static void	print_welcome_message(t_env *head)
 {
 	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" RED BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
 	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" RED BOLD "██║  ██║██╔════╝██║     ██║     \n" RESET);
@@ -23,7 +23,7 @@ static void print_welcome_message(t_env *head)
 	ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
 
-static char	*get_str_readline()
+static char	*get_str_readline(void)
 {
 	char	*temp;
 	char	*str_pwd;
@@ -65,6 +65,7 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
+		//parsing(line);
 		if (!builtins(head, &data, line))
 			process(head, &data, line);
 		ft_free(1, &line);

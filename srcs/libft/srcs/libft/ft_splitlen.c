@@ -18,6 +18,10 @@ size_t	ft_splitlen(const char **src)
 
 	i = 0;
 	while (src[i])
+	{
+		ft_printf("debug: %s\n", src[i]);
 		i++;
+	}
+		
 	return (i);
 }

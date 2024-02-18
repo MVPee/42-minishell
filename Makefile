@@ -6,10 +6,15 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/env/env_init.c \
 		srcs/minishell/env/env_operations.c \
 		srcs/minishell/env/env_conversion.c \
+		srcs/minishell/builtins/builtins.c \
 		srcs/minishell/builtins/echo.c \
 		srcs/minishell/builtins/env.c \
 		srcs/minishell/builtins/pwd.c \
-		srcs/minishell/builtins/unset.c
+		srcs/minishell/builtins/unset.c \
+		srcs/minishell/builtins/export.c \
+		srcs/minishell/builtins/utils/export_utils.c \
+		srcs/minishell/builtins/cd.c \
+		srcs/minishell/process/process.c \
 
 OBJS = $(SRCS:.c=.o)
 

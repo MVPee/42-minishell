@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 16:18:48 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:12:50 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,14 @@ t_env	*env_init(char **envs)
 	{
 		head = env_add_entry(head, envs[i]);
 		i++;
+	}
+	if (find_key(head, "SHLVL") == NULL)
+		head = env_add_entry(head, "SHLVL=0");
+	else
+	{
+		head = find_key(head, "SHLVL");
+		if (ft_atoi(head->value) >= 1000)
+			head->value = ft_itoa(1);
 	}
 	return (head);
 }

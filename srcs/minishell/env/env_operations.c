@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 17:30:47 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:11:50 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ size_t	get_size(t_env *head)
 
 t_env	*find_key(t_env *head, char *key)
 {
+	if (!key)
+		return (NULL);
 	while (head)
 	{
 		if (!ft_strcmp(head->key, key))

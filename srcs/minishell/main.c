@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 15:02:26 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:33:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_welcome_message(t_env *head)
 	ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
 
-static char	*get_str_readline(void)
+char	*get_str_readline(void)
 {
 	char	*temp;
 	char	*str_pwd;
@@ -48,8 +48,8 @@ int	main(int ac, char **argv, char **envs)
 
 	data.env_var = 0;
 	head = env_init(envs);
-
 	line = NULL;
+	init_signal();
 	print_welcome_message(head);
 	while (1)
 	{
@@ -66,8 +66,9 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		if (!builtins(&head, &data, line))
-			process(head, &data, line);
+		t_cmd *cmd = parsing(line);
+		//if (builtins(&head, &data, line))
+		// 	process(head, &data, line);
 		ft_free(1, &line);
 	}
 	rl_clear_history();

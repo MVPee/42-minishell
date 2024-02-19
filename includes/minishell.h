@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 14:59:50 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:31:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define WHITE "\x1b[37m"
 # define BLACK "\033[30m"
 
-# include "parsing.h"
 # include "../srcs/libft/includes/libft.h"
 # include "error.h"
+# include "parsing.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
@@ -67,7 +67,7 @@ bool				builtins(t_env **head, t_data *data, char *line);
 void				ft_echo(t_data *data, char **split);
 void				ft_env(t_data *data, t_env *head, char **split);
 void				ft_pwd(t_data *data, t_env **head);
-void 				ft_unset(t_env **head, t_data *data, char **split);
+void				ft_unset(t_env **head, t_data *data, char **split);
 void				ft_export(t_env *head, t_data *data, char *line);
 void				ft_cd(t_env *head, t_data *data, char **split);
 
@@ -76,5 +76,9 @@ char				**ft_export_split(char *line, bool *do_concatenate);
 
 // Process
 void				process(t_env *head, t_data *data, char *line);
+
+// Signal
+char				*get_str_readline(void);
+void				init_signal(void);
 
 #endif

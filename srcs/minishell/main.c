@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/16 18:36:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/19 15:02:26 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int ac, char **argv, char **envs)
 
 	data.env_var = 0;
 	head = env_init(envs);
+
 	line = NULL;
 	print_welcome_message(head);
 	while (1)
@@ -65,8 +66,7 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		//parsing(line);
-		if (!builtins(head, &data, line))
+		if (!builtins(&head, &data, line))
 			process(head, &data, line);
 		ft_free(1, &line);
 	}

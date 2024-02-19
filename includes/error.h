@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 14:11:33 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/15 16:18:10 by nechaara         ###   ########.fr       */
+/*   Created: 2024/02/15 12:39:03 by nechaara          #+#    #+#             */
+/*   Updated: 2024/02/15 12:43:14 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-void ft_unset(t_env **head, t_data *data, char **split)
-{
-    *head = env_remove_entry(head, split[1]);
-    data->env_var = 0;
-}
+# define MISSING_RIGHTS 126
+# define COMMAND_NOT_FOUND 127
+# define COMMAND_INTERRUPTED 130
+
+# endif

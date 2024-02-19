@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 16:21:57 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/19 15:02:49 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,25 +82,38 @@ t_env	*env_add_entry(t_env *head, char *entry)
 	return (head);
 }
 
-void	env_remove_entry(t_env *head, char *key)
+t_env	*env_remove_entry(t_env **head, char *key)
 {
 	t_env	*previous_entry;
 	t_env	*current_entry;
 	t_env	*next_entry;
-	
-	current_entry = find_key(head, key);
+
+	current_entry = find_key(*head, key);
 	if (!current_entry)
-		return ;
-	previous_entry = current_entry->prv;
-	next_entry = current_entry->next;
-	previous_entry->next = next_entry;
-	next_entry->prv = previous_entry;
-	ft_free(3, &current_entry->key, &current_entry->value, &current_entry);
+		return (*head);
+	if (*head == current_entry)
+	{
+		*head = current_entry->next;
+		current_entry->prv = NULL;
+		current_entry = NULL;
+	}
+	else
+	{
+		previous_entry = current_entry->prv;
+		next_entry = current_entry->next;
+		if (previous_entry)
+			previous_entry->next = next_entry;
+		if (next_entry)
+			next_entry->prv = previous_entry;
+	}
+	free(current_entry);
+	return (*head);
 }
 
 t_env	*env_init(char **envs)
 {	
 	t_env	*head;
+	t_env	*tmp;
 	int		i;
 
 	head = NULL;
@@ -114,12 +127,9 @@ t_env	*env_init(char **envs)
 		head = env_add_entry(head, "SHLVL=0");
 	else
 	{
-		head = find_key(head, "SHLVL");
-		if (ft_atoi(head->value) >= 1000)
-		{
-			ft_free(1, &head->value);
-			head->value = ft_itoa(1);
-		}		
+		tmp = find_key(head, "SHLVL");
+		if (ft_atoi(tmp->value) >= 1000)
+			tmp->value = ft_itoa(1);
 	}
 	return (head);
 }

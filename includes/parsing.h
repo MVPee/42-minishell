@@ -5,7 +5,7 @@ typedef struct s_node
 {
 	char			*name;
 	struct s_node	*next;
-}					t_node;
+}			t_node;
 
 typedef struct s_cmd
 {

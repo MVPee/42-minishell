@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 18:12:50 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:49:39 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +113,25 @@ t_env	*env_remove_entry(t_env **head, char *key)
 t_env	*env_init(char **envs)
 {	
 	t_env	*head;
+	t_env	*tmp;
 	int		i;
 
 	head = NULL;
 	i = 0;
 	while (envs[i])
 	{
+		ft_printf("%s\n", envs[i]);
 		head = env_add_entry(head, envs[i]);
+		ft_printf("head : %s\n", head->key);
 		i++;
 	}
 	if (find_key(head, "SHLVL") == NULL)
 		head = env_add_entry(head, "SHLVL=0");
 	else
 	{
-		head = find_key(head, "SHLVL");
-		if (ft_atoi(head->value) >= 1000)
-			head->value = ft_itoa(1);
+		tmp = find_key(head, "SHLVL");
+		if (ft_atoi(tmp->value) >= 1000)
+			tmp->value = ft_itoa(1);
 	}
 	return (head);
 }

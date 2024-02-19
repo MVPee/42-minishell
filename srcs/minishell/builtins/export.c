@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 00:21:24 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:15:52 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ static t_env	*ft_sorted_env(t_env *head)
 	return (head);
 }
 
+char **ft_export_split(char *line, bool *do_concatenate)
+{
+	char	**splitted_arguments;
+	char	*split;
+	
+	if (split > line && *(split - 1) == 43)
+		*do_concatenate = true;
+	else
+		*do_concatenate = false;
+	splitted_arguments = env_split(line);
+	if (!splitted_arguments)
+		return (NULL);
+	return (splitted_arguments);
+}
+
 void	ft_export(t_env *head, t_data *data, char *line)
 {
 	int i;
@@ -69,6 +84,8 @@ void	ft_export(t_env *head, t_data *data, char *line)
 	bool	do_concatenate;
 	
 	split = ft_export_split(line, &do_concatenate);
+	if (!split)
+		return ;
 	if (ft_splitlen((const char **)split) == 1)
 		display_export_list(ft_sorted_env(head));
 	else

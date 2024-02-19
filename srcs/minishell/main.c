@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/15 17:05:14 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:54:42 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int ac, char **argv, char **envs)
 
 	data.env_var = 0;
 	head = env_init(envs);
+
 	line = NULL;
 	print_welcome_message(head);
 	while (1)

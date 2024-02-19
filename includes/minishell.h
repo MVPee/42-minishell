@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/16 14:39:22 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:14:19 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_env				*env_init(char **envs);
 
 // Env Operations
 char				**env_to_tab(t_env *head);
+char				**env_split(char *env);
 t_env				*tab_to_env(char **envp);
 size_t				get_size(t_env *head);
 t_env				*env_add_entry(t_env *head, char *entry);

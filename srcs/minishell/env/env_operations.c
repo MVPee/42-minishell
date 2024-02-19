@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/15 17:30:47 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/19 15:16:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ size_t	get_size(t_env *head)
 
 t_env	*find_key(t_env *head, char *key)
 {
+	if (!key)
+		return (NULL);
 	while (head)
 	{
 		if (!ft_strcmp(head->key, key))

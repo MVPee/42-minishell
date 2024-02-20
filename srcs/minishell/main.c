@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 15:02:26 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:03:12 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int	main(int ac, char **argv, char **envs)
 		ft_free(1, &line);
 	}
 	rl_clear_history();
+	free_env_list(head);
 	return (0);
 }

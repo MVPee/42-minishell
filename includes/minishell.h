@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 14:59:50 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:06:07 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char				*get_value(t_env *target_node);
 t_env				*remove_top_node(t_env **head);
 t_env				*get_last_entry(t_env **head);
 void				write_value(t_env *head, char *key, char *value);
+void				free_env_list(t_env *head);
 
 // Builtins
 bool				builtins(t_env **head, t_data *data, char *line);
@@ -72,7 +73,8 @@ void				ft_export(t_env *head, t_data *data, char *line);
 void				ft_cd(t_env *head, t_data *data, char **split);
 
 // Builtsins Utils
-char				**ft_export_split(char *line, bool *do_concatenate);
+char				**export_split(char *line, bool *do_concatenate, bool *single_cmd);
+void				ft_sorted_env(t_env *head);
 
 // Process
 void				process(t_env *head, t_data *data, char *line);

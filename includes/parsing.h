@@ -3,25 +3,30 @@
 
 # include "../srcs/libft/includes/libft.h"
 
+typedef enum e_token
+{
+	CMD,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC
+}	t_token;
+
 typedef struct s_node
 {
-	char			*name;
-	struct s_node	*next;
-}					t_node;
+	char *name;
+	enum e_token token;
+	struct s_list *next;
+}				t_node;
 
 typedef struct s_cmd
 {
-	char			*cmd;
-	pid_t			pid;
-	struct s_node	*input;
-	struct s_node	*output;
-	struct s_node	*append;
-	struct s_node	*heredoc;
-	struct s_cmd	*next;
-	struct s_cmd	*prv;
-}					t_cmd;
+	char *cmd;
+	pid_t pid;
+	struct s_node *head;
+	struct s_cmd *next;
+}				t_cmd;
 
-t_cmd				*parsing(char *line);
-size_t				cmd_count(t_cmd *cmd);
+void				parsing(char *line);
 
 #endif

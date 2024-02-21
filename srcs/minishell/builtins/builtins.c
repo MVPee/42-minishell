@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 17:05:19 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/21 22:26:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	builtins(t_env **head, t_data *data, char *line)
 {
 	char	**split;
 	char *temp;
-	
+
 	temp = ft_strtrim(line, " ");
 	if (!ft_strcmp(temp, "\0"))
 		return (ft_free(1, &temp), true);

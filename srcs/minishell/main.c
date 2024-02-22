@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:28:55 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:38:47 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*get_str_readline(void)
 int	main(int ac, char **argv, char **envs)
 {
 	t_env	*head;
+	t_cmd *cmd;
 	t_data	data;
 	char	*line;
 	char	*str_readline;
@@ -49,7 +50,7 @@ int	main(int ac, char **argv, char **envs)
 	data.env_var = 0;
 	head = env_init(envs);
 	line = NULL;
-	//init_signal();
+	init_signal();
 	print_welcome_message(head);
 	while (1)
 	{
@@ -66,7 +67,7 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		t_cmd *cmd = parsing(line);
+		cmd = parsing(line);
 		// t_node *node;
 		// while(cmd)
 		// {
@@ -79,8 +80,9 @@ int	main(int ac, char **argv, char **envs)
 		// 	}
 		// 	cmd = cmd->next;
 		// }
-		if (!builtins(&head, &data, cmd->cmd))
-			process(head, &data, line);
+		if (cmd)
+			if (!builtins(&head, &data, cmd->cmd))
+				process(head, &data, line);
 		ft_free(1, &line);
 		free_parsing(cmd);
 	}

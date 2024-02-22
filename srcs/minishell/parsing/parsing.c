@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 15:51:23 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:37:37 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_cmd	*parsing(char *line)
 	t_cmd	*head;
 	t_cmd	*cmd;
 
+	if (!ft_strcmp(line, "\0"))
+		return (NULL);
 	i = -1;
 	head = NULL;
 	split = ft_split(line, "|");

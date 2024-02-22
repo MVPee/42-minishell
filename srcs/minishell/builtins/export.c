@@ -6,44 +6,90 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/20 16:38:20 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:40:23 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static	char *entry_only(char **split)
+static void	error_handler_export(char *s1, char *s2)
 {
-	char	*joined_string;
+	if (!s2)
+		ft_printf("export : « %s=  »", s1);
+	else
+		ft_printf("export : « %s=%s »", s1, s2);
+	ft_printf(" not a valid identifier\n");
+}
+
+static void add_env(t_env *head, char *key, char *value, bool append_content)
+{
+	char	*clean_entry;
 	
-	joined_string = NULL;
-	if (!split)
+	if (!head || !key)
+		return ;
+	if (!is_key_valid(key))
+	{
+		error_handler_export(key, value);
+		ft_free(2, &key, &value);
+		return ;
+	}
+	if (append_content)
+		write_value(head, key, value);
+	else
+	{
+		clean_entry = reconstructed_entry(key, value);
+		if (find_key(head, key))
+			env_remove_entry(&head, key);
+		env_add_entry(head, clean_entry);
+		free(clean_entry);
+	}
+	ft_free(2, &key, &value);
+}
+
+static void *add_content(t_env *head, char *line)
+{
+	char	*equal_address;
+	char	*stop_location;
+	bool	append_content;
+	char	*value;
+	char	*key;
+
+	equal_address = ft_strchr(line, '=');
+	if (!equal_address)
 		return (NULL);
-	joined_string = ft_strjoin(split[0], "=");
-	joined_string = ft_strjoin(joined_string, split[1]);
-	return (joined_string);
+	else if (equal_address == line)
+	{
+		ft_printf("export : « %s » : not a valid identifier\n", line);
+		return (NULL);
+	}
+	append_content = (*(equal_address - 1) == '+');
+	if (append_content)
+		stop_location = equal_address - 1;
+	else
+		stop_location = equal_address;
+	key = ft_strndup(line, stop_location - line);
+	if (!key)
+		return (NULL);
+	value = ft_strdup(equal_address + 1);
+	add_env(head, key, value, append_content);
 }
 
 void	ft_export(t_env *head, t_data *data, char *line)
 {
-	int i;
-	char	**split;
-	bool	do_concatenate;
-	bool	single_cmd;
+	char	**splitted_args;
+	size_t	index;
 
-	split = export_split(line, &do_concatenate, &single_cmd);
-	if (single_cmd)
-		ft_sorted_env(head);
-	else
+	
+	splitted_args = ft_split(line, " ");
+	if (!splitted_args)
+		return ;
+	if (ft_splitlen((const char **) splitted_args) > 1)
 	{
-		if (do_concatenate)
-			write_value(head, split[0], split[1]);
-		else
-		{
-			if (find_key(head, split[0]))
-				env_remove_entry(&head, split[0]);
-			head = env_add_entry(head, entry_only(split));
-		}
+		index = 1;
+		while (splitted_args[index])
+			add_content(head, splitted_args[index++]);
 	}
+	else 
+		ft_sorted_env(head);
 	data->env_var = 0;
 }

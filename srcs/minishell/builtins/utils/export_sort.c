@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:12:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/20 14:25:57 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:51:05 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void print_sorted_env(t_env *head)
 {
 	while (head) 
 	{
-		ft_printf("declare -x %s=%s\n", head->key, head->value);
+		ft_printf("declare -x %s=\"%s\"\n", head->key, head->value);
 		head = head->next;
 	}
 	ft_printf("declare -x _=/usr/bin/env\n");

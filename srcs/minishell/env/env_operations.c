@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/19 18:02:13 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:31:23 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	write_value(t_env *head, char *key, char *value)
 	string_to_join = ft_strjoin(initial_string, value);
 	free(initial_string);
 	target_node->value = string_to_join;
-	ft_printf("%s\n",target_node->value);
 }
 
 t_env	*get_last_entry(t_env **head)

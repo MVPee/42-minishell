@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 15:37:38 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:07:14 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ t_node	*ft_node_new(char *name, t_token token)
 
 void	ft_node_add(t_node **head, t_node *new)
 {
+    static int i = 0;
+    if (i != 3)
+        i++;
+    else
+        return ;
 	if (!head || !new)
 		return ;
 	if (!*head)
@@ -71,4 +76,22 @@ void	ft_node_add(t_node **head, t_node *new)
 			last = last->next;
 		last->next = new;
 	}
+}
+
+void free_parsing(t_cmd *cmd) {
+    t_cmd *cmd_current;
+    t_node *node_current;
+
+    while (cmd) {
+        cmd_current = cmd;
+        cmd = cmd->next;
+        while (cmd_current->head) {
+            node_current = cmd_current->head;
+            cmd_current->head = cmd_current->head->next;
+            free(node_current->name);
+            free(node_current);
+        }
+        free(cmd_current->cmd);
+        free(cmd_current);
+    }
 }

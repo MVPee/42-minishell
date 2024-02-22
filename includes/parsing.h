@@ -33,5 +33,6 @@ t_cmd				*ft_cmd_new(char *cmd);
 void				ft_cmd_add(t_cmd **head, t_cmd *new);
 t_node				*ft_node_new(char *name, t_token token);
 void				ft_node_add(t_node **head, t_node *new);
+void				free_parsing(t_cmd *cmd);
 
 #endif

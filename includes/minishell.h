@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 17:31:48 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/22 16:30:04 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char				*get_value(t_env *target_node);
 t_env				*remove_top_node(t_env **head);
 t_env				*get_last_entry(t_env **head);
 void				write_value(t_env *head, char *key, char *value);
+void				free_env(t_env *env);
 
 // Builtins
 bool				builtins(t_env **head, t_data *data, char *line);

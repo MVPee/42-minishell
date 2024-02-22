@@ -6,6 +6,7 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/env/env_init.c \
 		srcs/minishell/env/env_operations.c \
 		srcs/minishell/env/env_conversion.c \
+		srcs/minishell/env/utils.c \
 		srcs/minishell/builtins/builtins.c \
 		srcs/minishell/builtins/echo.c \
 		srcs/minishell/builtins/env.c \

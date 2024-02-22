@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:10:28 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:28:55 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,12 @@ int	main(int ac, char **argv, char **envs)
 		// 	}
 		// 	cmd = cmd->next;
 		// }
-		if (!builtins(&head, &data, line))
+		if (!builtins(&head, &data, cmd->cmd))
 			process(head, &data, line);
 		ft_free(1, &line);
 		free_parsing(cmd);
 	}
+	free_env(head);
 	//rl_clear_history();
 	return (0);
 }

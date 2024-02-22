@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 21:31:39 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:39:24 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ t_env   *tab_to_env(char **envp)
     t_env   *head;
 
     head = env_init(envp);
-    ft_free_matrix(1, &envp);
     return (head);
 }

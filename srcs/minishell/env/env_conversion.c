@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/14 21:31:39 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:16:43 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void    *join_key_and_value(t_env *head, char **envp, size_t index)
     envp[index] = temp;
     if (!envp[index])
         return (conversion_error_handler(envp, index));
+    return (NULL);
 }
 
 char    **env_to_tab(t_env *head)

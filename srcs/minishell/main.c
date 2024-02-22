@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 14:10:22 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:37:04 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,22 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		//parsing(line);
-		if (!builtins(&head, &data, line))
-			process(head, &data, line);
-		ft_free(1, &line);
+		t_cmd *cmd = parsing(line);
+		// t_node *node;
+		// while(cmd)
+		// {
+		// 	ft_printf("\n\ncmd: %s\n", cmd->cmd);
+		// 	node = cmd->head;
+		// 	while(node)
+		// 	{
+		// 		ft_printf("Token: %d; Name: %s\n", node->token, node->name);
+		// 		node = node->next;
+		// 	}
+		// 	cmd = cmd->next;
+		// }
+		// if (!builtins(&head, &data, line))
+		// 	process(head, &data, line);
+		//ft_free(1, &line);
 	}
 	//rl_clear_history();
 	return (0);

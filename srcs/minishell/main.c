@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:38:47 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:59:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,12 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		cmd = parsing(line);
-		// t_node *node;
-		// while(cmd)
-		// {
-		// 	ft_printf("\n\ncmd: %s\n", cmd->cmd);
-		// 	node = cmd->head;
-		// 	while(node)
-		// 	{
-		// 		ft_printf("Token: %d; Name: %s\n", node->token, node->name);
-		// 		node = node->next;
-		// 	}
-		// 	cmd = cmd->next;
-		// }
+		cmd = lexer(line);
 		if (cmd)
 			if (!builtins(&head, &data, cmd->cmd))
 				process(head, &data, line);
 		ft_free(1, &line);
-		free_parsing(cmd);
+		free_lexer(cmd);
 	}
 	free_env(head);
 	//rl_clear_history();

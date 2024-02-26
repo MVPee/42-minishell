@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:07:14 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:59:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_node_add(t_node **head, t_node *new)
 	}
 }
 
-void free_parsing(t_cmd *cmd) {
+void free_lexer(t_cmd *cmd) {
     t_cmd *cmd_current;
     t_node *node_current;
 

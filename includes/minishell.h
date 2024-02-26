@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 17:22:46 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:12:21 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void				ft_cd(t_env *head, t_data *data, char **split);
 bool				is_key_valid(char *str);
 void				ft_sorted_env(t_env *head);
 char				*reconstructed_entry(char *s1, char *s2);
+void				*error_arguments_without_equal(char *line);
+void				error_handler_export(char *s1, char *s2);
 
 // Process
 void				process(t_env *head, t_data *data, char *line);

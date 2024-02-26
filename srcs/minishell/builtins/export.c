@@ -6,20 +6,11 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 17:40:23 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:13:01 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static void	error_handler_export(char *s1, char *s2)
-{
-	if (!s2)
-		ft_printf("export : « %s=  »", s1);
-	else
-		ft_printf("export : « %s=%s »", s1, s2);
-	ft_printf(" not a valid identifier\n");
-}
 
 static void add_env(t_env *head, char *key, char *value, bool append_content)
 {
@@ -56,12 +47,9 @@ static void *add_content(t_env *head, char *line)
 
 	equal_address = ft_strchr(line, '=');
 	if (!equal_address)
-		return (NULL);
-	else if (equal_address == line)
-	{
-		ft_printf("export : « %s » : not a valid identifier\n", line);
-		return (NULL);
-	}
+		return (error_arguments_without_equal(line));
+	else if (equal_address == line)	
+		return (error_arguments_without_equal(line));
 	append_content = (*(equal_address - 1) == '+');
 	if (append_content)
 		stop_location = equal_address - 1;
@@ -91,5 +79,6 @@ void	ft_export(t_env *head, t_data *data, char *line)
 	}
 	else 
 		ft_sorted_env(head);
+	ft_free_matrix(1, &splitted_args);
 	data->env_var = 0;
 }

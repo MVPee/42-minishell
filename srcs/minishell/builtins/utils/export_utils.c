@@ -6,11 +6,28 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 17:22:06 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:12:36 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
+
+void *error_arguments_without_equal(char *line)
+{
+	if (!line)
+		return (NULL);
+	ft_printf("export : « %s » : not a valid identifier\n", line);
+	return (NULL);
+}
+
+void	error_handler_export(char *s1, char *s2)
+{
+	if (!s2)
+		ft_printf("export : « %s=  »", s1);
+	else
+		ft_printf("export : « %s=%s »", s1, s2);
+	ft_printf(" not a valid identifier\n");
+}
 
 bool	is_key_valid(char *str)
 {

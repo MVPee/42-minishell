@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/20 16:04:33 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:18:32 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,4 @@ void    free_env_list(t_env *head)
         free(tmp);
         tmp = NULL;
     }
-    
 }

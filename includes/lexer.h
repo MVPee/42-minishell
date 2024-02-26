@@ -19,20 +19,20 @@ typedef struct s_node
 	struct s_node	*next;
 }					t_node;
 
-typedef struct s_cmd
+typedef struct s_lexer
 {
 	char			*cmd;
 	pid_t			pid;
 	struct s_node	*head;
-	struct s_cmd	*next;
-}					t_cmd;
+	struct s_lexer	*next;
+}					t_lexer;
 
-t_cmd				*lexer(char *line);
+t_lexer				*ft_lexer(char *line);
 
-t_cmd				*ft_cmd_new(char *cmd);
-void				ft_cmd_add(t_cmd **head, t_cmd *new);
+t_lexer				*ft_lexer_new(char *cmd);
+void				ft_lexer_add(t_lexer **head, t_lexer *new);
 t_node				*ft_node_new(char *name, t_token token);
 void				ft_node_add(t_node **head, t_node *new);
-void				free_lexer(t_cmd *cmd);
+void				free_lexer(t_lexer *lexer);
 
 #endif

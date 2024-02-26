@@ -6,22 +6,22 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 13:56:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 16:10:14 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static t_cmd *cmd_parsing(char *str)
+static t_lexer *lexer_parsing(char *str)
 {
 	char	**split;
 	int		i;
-	t_cmd	*cmd;
+	t_lexer	*cmd;
 	t_node	*node;
 
 	i = -1;
 	split = ft_split(str, " ");
-	cmd = ft_cmd_new(str);
+	cmd = ft_lexer_new(str);
 	node = NULL;
 	while (split[++i])
 	{
@@ -40,22 +40,21 @@ static t_cmd *cmd_parsing(char *str)
 	return (cmd);
 }
 
-t_cmd	*lexer(char *line)
+t_lexer	*ft_lexer(char *line)
 {
 	char	**split;
 	int		i;
-	t_cmd	*head;
-	t_cmd	*cmd;
+	t_lexer	*head = NULL;
+	t_lexer	*lexer = NULL;
 
 	if (!ft_strcmp(line, "\0"))
 		return (NULL);
 	i = -1;
-	head = NULL;
 	split = ft_split(line, "|");
 	while (split[++i])
 	{
-		cmd = cmd_parsing(split[i]);
-		ft_cmd_add(&head, cmd);
+		lexer = lexer_parsing(split[i]);
+		ft_lexer_add(&head, lexer);
 	}
 	return (head);
 }

@@ -6,99 +6,78 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 14:15:52 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:03:12 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void display_export_list(t_env *head)
+static void add_env(t_env *head, char *key, char *value, bool append_content)
 {
-	if (!head)
-		return ;
-	while (head)
-	{
-		ft_printf("declare -x %s=%s\n",head->key, head->value);
-		head = head->next;
-	}
-	ft_printf("declare -x _=/usr/bin/env\n");
-}
-
-static void	swap_env_node(t_env *a, t_env *b)
-{
-	char	*temp_key;
-	char	*temp_value;
-
-	temp_key = a->key;
-	temp_value = a->value;
-	a->key = b->key;
-	a->value = b->value;
-	b->key = temp_key;
-	b->value = temp_value;
-}
-
-static t_env	*ft_sorted_env(t_env *head)
-{
-	int		is_swapped;
-	t_env	*traveling_node;
-
-	is_swapped = 1;
-	if (!head)
-		return (NULL);
-	while (is_swapped)
-	{
-		is_swapped = 0;
-		traveling_node = head;
-		while (traveling_node->next)
-		{
-			if (ft_strcmp(traveling_node->key, traveling_node->next->key) > 0)
-			{
-				swap_env_node(traveling_node, traveling_node->next);
-				is_swapped = 1;
-			}
-			traveling_node = traveling_node->next;
-		}
-	}
-	return (head);
-}
-
-char **ft_export_split(char *line, bool *do_concatenate)
-{
-	char	**splitted_arguments;
-	char	*split;
+	char	*clean_entry;
 	
-	if (split > line && *(split - 1) == 43)
-		*do_concatenate = true;
+	if (!head || !key)
+		return ;
+	if (!is_key_valid(key))
+	{
+		error_handler_export(key, value);
+		ft_free(2, &key, &value);
+		return ;
+	}
+	if (append_content)
+		write_value(head, key, value);
 	else
-		*do_concatenate = false;
-	splitted_arguments = env_split(line);
-	if (!splitted_arguments)
+	{
+		clean_entry = reconstructed_entry(key, value);
+		if (find_key(head, key))
+			env_remove_entry(&head, key);
+		env_add_entry(head, clean_entry);
+		free(clean_entry);
+	}
+	ft_free(2, &key, &value);
+}
+
+static void *add_content(t_env *head, char *line)
+{
+	char	*equal_address;
+	char	*stop_location;
+	bool	append_content;
+	char	*value;
+	char	*key;
+
+	equal_address = ft_strchr(line, '=');
+	if (!equal_address)
+		return (error_arguments_without_equal(line));
+	else if (equal_address == line)	
+		return (error_arguments_without_equal(line));
+	append_content = (*(equal_address - 1) == '+');
+	if (append_content)
+		stop_location = equal_address - 1;
+	else
+		stop_location = equal_address;
+	key = ft_strndup(line, stop_location - line);
+	if (!key)
 		return (NULL);
-	return (splitted_arguments);
+	value = ft_strdup(equal_address + 1);
+	add_env(head, key, value, append_content);
 }
 
 void	ft_export(t_env *head, t_data *data, char *line)
 {
-	int i;
-	char	**split;
-	bool	do_concatenate;
-	
-	split = ft_export_split(line, &do_concatenate);
-	if (!split)
+	char	**splitted_args;
+	size_t	index;
+
+	splitted_args = ft_split(line, " ");
+	if (!splitted_args)
 		return ;
-	if (ft_splitlen((const char **)split) == 1)
-		display_export_list(ft_sorted_env(head));
-	else
+	if (ft_splitlen((const char **) splitted_args) > 1)
 	{
-		if (!split)
-			return ;
-		if (do_concatenate)
-			write_value(head, split[0], split[1]);
-		else
-		{
-			head = env_remove_entry(&head, split[0]);
-			head = env_add_entry(head, split[1]);
-		}
+		index = 1;
+		while (splitted_args[index])
+			add_content(head, splitted_args[index++]);
 	}
+	else 
+		ft_sorted_env(head);
+	ft_free_matrix(1, &splitted_args);
 	data->env_var = 0;
 }

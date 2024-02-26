@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 14:16:43 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:34:11 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,5 @@ t_env   *tab_to_env(char **envp)
     t_env   *head;
 
     head = env_init(envp);
-    ft_free_matrix(1, &envp);
     return (head);
 }

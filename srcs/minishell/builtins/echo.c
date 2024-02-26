@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/15 18:00:44 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 16:40:42 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_echo(t_data *data, char **split)
 {
+    ft_printf("echo\n");
     int i = 0, j = 0;
     bool flag;
 

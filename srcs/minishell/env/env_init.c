@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 14:10:40 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:16:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**env_split(char *env)
 	char	**result;
 	char	*split;
 	size_t	len;
-
+	
 	split = ft_strchr(env, '=');
 	if (!split || split == env)
 		return (NULL);
@@ -27,11 +27,8 @@ char	**env_split(char *env)
 		return (NULL);
 	result[0] = ft_strndup(env, len);
 	if (!result[0])
-	{
-		free(result);
-		return (NULL);
-	}
-	result[1] = ft_strdup(split + 1);
+		return (free(result), NULL);
+	result[1] = strdup(split + 1);
 	result[2] = NULL;
 	return (result);
 }
@@ -39,6 +36,7 @@ char	**env_split(char *env)
 static t_env	*create_node(char *entry)
 {
 	t_env	*created_node;
+	char *temp;
 	char	**splitted_arguments;
 	
 	created_node = (t_env *)malloc(sizeof(t_env));
@@ -56,7 +54,11 @@ static t_env	*create_node(char *entry)
 		if (!ft_strcmp(created_node->key, "SHLVL"))
 			created_node->value = ft_itoa(ft_atoi(splitted_arguments[1]) + 1);
 		else
-			created_node->value = ft_strdup(splitted_arguments[1]);
+		{
+			temp = ft_strdup(splitted_arguments[1]);
+			created_node->value = ft_strtrim(temp, " ");
+			free(temp);
+		}
 	}
 	created_node->next = NULL;
 	created_node->prv = NULL;

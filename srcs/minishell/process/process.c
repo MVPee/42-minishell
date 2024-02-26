@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:22:11 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:44:58 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ static char	*find_executable_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	process(t_env *head, t_data *data, char *line)
+void	process(t_env *head, t_data *data, t_parsing parsing)
 {
 	int		status;
 	char	**split;
 	char	*path;
 	pid_t	pid;
 
-	split = ft_split(line, " ");
+	split = ft_split(parsing.cmd, " ");
 	path = find_executable_path(ft_split((const char *)get_value(find_key(head, "PATH")), ":"), split[0]);
     if (!path)
     {
@@ -58,8 +58,20 @@ void	process(t_env *head, t_data *data, char *line)
 		pid = fork();
 		if (pid == 0)
 		{
+			if (parsing.input != -1)
+			{
+				if (dup2(parsing.input, STDIN_FILENO) == -1)
+					perror("dup2 input");
+				close(parsing.input);
+			}
+			if (parsing.output != -1)
+			{
+				if (dup2(parsing.output, STDOUT_FILENO) == -1)
+					perror("dup2 output");
+				close(parsing.output);
+			}
 			execve(path, split, env_to_tab(head));
-			perror(line);
+			perror(split[0]);
 		}
 		else
         {

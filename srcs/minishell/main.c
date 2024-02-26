@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 13:59:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 16:30:12 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_str_readline(void)
 int	main(int ac, char **argv, char **envs)
 {
 	t_env	*head;
-	t_cmd *cmd;
+	t_parsing parsing;
 	t_data	data;
 	char	*line;
 	char	*str_readline;
@@ -57,6 +57,8 @@ int	main(int ac, char **argv, char **envs)
 		str_readline = get_str_readline();
 		line = readline(str_readline);
 		ft_free(1, &str_readline);
+		if (!line)
+			break;
 		if (ft_strcmp(line, "\0"))
 			add_history(line);
 		else
@@ -67,14 +69,11 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		cmd = lexer(line);
-		if (cmd)
-			if (!builtins(&head, &data, cmd->cmd))
-				process(head, &data, line);
+		if (ft_parsing(&parsing, ft_lexer(line)))
+			process(head, &data, parsing);
 		ft_free(1, &line);
-		free_lexer(cmd);
 	}
-	free_env(head);
+	free_env_list(head);
 	//rl_clear_history();
 	return (0);
 }

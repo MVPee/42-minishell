@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:38:21 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:33:45 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	builtins(t_env **head, t_data *data, char *line)
 	else if (!ft_strcmp(split[0], "pwd"))
 		ft_pwd(data, head);
 	else if (!ft_strcmp(split[0], "unset"))
-		ft_unset(head, data, split);
+		ft_unset(head, data, line);
 	else if (!ft_strcmp(split[0], "export"))
 		ft_export(*head, data, line);
 	else if(!ft_strcmp(split[0], "cd"))

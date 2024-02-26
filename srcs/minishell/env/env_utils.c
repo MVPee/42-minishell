@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 14:48:10 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 14:00:41 by nechaara         ###   ########.fr       */
+/*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
+/*   Updated: 2024/02/22 18:18:32 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
+#include "../../../includes/minishell.h"
+
+void    free_env_list(t_env *head)
 {
-	while (*s1 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+    t_env   *tmp;
+    
+    while (head)
+    {
+        tmp = head;
+        head = head->next;
+        free(tmp->key);
+        free(tmp->value);
+        free(tmp);
+        tmp = NULL;
+    }
 }

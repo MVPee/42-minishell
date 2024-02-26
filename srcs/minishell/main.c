@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 16:30:12 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 18:34:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int ac, char **argv, char **envs)
 		}
 		if (ft_parsing(&parsing, ft_lexer(line)))
 			process(head, &data, parsing);
+		//builtins(&head, &data, line);
 		ft_free(1, &line);
 	}
 	free_env_list(head);

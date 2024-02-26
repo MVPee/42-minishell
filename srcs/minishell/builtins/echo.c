@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/26 16:40:42 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 17:52:13 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_echo(t_data *data, char **split)
 {
-    ft_printf("echo\n");
     int i = 0, j = 0;
     bool flag;
 
@@ -33,6 +32,14 @@ void	ft_echo(t_data *data, char **split)
             {
                 ft_printf("%d", data->env_var);
                 j += 1;
+            }
+            else if (split[i][j] == '\\')
+            {
+                if (split[i][j + 1] == '\\')
+                {
+                    ft_printf("\\");
+                    j += 1;
+                }
             }
             else
                 ft_printf("%c", split[i][j]);

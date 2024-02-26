@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 16:44:58 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 17:34:08 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	process(t_env *head, t_data *data, t_parsing parsing)
 	char	*path;
 	pid_t	pid;
 
+	if (!parsing.cmd)
+		return ;
 	split = ft_split(parsing.cmd, " ");
 	path = find_executable_path(ft_split((const char *)get_value(find_key(head, "PATH")), ":"), split[0]);
     if (!path)
@@ -64,6 +66,23 @@ void	process(t_env *head, t_data *data, t_parsing parsing)
 					perror("dup2 input");
 				close(parsing.input);
 			}
+			else if (parsing.heredoc)
+			{
+                int pipefd[2];
+                if (pipe(pipefd) == -1)
+				{
+                    perror("pipe");
+                    exit(EXIT_FAILURE);
+                }
+                write(pipefd[1], parsing.heredoc, ft_strlen(parsing.heredoc));
+                close(pipefd[1]); 
+                if (dup2(pipefd[0], STDIN_FILENO) == -1)
+				{
+                    perror("dup2 heredoc");
+                    exit(EXIT_FAILURE);
+                }
+                close(pipefd[0]); 
+            }
 			if (parsing.output != -1)
 			{
 				if (dup2(parsing.output, STDOUT_FILENO) == -1)

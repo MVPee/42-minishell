@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 16:49:59 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/26 17:18:03 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ bool check_file(t_parsing *parsing, t_lexer *lexer)
     {
         if (node->token == INPUT)
         {
+            if (parsing->heredoc)
+            {
+                free(parsing->heredoc);
+                parsing->heredoc = NULL;
+            }
             if (parsing->input != -1)
                 close(parsing->input);
             parsing->input = ft_open(node->name, INPUT);
@@ -78,6 +83,17 @@ bool check_file(t_parsing *parsing, t_lexer *lexer)
                 free(temp);
                 free(temp_cmd);
             }
+        }
+        else if (node->token == HEREDOC)
+        {
+            parsing->heredoc = ft_heredoc(node->name);
+            if (!parsing->heredoc)
+            {
+                perror("Memory allocation error");
+                return false;
+            }
+            close(parsing->input);
+            parsing->input = -1;
         }
         node = node->next;
     }

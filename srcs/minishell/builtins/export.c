@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/24 20:13:01 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:03:12 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	ft_export(t_env *head, t_data *data, char *line)
 	char	**splitted_args;
 	size_t	index;
 
-	
 	splitted_args = ft_split(line, " ");
 	if (!splitted_args)
 		return ;

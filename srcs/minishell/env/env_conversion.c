@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 17:39:24 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:34:11 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void    *join_key_and_value(t_env *head, char **envp, size_t index)
     envp[index] = temp;
     if (!envp[index])
         return (conversion_error_handler(envp, index));
+    return (NULL);
 }
 
 char    **env_to_tab(t_env *head)

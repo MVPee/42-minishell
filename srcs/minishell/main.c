@@ -6,13 +6,24 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 14:45:43 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:01:23 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*get_str_readline(void)
+static void	print_welcome_message(t_env *head)
+{
+	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" RED BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
+	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" RED BOLD "██║  ██║██╔════╝██║     ██║     \n" RESET);
+	ft_printf(GREEN "	██╔████╔██║██║██╔██╗ ██║██║" RED BOLD "███████║█████╗  ██║     ██║     \n" RESET);
+	ft_printf(BLUE "	██║╚██╔╝██║██║██║╚██╗██║██║" RED BOLD "██╔══██║██╔══╝  ██║     ██║     \n" RESET);
+	ft_printf(MAGENTA "	██║ ╚═╝ ██║██║██║ ╚████║██║" RED BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
+	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" RED BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
+	ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
+}
+
+char	*get_str_readline(void)
 {
 	char	*temp;
 	char	*str_pwd;
@@ -31,19 +42,23 @@ static char	*get_str_readline(void)
 int	main(int ac, char **argv, char **envs)
 {
 	t_env	*head;
+	t_cmd *cmd;
 	t_data	data;
 	char	*line;
 	char	*str_readline;
 
 	data.env_var = 0;
 	head = env_init(envs);
-
 	line = NULL;
+	init_signal();
+	print_welcome_message(head);
 	while (1)
 	{
 		str_readline = get_str_readline();
 		line = readline(str_readline);
 		ft_free(1, &str_readline);
+		if (!line)
+			break;
 		if (ft_strcmp(line, "\0"))
 			add_history(line);
 		else
@@ -54,11 +69,26 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		if (!builtins(&head, &data, line))
-			process(head, &data, line);
+		cmd = parsing(line);
+		// t_node *node;
+		// while(cmd)
+		// {
+		// 	ft_printf("\n\ncmd: %s\n", cmd->cmd);
+		// 	node = cmd->head;
+		// 	while(node)
+		// 	{
+		// 		ft_printf("Token: %d; Name: %s\n", node->token, node->name);
+		// 		node = node->next;
+		// 	}
+		// 	cmd = cmd->next;
+		// }
+		if (cmd)
+			if (!builtins(&head, &data, cmd->cmd))
+				process(head, &data, line);
 		ft_free(1, &line);
+		free_parsing(cmd);
 	}
-	rl_clear_history();
 	free_env_list(head);
+	//rl_clear_history();
 	return (0);
 }

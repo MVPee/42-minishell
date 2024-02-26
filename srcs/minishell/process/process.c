@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/19 14:59:22 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:22:11 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	process(t_env *head, t_data *data, char *line)
     if (!path)
     {
         char buffer[500];
-        path = ft_strjoin(getcwd(buffer, 500), ft_strtrim(line, ". "));
+        path = ft_strjoin(getcwd(buffer, 500), ft_strtrim(split[0], ". "));
     }
 	if (access(path, F_OK) == 0)
 	{

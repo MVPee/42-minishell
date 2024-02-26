@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/24 20:12:21 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 13:34:07 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define WHITE "\x1b[37m"
 # define BLACK "\033[30m"
 
-# include "parsing.h"
 # include "../srcs/libft/includes/libft.h"
 # include "error.h"
+# include "parsing.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
@@ -81,5 +81,9 @@ void				error_handler_export(char *s1, char *s2);
 
 // Process
 void				process(t_env *head, t_data *data, char *line);
+
+// Signal
+char				*get_str_readline(void);
+void				init_signal(void);
 
 #endif

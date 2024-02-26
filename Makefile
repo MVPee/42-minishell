@@ -18,6 +18,8 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/builtins/cd.c \
 		srcs/minishell/process/process.c \
 		srcs/minishell/parsing/parsing.c \
+		srcs/minishell/parsing/utils.c \
+		srcs/minishell/signal/init_signal.c
 
 OBJS = $(SRCS:.c=.o)
 

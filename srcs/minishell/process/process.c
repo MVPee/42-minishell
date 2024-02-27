@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 18:21:34 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 21:09:36 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	if (!parsing)
 		return ;
 
+	if (data->temp != NULL)
+		ft_free(1, &data->temp);
 	while (parsing)
 	{
 		if (parsing->next)
@@ -62,15 +64,11 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		}
 		if (parsing->isbuiltins == true)
 		{
-			char *result = builtins(head, data, parsing->cmd, parsing->output);
-			
-			if (parsing->output != -1)
-				write(parsing->output, result, ft_strlen(result));
-			if (parsing->next)
-				write(curr_pipe[1], result, ft_strlen(result));
-			else if (parsing->output == -1)
-				ft_printf("%s\n", result);
-			free(result);
+			data->temp = builtins(head, data, parsing->cmd, parsing->next);
+			if (parsing->output != -1 && data->temp)
+				write(parsing->output, data->temp, ft_strlen(data->temp));
+			else if (parsing->output == -1 && data->temp && !parsing->next)
+				ft_printf("%s", data->temp);
 		}
 		else
 		{
@@ -80,7 +78,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 				char buffer[500];
 				path = ft_strjoin(getcwd(buffer, 500), ft_strtrim(parsing->cmd, ". "));
 			}
-
 			if (access(path, F_OK) == 0)
 			{
 				pid = fork();
@@ -128,7 +125,27 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 						}
 						close(pipe_heredoc[0]); 
 					}
-
+					else if (data->temp)
+					{
+						int pipe_builtin_to_next[2];
+						if (pipe(pipe_builtin_to_next) == -1)
+						{
+							perror("pipe");
+							exit(EXIT_FAILURE);
+						}
+						if (write(pipe_builtin_to_next[1], data->temp, ft_strlen(data->temp)) == -1)
+						{
+							perror("write to pipe");
+							exit(EXIT_FAILURE);
+						}
+						close(pipe_builtin_to_next[1]);
+						if (dup2(pipe_builtin_to_next[0], STDIN_FILENO) == -1)
+						{
+							perror("dup2 for builtin output");
+							exit(EXIT_FAILURE);
+						}
+						close(pipe_builtin_to_next[0]);
+					}
 					if (parsing->next)
 					{
 						if (dup2(curr_pipe[1], STDOUT_FILENO) == -1)
@@ -149,7 +166,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 						}
 						close(parsing->output);
 					}
-
 					execve(path, ft_split(parsing->cmd, " "), env_to_tab(*head));
 					perror("execve");
 					exit(EXIT_FAILURE);

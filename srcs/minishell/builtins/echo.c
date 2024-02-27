@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/27 18:13:02 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 21:04:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-char	*ft_echo(t_data *data, char **split, int fd_output)
+char	*ft_echo(t_data *data, char **split)
 {
     // int i = 0, j = 0;
     // bool flag;
@@ -50,6 +50,5 @@ char	*ft_echo(t_data *data, char **split, int fd_output)
     // if (flag)
     //     ft_printf("\n");
     // data->env_var = 0;
-    ft_printf("echo printf\n");
-    return (ft_strdup("Echo test"));
+    return (ft_strdup("Echo test\n"));
 }

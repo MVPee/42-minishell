@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 15:56:47 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:13:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **argv, char **envs)
 	char	*str_readline;
 
 	data.env_var = 0;
+	data.temp = NULL;
 	head = env_init(envs);
 	line = NULL;
 	init_signal();

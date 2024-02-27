@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:11:33 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/22 14:43:25 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/27 21:03:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void ft_unset(t_env **head, t_data *data, char *line)
+char *ft_unset(t_env **head, t_data *data, char *line)
 {
     char    **splitted_args;
     size_t  index;
 
     splitted_args = ft_split(line, " ");
     if (!splitted_args)
-        return ;
+        return NULL;
     if (ft_splitlen((const char **)splitted_args) > 1)
     {
         index = 1;
@@ -31,4 +31,5 @@ void ft_unset(t_env **head, t_data *data, char *line)
     }
     ft_free_matrix(1, &splitted_args);
     data->env_var = 0;
+    return (ft_strdup(""));
 }

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 17:05:04 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 21:12:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	int				env_var;
+	char			*temp;
 }					t_data;
 
 // Env Init
@@ -65,14 +66,14 @@ void				write_value(t_env *head, char *key, char *value);
 void				free_env_list(t_env *head);
 
 // Builtins
-char 				*builtins(t_env **head, t_data *data, char *line, int fd_output);
+char 				*builtins(t_env **head, t_data *data, char *line, char *next);
 bool				isbuiltins(char *line);
-char	*ft_echo(t_data *data, char **split, int fd_output);
-void				ft_env(t_data *data, t_env *head, char **split);
-void				ft_pwd(t_data *data, t_env **head);
-void				ft_unset(t_env **head, t_data *data, char *line);
+char				*ft_echo(t_data *data, char **split);
+char				*ft_env(t_data *data, t_env *head, char **split);
+char				*ft_pwd(t_data *data, t_env **head);
+char 				*ft_unset(t_env **head, t_data *data, char *line);
 void				ft_export(t_env *head, t_data *data, char *line);
-void				ft_cd(t_env *head, t_data *data, char **split);
+char				*ft_cd(t_env *head, t_data *data, char **split, t_parsing *next);
 
 // Builtsins Utils
 bool				is_key_valid(char *str);

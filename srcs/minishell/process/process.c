@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 16:16:30 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 18:21:34 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,15 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		}
 		if (parsing->isbuiltins == true)
 		{
-			builtins(head, data, parsing->cmd, parsing->output);
+			char *result = builtins(head, data, parsing->cmd, parsing->output);
+			
+			if (parsing->output != -1)
+				write(parsing->output, result, ft_strlen(result));
+			if (parsing->next)
+				write(curr_pipe[1], result, ft_strlen(result));
+			else if (parsing->output == -1)
+				ft_printf("%s\n", result);
+			free(result);
 		}
 		else
 		{
@@ -153,7 +161,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 						close(prev_pipe[0]);
 						close(prev_pipe[1]);
 					}
-
 					if (waitpid(pid, &status, 0) == -1)
 					{
 						perror("waitpid");

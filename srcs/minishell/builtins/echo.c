@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/26 17:52:13 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 16:03:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	ft_echo(t_data *data, char **split)
+void	ft_echo(t_data *data, char **split, int fd_output)
 {
     int i = 0, j = 0;
     bool flag;

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 16:28:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 16:06:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void				write_value(t_env *head, char *key, char *value);
 void				free_env_list(t_env *head);
 
 // Builtins
-bool				builtins(t_env **head, t_data *data, char *line);
-void				ft_echo(t_data *data, char **split);
+bool				builtins(t_env **head, t_data *data, char *line,
+						int fd_output);
+bool				isbuiltins(char *line);
+void				ft_echo(t_data *data, char **split, int fd_output);
 void				ft_env(t_data *data, t_env *head, char **split);
 void				ft_pwd(t_data *data, t_env **head);
 void				ft_unset(t_env **head, t_data *data, char *line);
@@ -81,7 +83,7 @@ void				*error_arguments_without_equal(char *line);
 void				error_handler_export(char *s1, char *s2);
 
 // Process
-void				process(t_env *head, t_data *data, t_parsing parsing);
+void				process(t_env **head, t_data *data, t_parsing *parsing);
 
 // Signal
 char				*get_str_readline(void);

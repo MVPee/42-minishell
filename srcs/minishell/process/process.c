@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 17:34:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 16:16:30 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static char	*find_executable_path(char **paths, char *cmd)
 
 	if (!paths)
 		return (NULL);
-    if (cmd[0] == '.' && cmd[1] == '/')
-        return (ft_free_matrix(1, &paths), NULL);
+	if (cmd[0] == '.' && cmd[1] == '/')
+		return (ft_free_matrix(1, &paths), NULL);
 	i = -1;
 	while (paths[++i])
 	{
@@ -39,71 +39,147 @@ static char	*find_executable_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	process(t_env *head, t_data *data, t_parsing parsing)
+void	process(t_env **head, t_data *data, t_parsing *parsing)
 {
-	int		status;
-	char	**split;
-	char	*path;
-	pid_t	pid;
+	int status;
+	char *path;
+	pid_t pid;
+	int prev_pipe[2] = {-1, -1};
+	int curr_pipe[2] = {-1, -1};
 
-	if (!parsing.cmd)
+	if (!parsing)
 		return ;
-	split = ft_split(parsing.cmd, " ");
-	path = find_executable_path(ft_split((const char *)get_value(find_key(head, "PATH")), ":"), split[0]);
-    if (!path)
-    {
-        char buffer[500];
-        path = ft_strjoin(getcwd(buffer, 500), ft_strtrim(split[0], ". "));
-    }
-	if (access(path, F_OK) == 0)
+
+	while (parsing)
 	{
-		pid = fork();
-		if (pid == 0)
+		if (parsing->next)
 		{
-			if (parsing.input != -1)
+			if (pipe(curr_pipe) == -1)
 			{
-				if (dup2(parsing.input, STDIN_FILENO) == -1)
-					perror("dup2 input");
-				close(parsing.input);
+				perror("pipe");
+				exit(EXIT_FAILURE);
 			}
-			else if (parsing.heredoc)
-			{
-                int pipefd[2];
-                if (pipe(pipefd) == -1)
-				{
-                    perror("pipe");
-                    exit(EXIT_FAILURE);
-                }
-                write(pipefd[1], parsing.heredoc, ft_strlen(parsing.heredoc));
-                close(pipefd[1]); 
-                if (dup2(pipefd[0], STDIN_FILENO) == -1)
-				{
-                    perror("dup2 heredoc");
-                    exit(EXIT_FAILURE);
-                }
-                close(pipefd[0]); 
-            }
-			if (parsing.output != -1)
-			{
-				if (dup2(parsing.output, STDOUT_FILENO) == -1)
-					perror("dup2 output");
-				close(parsing.output);
-			}
-			execve(path, split, env_to_tab(head));
-			perror(split[0]);
+		}
+		if (parsing->isbuiltins == true)
+		{
+			builtins(head, data, parsing->cmd, parsing->output);
 		}
 		else
-        {
-            if (waitpid(pid, &status, 0) == -1)
-				perror("waitpid");
-            if (WIFEXITED(status))
-                data->env_var = WEXITSTATUS(status);
-        }
+		{
+			path = find_executable_path(ft_split((const char *)get_value(find_key(*head, "PATH")), ":"), ft_split(parsing->cmd, " ")[0]);
+			if (!path)
+			{
+				char buffer[500];
+				path = ft_strjoin(getcwd(buffer, 500), ft_strtrim(parsing->cmd, ". "));
+			}
+
+			if (access(path, F_OK) == 0)
+			{
+				pid = fork();
+				if (pid == -1)
+				{
+					perror("fork");
+					exit(EXIT_FAILURE);
+				}
+				else if (pid == 0)
+				{
+					if (prev_pipe[0] != -1)
+					{
+						if (dup2(prev_pipe[0], STDIN_FILENO) == -1)
+						{
+							perror("dup2 stdin");
+							exit(EXIT_FAILURE);
+						}
+						close(prev_pipe[0]);
+						close(prev_pipe[1]);
+					}
+
+					if (parsing->input != -1)
+					{
+						if (dup2(parsing->input, STDIN_FILENO) == -1)
+						{
+							perror("dup2 input");
+							exit(EXIT_FAILURE);
+						}
+						close(parsing->input);
+					}
+					else if (parsing->heredoc)
+					{
+						int pipe_heredoc[2];
+						if (pipe(pipe_heredoc) == -1)
+						{
+							perror("pipe");
+							exit(EXIT_FAILURE);
+						}
+						write(pipe_heredoc[1], parsing->heredoc, ft_strlen(parsing->heredoc));
+						close(pipe_heredoc[1]);
+						if (dup2(pipe_heredoc[0], STDIN_FILENO) == -1)
+						{
+							perror("dup2 heredoc");
+							exit(EXIT_FAILURE);
+						}
+						close(pipe_heredoc[0]); 
+					}
+
+					if (parsing->next)
+					{
+						if (dup2(curr_pipe[1], STDOUT_FILENO) == -1)
+						{
+							perror("dup2 stdout");
+							exit(EXIT_FAILURE);
+						}
+						close(curr_pipe[0]);
+						close(curr_pipe[1]);
+					}
+
+					if (parsing->output != -1)
+					{
+						if (dup2(parsing->output, STDOUT_FILENO) == -1)
+						{
+							perror("dup2 output");
+							exit(EXIT_FAILURE);
+						}
+						close(parsing->output);
+					}
+
+					execve(path, ft_split(parsing->cmd, " "), env_to_tab(*head));
+					perror("execve");
+					exit(EXIT_FAILURE);
+				}
+				else
+				{ // Parent process
+					if (prev_pipe[0] != -1)
+					{
+						close(prev_pipe[0]);
+						close(prev_pipe[1]);
+					}
+
+					if (waitpid(pid, &status, 0) == -1)
+					{
+						perror("waitpid");
+						exit(EXIT_FAILURE);
+					}
+
+					if (WIFEXITED(status))
+						data->env_var = WEXITSTATUS(status);
+
+					prev_pipe[0] = curr_pipe[0];
+					prev_pipe[1] = curr_pipe[1];
+					curr_pipe[0] = -1;
+					curr_pipe[1] = -1;
+				}
+			}
+			else
+			{
+				ft_printf("%s: command not found\n", parsing->cmd);
+				data->env_var = 127;
+			}
+		}
+		parsing = parsing->next;
 	}
-	else
+	if (prev_pipe[0] != -1)
 	{
-		ft_printf("%s: command not found\n", split[0]);
-		data->env_var = 127;
+		close(prev_pipe[0]);
+		close(prev_pipe[1]);
 	}
 }
-

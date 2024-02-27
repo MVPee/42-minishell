@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 18:34:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 15:56:47 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*get_str_readline(void)
 int	main(int ac, char **argv, char **envs)
 {
 	t_env	*head;
-	t_parsing parsing;
 	t_data	data;
 	char	*line;
 	char	*str_readline;
@@ -69,8 +68,7 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		if (ft_parsing(&parsing, ft_lexer(line)))
-			process(head, &data, parsing);
+		process(&head, &data, ft_parsing(ft_lexer(line)));
 		//builtins(&head, &data, line);
 		ft_free(1, &line);
 	}

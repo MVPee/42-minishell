@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 21:08:04 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 21:18:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool isbuiltins(char *line)
 	return (false);
 }
 
-char *builtins(t_env **head, t_data *data, char *line, char *next)
+char *builtins(t_env **head, t_data *data, char *line, t_parsing *next)
 {
 	char	**split;
 	char *temp;

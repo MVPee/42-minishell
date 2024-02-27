@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 21:12:40 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/27 21:18:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void				write_value(t_env *head, char *key, char *value);
 void				free_env_list(t_env *head);
 
 // Builtins
-char 				*builtins(t_env **head, t_data *data, char *line, char *next);
+char 				*builtins(t_env **head, t_data *data, char *line, t_parsing *next);
 bool				isbuiltins(char *line);
 char				*ft_echo(t_data *data, char **split);
 char				*ft_env(t_data *data, t_env *head, char **split);

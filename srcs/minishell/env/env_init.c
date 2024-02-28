@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/26 13:34:21 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:55:09 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_env	*create_node(char *entry)
 		if (!ft_strcmp(created_node->key, "SHLVL"))
 			created_node->value = ft_itoa(ft_atoi(splitted_arguments[1]) + 1);
 		else
-			created_node->value = ft_strtrim(ft_strdup(splitted_arguments[1]), " ");
+			created_node->value = ft_strtrim(splitted_arguments[1], " ");
 	}
 	created_node->next = NULL;
 	created_node->prv = NULL;

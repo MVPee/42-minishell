@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 13:33:45 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:43:36 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ bool	builtins(t_env **head, t_data *data, char *line)
 		ft_export(*head, data, line);
 	else if(!ft_strcmp(split[0], "cd"))
 		ft_cd(*head, data, split);
+	else if (!ft_strcmp(split[0], "exit"))
+		ft_exit(*head ,data, line);
 	else
 		return (ft_free(1, &temp), ft_free_matrix(1, &split), false);
 	return (ft_free(1, &temp), ft_free_matrix(1, &split), true);

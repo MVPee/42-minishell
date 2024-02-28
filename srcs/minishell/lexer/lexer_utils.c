@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 16:21:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 18:15:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_node	*ft_node_new(char *name, t_token token)
 	t_node	*node;
 
 	if (!name)
-			return (ft_printf("syntax error near unexpected token '%d'\n", token), NULL);
+		return (ft_printf("syntax error near unexpected token '%d'\n", token), NULL);
 	if (!ft_strcmp(name, "<") || !ft_strcmp(name, ">") || !ft_strcmp(name, "<<") || !ft_strcmp(name, ">>") || name[0] == '|')
 		return (ft_printf("syntax error near unexpected token '%s'\n", name), NULL);
 	node = malloc(sizeof(t_node));

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 21:18:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 17:09:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # define WHITE "\x1b[37m"
 # define BLACK "\033[30m"
 
+typedef struct s_data
+{
+	int				env_var;
+	char			*temp;
+}					t_data;
+
 # include "../srcs/libft/includes/libft.h"
 # include "error.h"
 # include "lexer.h"
@@ -41,12 +47,6 @@ typedef struct s_env
 	struct s_env	*next;
 	struct s_env	*prv;
 }					t_env;
-
-typedef struct s_data
-{
-	int				env_var;
-	char			*temp;
-}					t_data;
 
 // Env Init
 t_env				*env_init(char **envs);
@@ -66,14 +66,16 @@ void				write_value(t_env *head, char *key, char *value);
 void				free_env_list(t_env *head);
 
 // Builtins
-char 				*builtins(t_env **head, t_data *data, char *line, t_parsing *next);
+char				*builtins(t_env **head, t_data *data, char *line,
+						t_parsing *next);
 bool				isbuiltins(char *line);
 char				*ft_echo(t_data *data, char **split);
 char				*ft_env(t_data *data, t_env *head, char **split);
 char				*ft_pwd(t_data *data, t_env **head);
-char 				*ft_unset(t_env **head, t_data *data, char *line);
+char				*ft_unset(t_env **head, t_data *data, char *line);
 void				ft_export(t_env *head, t_data *data, char *line);
-char				*ft_cd(t_env *head, t_data *data, char **split, t_parsing *next);
+char				*ft_cd(t_env *head, t_data *data, char **split,
+						t_parsing *next);
 
 // Builtsins Utils
 bool				is_key_valid(char *str);

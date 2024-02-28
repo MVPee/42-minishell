@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 15:52:56 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 18:08:06 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ void	init_parsing(t_parsing *parsing)
 	parsing->next = NULL;
 }
 
-t_parsing *ft_parsing(t_lexer *lexer)
+t_parsing *ft_parsing(t_lexer *lexer, t_data *data)
 {
     t_parsing *head = NULL;
     t_parsing *prev_parsing = NULL;
 
     if (!lexer)
-        return NULL;
+        return (data->env_var = 2, NULL);
     while (lexer)
     {
         t_parsing *current_parsing = malloc(sizeof(t_parsing));
@@ -128,8 +128,8 @@ t_parsing *ft_parsing(t_lexer *lexer)
             return NULL;
         init_parsing(current_parsing);
         if (!check_file(current_parsing, lexer))
-            return NULL;
-        if (isbuiltins(ft_split(current_parsing->cmd,  " ")[0]))
+            return (data->env_var = 1, NULL);
+        if (isbuiltins(current_parsing->cmd))
             current_parsing->isbuiltins = true;
         if (prev_parsing)
             prev_parsing->next = current_parsing;

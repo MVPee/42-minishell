@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 21:09:36 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 18:52:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*find_executable_path(char **paths, char *cmd)
 	char	*path;
 	char	*temp;
 
-	if (!paths)
+	if (!paths || !cmd)
 		return (NULL);
 	if (cmd[0] == '.' && cmd[1] == '/')
 		return (ft_free_matrix(1, &paths), NULL);
@@ -44,14 +44,12 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	int status;
 	char *path;
 	pid_t pid;
+	int pipe_builtin_to_next[2];
 	int prev_pipe[2] = {-1, -1};
 	int curr_pipe[2] = {-1, -1};
 
-	if (!parsing)
+	if (!parsing || !parsing->cmd)
 		return ;
-
-	if (data->temp != NULL)
-		ft_free(1, &data->temp);
 	while (parsing)
 	{
 		if (parsing->next)
@@ -59,7 +57,7 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 			if (pipe(curr_pipe) == -1)
 			{
 				perror("pipe");
-				exit(EXIT_FAILURE);
+				exit(1);
 			}
 		}
 		if (parsing->isbuiltins == true)
@@ -127,7 +125,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 					}
 					else if (data->temp)
 					{
-						int pipe_builtin_to_next[2];
 						if (pipe(pipe_builtin_to_next) == -1)
 						{
 							perror("pipe");
@@ -144,7 +141,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 							perror("dup2 for builtin output");
 							exit(EXIT_FAILURE);
 						}
-						close(pipe_builtin_to_next[0]);
 					}
 					if (parsing->next)
 					{
@@ -154,7 +150,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 							exit(EXIT_FAILURE);
 						}
 						close(curr_pipe[0]);
-						close(curr_pipe[1]);
 					}
 
 					if (parsing->output != -1)
@@ -167,11 +162,12 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 						close(parsing->output);
 					}
 					execve(path, ft_split(parsing->cmd, " "), env_to_tab(*head));
-					perror("execve");
+					perror(parsing->cmd);
 					exit(EXIT_FAILURE);
 				}
 				else
 				{ // Parent process
+					close(pipe_builtin_to_next[0]);
 					if (prev_pipe[0] != -1)
 					{
 						close(prev_pipe[0]);
@@ -185,11 +181,12 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 
 					if (WIFEXITED(status))
 						data->env_var = WEXITSTATUS(status);
-
 					prev_pipe[0] = curr_pipe[0];
 					prev_pipe[1] = curr_pipe[1];
 					curr_pipe[0] = -1;
 					curr_pipe[1] = -1;
+					if (data->temp != NULL)
+						ft_free(1, &data->temp);
 				}
 			}
 			else

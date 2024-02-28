@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 21:18:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 18:08:54 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 bool isbuiltins(char *line)
 {
+	if (!line)
+		return false;
+	char **result = ft_split(line, " ");
+	char *str = ft_strdup(result[0]);
 	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", NULL};
 	int i = -1;
 
 	while(split[++i])
-		if (!ft_strcmp(line, split[i]))
-			return (true);
-	return (false);
+		if (!ft_strcmp(str, split[i]))
+			return (ft_free_matrix(1, &result), ft_free(1, &str), true);
+	return (ft_free_matrix(1, &result), ft_free(1, &str), false);
 }
 
 char *builtins(t_env **head, t_data *data, char *line, t_parsing *next)

@@ -2,6 +2,7 @@
 # define LEXER_H
 
 # include "../srcs/libft/includes/libft.h"
+# include "minishell.h"
 # include <stdbool.h>
 
 typedef enum e_token
@@ -28,7 +29,7 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }					t_lexer;
 
-t_lexer				*ft_lexer(char *line);
+t_lexer				*ft_lexer(char *line, t_data *data);
 
 t_lexer				*ft_lexer_new(char *cmd);
 void				ft_lexer_add(t_lexer **head, t_lexer *new);

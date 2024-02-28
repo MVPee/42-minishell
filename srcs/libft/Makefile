@@ -10,6 +10,7 @@ NC=\033[0m
 LIBFT_SRCS =	srcs/libft/ft_isalpha.c \
 				srcs/libft/ft_isdigit.c \
 				srcs/libft/ft_isalnum.c \
+				srcs/libft/ft_is_string_number.c \
 				srcs/libft/ft_isascii.c \
 				srcs/libft/ft_isprint.c \
 				srcs/libft/ft_isspace.c \
@@ -29,6 +30,7 @@ LIBFT_SRCS =	srcs/libft/ft_isalpha.c \
 				srcs/libft/ft_memcmp.c \
 				srcs/libft/ft_strnstr.c \
 				srcs/libft/ft_atoi.c \
+				srcs/libft/ft_strtol.c \
 				srcs/libft/ft_calloc.c \
 				srcs/libft/ft_strdup.c \
 				srcs/libft/ft_strndup.c \

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 13:34:07 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:25:34 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[37m"
 # define BLACK "\033[30m"
+
+# define LONG_MAX_STRING "9223372036854775807"
+# define LONG_MIN_STRING "-9223372036854775808"
 
 # include "../srcs/libft/includes/libft.h"
 # include "error.h"
@@ -71,6 +74,7 @@ void				ft_pwd(t_data *data, t_env **head);
 void 				ft_unset(t_env **head, t_data *data, char *line);
 void				ft_export(t_env *head, t_data *data, char *line);
 void				ft_cd(t_env *head, t_data *data, char **split);
+void				ft_exit(t_env *head ,t_data *data, char *line);
 
 // Builtsins Utils
 bool				is_key_valid(char *str);

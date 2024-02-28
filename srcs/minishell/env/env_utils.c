@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 18:18:32 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:56:34 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void    free_env_list(t_env *head)
 {
-    t_env   *tmp;
+    t_env   *current;
     
     while (head)
     {
-        tmp = head;
+        current = head;
         head = head->next;
-        free(tmp->key);
-        free(tmp->value);
-        free(tmp);
-        tmp = NULL;
+        free(current->key);
+        free(current->value);
+        free(current);
+        current = NULL;
     }
 }

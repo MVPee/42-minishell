@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 14:01:23 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 00:00:39 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int ac, char **argv, char **envs)
 	head = env_init(envs);
 	line = NULL;
 	init_signal();
-	print_welcome_message(head);
+	//print_welcome_message(head);
 	while (1)
 	{
 		str_readline = get_str_readline();
@@ -63,12 +63,6 @@ int	main(int ac, char **argv, char **envs)
 			add_history(line);
 		else
 			data.env_var = 0;
-		if (!ft_strcmp(line, "exit"))
-		{
-			ft_free(1, &line);
-			ft_printf("exit\n");
-			break ;
-		}
 		cmd = parsing(line);
 		// t_node *node;
 		// while(cmd)
@@ -90,5 +84,5 @@ int	main(int ac, char **argv, char **envs)
 	}
 	free_env_list(head);
 	//rl_clear_history();
-	return (0);
+	return (data.env_var);
 }

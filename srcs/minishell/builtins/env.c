@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:37:37 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/27 20:59:23 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 15:24:53 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,12 @@ char	*ft_env(t_data *data, t_env *head, char **split)
         {
             temp = ft_strjoin(result, head->key);
             result = temp;
-
-            temp = ft_strjoin(result, "=");
-            free(result);
+            temp = ft_strjoin_free(result, "=");
             result = temp;
-
-            temp = ft_strjoin(result, head->value);
-            free(result);
+            temp = ft_strjoin_free(result, head->value);
             result = temp;
-
-            temp = ft_strjoin(result, "\n");
-            free(result);
+            temp = ft_strjoin_free(result, "\n");
             result = temp;
-
             head = head->next;
         }
         temp = ft_strjoin(result, "_=/usr/bin/env\n");

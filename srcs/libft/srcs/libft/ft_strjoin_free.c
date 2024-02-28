@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:10:17 by mvpee             #+#    #+#             */
-/*   Updated: 2023/12/11 17:33:07 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 15:23:58 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	while (s2[++i])
 		str[j++] = s2[i];
 	str[j] = '\0';
-	ft_free(2, &s1, &s2);
+	ft_free(1, &s1);
 	return (str);
 }

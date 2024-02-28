@@ -2,6 +2,7 @@
 # define LEXER_H
 
 # include "../srcs/libft/includes/libft.h"
+# include <stdbool.h>
 
 typedef enum e_token
 {
@@ -32,7 +33,7 @@ t_lexer				*ft_lexer(char *line);
 t_lexer				*ft_lexer_new(char *cmd);
 void				ft_lexer_add(t_lexer **head, t_lexer *new);
 t_node				*ft_node_new(char *name, t_token token);
-void				ft_node_add(t_node **head, t_node *new);
+bool				ft_node_add(t_node **head, t_node *new);
 void				free_lexer(t_lexer *lexer);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 16:05:52 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 16:21:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ t_node	*ft_node_new(char *name, t_token token)
 {
 	t_node	*node;
 
+	if (!name)
+			return (ft_printf("syntax error near unexpected token '%d'\n", token), NULL);
+	if (!ft_strcmp(name, "<") || !ft_strcmp(name, ">") || !ft_strcmp(name, "<<") || !ft_strcmp(name, ">>") || name[0] == '|')
+		return (ft_printf("syntax error near unexpected token '%s'\n", name), NULL);
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
@@ -58,10 +62,10 @@ t_node	*ft_node_new(char *name, t_token token)
 	return (node);
 }
 
-void	ft_node_add(t_node **head, t_node *new)
+bool	ft_node_add(t_node **head, t_node *new)
 {
 	if (!head || !new)
-		return ;
+		return false;
 	if (!*head)
 		*head = new;
 	else
@@ -71,6 +75,7 @@ void	ft_node_add(t_node **head, t_node *new)
 			last = last->next;
 		last->next = new;
 	}
+	return true;
 }
 
 void free_lexer(t_lexer *lexer) {

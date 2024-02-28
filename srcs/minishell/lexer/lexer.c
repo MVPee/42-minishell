@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 16:10:14 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/28 16:13:47 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static t_lexer *lexer_parsing(char *str)
 {
 	char	**split;
 	int		i;
+	bool	flag;
 	t_lexer	*cmd;
 	t_node	*node;
 
@@ -26,15 +27,17 @@ static t_lexer *lexer_parsing(char *str)
 	while (split[++i])
 	{
 		if (!ft_strcmp(split[i], "<<"))
-			ft_node_add(&node, ft_node_new(split[++i], HEREDOC));
+			flag = ft_node_add(&node, ft_node_new(split[++i], HEREDOC));
 		else if (!ft_strcmp(split[i], "<"))
-			ft_node_add(&node, ft_node_new(split[++i], INPUT));
+			flag = ft_node_add(&node, ft_node_new(split[++i], INPUT));
 		else if (!ft_strcmp(split[i], ">"))
-			ft_node_add(&node, ft_node_new(split[++i], OUTPUT));
+			flag = ft_node_add(&node, ft_node_new(split[++i], OUTPUT));
 		else if (!ft_strcmp(split[i], ">>"))
-			ft_node_add(&node, ft_node_new(split[++i], APPEND));
+			flag = ft_node_add(&node, ft_node_new(split[++i], APPEND));
 		else
-			ft_node_add(&node, ft_node_new(split[i], CMD));
+			flag = ft_node_add(&node, ft_node_new(split[i], CMD));
+		if (!flag)
+			return (NULL);
 	}
 	cmd->head = node;
 	return (cmd);
@@ -54,6 +57,8 @@ t_lexer	*ft_lexer(char *line)
 	while (split[++i])
 	{
 		lexer = lexer_parsing(split[i]);
+		if (!lexer)
+			free_lexer(lexer);
 		ft_lexer_add(&head, lexer);
 	}
 	return (head);

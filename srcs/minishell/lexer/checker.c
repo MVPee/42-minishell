@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 22:35:32 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 22:37:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,10 @@ static char *check_variable(char *line, t_env *head, t_data data)
                     buffer2[k] = line[i];
                     k++;
                 }
-                i--;
                 buffer2[k] = '\0';
                 if (find_key(head, buffer2))
                 {
                     value = ft_strdup(find_key(head, buffer2)->value);
-                    ft_memset(buffer2, 0, 500);
-                    k = 0;
                     p = -1;
                     while(value[++p])
                     {
@@ -157,6 +154,9 @@ static char *check_variable(char *line, t_env *head, t_data data)
                         j++;
                     }
                 }
+                ft_memset(buffer2, 0, 500);
+                k = 0;
+                i--;
             }
         }
         else

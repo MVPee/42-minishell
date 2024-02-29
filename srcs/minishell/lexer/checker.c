@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 22:37:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 23:33:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,31 @@ static char *check_variable(char *line, t_env *head, t_data data)
     k = 0;
     while(line[++i])
     {
-        if(i >= 1)
+        if (i == 0)
         {
-            if (line[i] == '~' && line[i - 1] == ' ' && (line[i + 1] == ' ' || !line[i + 1]))
+            if (line[i] == '~' && (line[i + 1] == ' ' || !line[i + 1]))
             {
-                if (find_key(head, "HOME"))
+                if (value = getenv("HOME"))
                 {
-                    if (value = find_key(head, "HOME")->value)
+                    p = -1;
+                    while(value[++p])
                     {
-                        p = -1;
-                        while(value[++p])
-                        {
-                            buffer[j] = value[p];
-                            j++;
-                        }
+                        buffer[j] = value[p];
+                        j++;
                     }
                 }
-                else
-                    buffer[j++] = '~';
-                i++;
+            }
+        }
+        else if (line[i] == '~' && line[i - 1] == ' ' && (line[i + 1] == ' ' || !line[i + 1]))
+        {
+            if (value = getenv("HOME"))
+            {
+                p = -1;
+                while(value[++p])
+                {
+                    buffer[j] = value[p];
+                    j++;
+                }
             }
         }
         if (line[i] == '\"')

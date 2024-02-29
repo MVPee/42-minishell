@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 12:57:14 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:32:34 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static char *check_variable(char *line, t_env *head, t_data data)
     int i = -1;
     int j;
     int k;
-    int p = -1;
-    char buffer[1000];
+    int p;
+    char buffer[10000];
     char buffer2[500];
     char *value;
 
@@ -73,7 +73,7 @@ static char *check_variable(char *line, t_env *head, t_data data)
                     value = ft_strdup(find_key(head, buffer2)->value);
                     ft_memset(buffer2, 0, 500);
                     k = 0;
-                    int p = -1;
+                    p = -1;
                     while(value[++p])
                     {
                         buffer[j] = value[p];
@@ -87,6 +87,8 @@ static char *check_variable(char *line, t_env *head, t_data data)
             buffer[j] = line[i];
             j++;
         }
+        if (!line[i])
+            break;
     }
     buffer[j] = '\0';
     return (ft_strdup(buffer));

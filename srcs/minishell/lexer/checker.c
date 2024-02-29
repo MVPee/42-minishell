@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 16:32:34 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:50:41 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,21 @@ static char *check_variable(char *line, t_env *head, t_data data)
     char buffer[10000];
     char buffer2[500];
     char *value;
+    int flag = 0;
 
     j = 0;
     k = 0;
     while(line[++i])
     {
-        if (line[i] == '$')
+        if (line[i] == '\'')
+        {
+            while(line[++i] != '\'' && line[i])
+            {
+                buffer[j] = line[i];
+                j++;
+            }
+        }
+        else if (line[i] == '$')
         {
             if (line[i + 1] == '?')
             {
@@ -82,7 +91,7 @@ static char *check_variable(char *line, t_env *head, t_data data)
                 }
             }
         }
-        else
+        else if (line[i] != '\"')
         {
             buffer[j] = line[i];
             j++;

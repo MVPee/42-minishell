@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/26 14:16:28 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 10:17:15 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**env_split(char *env)
 	result[0] = ft_strndup(env, len);
 	if (!result[0])
 		return (free(result), NULL);
-	result[1] = strdup(split + 1);
+	result[1] = ft_strdup(split + 1);
 	result[2] = NULL;
 	return (result);
 }

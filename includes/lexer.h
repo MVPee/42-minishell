@@ -29,12 +29,14 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }					t_lexer;
 
-t_lexer				*ft_lexer(char *line, t_data *data);
+t_lexer				*ft_lexer(char *line, t_data *data, t_env *head);
 
 t_lexer				*ft_lexer_new(char *cmd);
 void				ft_lexer_add(t_lexer **head, t_lexer *new);
 t_node				*ft_node_new(char *name, t_token token);
 bool				ft_node_add(t_node **head, t_node *new);
 void				free_lexer(t_lexer *lexer);
+
+char 				*checker(char *line, t_env *head, t_data data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 17:09:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 12:19:19 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ typedef struct s_data
 	char			*temp;
 }					t_data;
 
-# include "../srcs/libft/includes/libft.h"
-# include "error.h"
-# include "lexer.h"
-# include "parsing.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdbool.h>
-# include <sys/wait.h>
-
 typedef struct s_env
 {
 	char			*key;
@@ -47,6 +38,15 @@ typedef struct s_env
 	struct s_env	*next;
 	struct s_env	*prv;
 }					t_env;
+
+# include "../srcs/libft/includes/libft.h"
+# include "error.h"
+# include "lexer.h"
+# include "parsing.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdbool.h>
+# include <sys/wait.h>
 
 // Env Init
 t_env				*env_init(char **envs);

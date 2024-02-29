@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 18:52:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 10:13:02 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 				}
 				else
 				{ // Parent process
-					close(pipe_builtin_to_next[0]);
 					if (prev_pipe[0] != -1)
 					{
 						close(prev_pipe[0]);

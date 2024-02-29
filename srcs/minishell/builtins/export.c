@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 14:03:12 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:09:10 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void *add_content(t_env *head, char *line)
 		return (NULL);
 	value = ft_strdup(equal_address + 1);
 	add_env(head, key, value, append_content);
+	return (NULL);
 }
 
 void	ft_export(t_env *head, t_data *data, char *line)

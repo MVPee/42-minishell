@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/27 21:11:25 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 14:35:33 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 	char	*temp;
 
 	temp = ft_strdup(getcwd(buffer, 500));
-	if (chdir(getenv("HOME")) != 0)
-		return (perror(split[0]), 1);
+	if (find_key(head, "HOME"))
+		if (chdir(find_key(head, "HOME")->value) != 0)
+			return (perror(split[0]), 1);
 	if (find_key(head, "OLDPWD"))
 		find_key(head, "OLDPWD")->value = ft_strdup(temp);
 	if (find_key(head, "PWD"))

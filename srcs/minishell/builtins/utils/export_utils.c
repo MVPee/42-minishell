@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/24 20:12:36 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:44:25 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ void *error_arguments_without_equal(char *line)
 	return (NULL);
 }
 
-void	error_handler_export(char *s1, char *s2)
+void	*error_handler_export(char *s1, char *s2)
 {
 	if (!s2)
 		ft_printf("export : « %s=  »", s1);
 	else
-		ft_printf("export : « %s=%s »", s1, s2);
+		ft_printf("export : « a%s=%s »", s1, s2);
 	ft_printf(" not a valid identifier\n");
+	return (NULL);
 }
 
 bool	is_key_valid(char *str)

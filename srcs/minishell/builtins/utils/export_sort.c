@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:12:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 14:51:05 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:22:29 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,31 @@ static void sort_env_list(t_env *head)
 	}
 }
 
-static void print_sorted_env(t_env *head) 
+static char  *print_and_return_sorted_env(t_env *head) 
 {
+	char *output;
+	
+	output = ft_strdup("");
+	if (!output)
+		return (NULL);
 	while (head) 
 	{
-		ft_printf("declare -x %s=\"%s\"\n", head->key, head->value);
+		output = ft_strjoin(output, ft_multi_strjoin(5, "declare -x ", head->key, "=\"", head->value, "\"\n"));
 		head = head->next;
 	}
-	ft_printf("declare -x _=/usr/bin/env\n");
+	output = ft_strjoin(output, "declare -x _=/usr/bin/env\n\0");
+	//ft_printf("%s", output);
+	return (output);
 }
 
-void	ft_sorted_env(t_env *head)
+char	*ft_sorted_env(t_env *head)
 {
-	t_env *copy_of_env;
+	t_env	*copy_of_env;
+	char	*output;
 
 	copy_of_env = copy_env_list(head);
 	sort_env_list(copy_of_env);
-	print_sorted_env(copy_of_env);
+	output = print_and_return_sorted_env(copy_of_env);
 	free_env_list(copy_of_env);
+	return (output);
 }

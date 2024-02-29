@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/26 15:55:09 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:07:49 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	**env_split(char *env)
 static t_env	*create_node(char *entry)
 {
 	t_env	*created_node;
+	char *temp;
 	char	**splitted_arguments;
 	
 	created_node = (t_env *)malloc(sizeof(t_env));

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 14:25:34 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:45:01 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # include "../srcs/libft/includes/libft.h"
 # include "error.h"
+# include "lexer.h"
 # include "parsing.h"
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -47,6 +48,7 @@ typedef struct s_env
 typedef struct s_data
 {
 	int				env_var;
+	char			*temp;
 }					t_data;
 
 // Env Init
@@ -67,24 +69,26 @@ void				write_value(t_env *head, char *key, char *value);
 void				free_env_list(t_env *head);
 
 // Builtins
-bool				builtins(t_env **head, t_data *data, char *line);
-void				ft_echo(t_data *data, char **split);
-void				ft_env(t_data *data, t_env *head, char **split);
-void				ft_pwd(t_data *data, t_env **head);
-void 				ft_unset(t_env **head, t_data *data, char *line);
-void				ft_export(t_env *head, t_data *data, char *line);
-void				ft_cd(t_env *head, t_data *data, char **split);
+char 				*builtins(t_env **head, t_data *data, char *line, t_parsing *next);
+bool				isbuiltins(char *line);
+char				*ft_echo(t_data *data, char **split);
+char				*ft_env(t_data *data, t_env *head, char **split);
+char				*ft_pwd(t_data *data, t_env **head);
+char 				*ft_unset(t_env **head, t_data *data, char *line);
+char				*ft_export(t_env *head, t_data *data, char *line);
 void				ft_exit(t_env *head ,t_data *data, char *line);
+char				*ft_cd(t_env *head, t_data *data, char **split, t_parsing *next);
 
 // Builtsins Utils
 bool				is_key_valid(char *str);
-void				ft_sorted_env(t_env *head);
+char				*ft_sorted_env(t_env *head);
 char				*reconstructed_entry(char *s1, char *s2);
 void				*error_arguments_without_equal(char *line);
-void				error_handler_export(char *s1, char *s2);
+void				*error_handler_export(char *s1, char *s2);
+char				*ft_multi_strjoin(int number_of_strings, ...);
 
 // Process
-void				process(t_env *head, t_data *data, char *line);
+void				process(t_env **head, t_data *data, t_parsing *parsing);
 
 // Signal
 char				*get_str_readline(void);

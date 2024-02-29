@@ -8,6 +8,7 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/env/env_conversion.c \
 		srcs/minishell/env/env_utils.c \
 		srcs/minishell/builtins/builtins.c \
+		srcs/minishell/builtins/utils/builtins_utils.c \
 		srcs/minishell/builtins/echo.c \
 		srcs/minishell/builtins/env.c \
 		srcs/minishell/builtins/pwd.c \
@@ -18,14 +19,16 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/builtins/utils/export_sort.c \
 		srcs/minishell/builtins/cd.c \
 		srcs/minishell/process/process.c \
+		srcs/minishell/lexer/lexer.c \
+		srcs/minishell/lexer/lexer_utils.c \
+		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
-		srcs/minishell/parsing/utils.c \
-		srcs/minishell/signal/init_signal.c
+		srcs/minishell/parsing/utils_parsing.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) #-ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft -lreadline #-ggdb3 -fsanitize=address -g
+CFLAGS = -I$(LIBFT) -ggdb3 -fsanitize=address -g #-Wall -Werror -Wextra
+LDFLAGS = -L$(LIBFT) -lft -lreadline -ggdb3 -fsanitize=address -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m

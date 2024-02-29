@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/19 15:04:26 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:31:34 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_cd_others(t_env *head, char **split)
 	return (0);
 }
 
-static int	ft_cd_with_minus(t_env *head, char **split)
+static int	ft_cd_with_minus(t_env *head, char **split, char **output)
 {
 	char	buffer[500];
 	char	*temp;
@@ -40,7 +40,9 @@ static int	ft_cd_with_minus(t_env *head, char **split)
 		return (perror(split[0]), 1);
 	if (find_key(head, "OLDPWD"))
 	{
-		ft_printf("%s\n", find_key(head, "OLDPWD")->value);
+		*output = ft_strjoin(find_key(head, "OLDPWD")->value, "\n");
+		if (!*output)
+			return (0);
 		find_key(head, "OLDPWD")->value = ft_strdup(temp);
 	}
 	if (find_key(head, "PWD"))
@@ -63,12 +65,17 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 	return (ft_free(1, &temp), 0);
 }
 
-void	ft_cd(t_env *head, t_data *data, char **split)
+char	*ft_cd(t_env *head, t_data *data, char **split, t_parsing *next)
 {
+	
 	char	buffer[500];
 	char	*temp;
+	char	*output;
 
+	if (next)
+		return(ft_strdup(""));
 	data->env_var = 0;
+	output = NULL;
 	if (ft_splitlen((const char **)split) > 2)
 	{
 		ft_printf("%s: too many arguments\n", split[0]);
@@ -77,7 +84,8 @@ void	ft_cd(t_env *head, t_data *data, char **split)
 	else if (!split[1])
 		data->env_var = ft_cd_with_no_arguments(head, split);
 	else if (!ft_strcmp(split[1], "-"))
-		data->env_var = ft_cd_with_minus(head, split);
+		data->env_var = ft_cd_with_minus(head, split, &output);
 	else
 		data->env_var = ft_cd_others(head, split);
+	return(output);
 }

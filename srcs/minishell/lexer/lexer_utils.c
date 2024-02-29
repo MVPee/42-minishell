@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/22 16:07:14 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:05:52 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_cmd	*ft_cmd_new(char *cmds)
+t_lexer	*ft_lexer_new(char *cmd)
 {
-	t_cmd	*cmd;
+	t_lexer	*lexer;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
+	lexer = malloc(sizeof(t_lexer));
+	if (!lexer)
 		return (NULL);
-	cmd->cmd = ft_strdup(cmds);
-    if (!cmd->cmd)
+	lexer->cmd = ft_strdup(cmd);
+    if (!lexer->cmd)
         return (NULL);
-	cmd->head = NULL;
-	cmd->next = NULL;
-	cmd->pid = 0;
-	return (cmd);
+	lexer->head = NULL;
+	lexer->next = NULL;
+	lexer->pid = 0;
+	return (lexer);
 }
 
-void	ft_cmd_add(t_cmd **head, t_cmd *new)
+void	ft_lexer_add(t_lexer **head, t_lexer *new)
 {
-	t_cmd	*last;
+	t_lexer	*last;
 
 	if (!head || !new)
 		return ;
@@ -60,11 +60,6 @@ t_node	*ft_node_new(char *name, t_token token)
 
 void	ft_node_add(t_node **head, t_node *new)
 {
-    static int i = 0;
-    if (i != 3)
-        i++;
-    else
-        return ;
 	if (!head || !new)
 		return ;
 	if (!*head)
@@ -78,20 +73,20 @@ void	ft_node_add(t_node **head, t_node *new)
 	}
 }
 
-void free_parsing(t_cmd *cmd) {
-    t_cmd *cmd_current;
+void free_lexer(t_lexer *lexer) {
+    t_lexer *lexer_current;
     t_node *node_current;
 
-    while (cmd) {
-        cmd_current = cmd;
-        cmd = cmd->next;
-        while (cmd_current->head) {
-            node_current = cmd_current->head;
-            cmd_current->head = cmd_current->head->next;
+    while (lexer) {
+        lexer_current = lexer;
+        lexer = lexer->next;
+        while (lexer_current->head) {
+            node_current = lexer_current->head;
+            lexer_current->head = lexer_current->head->next;
             free(node_current->name);
             free(node_current);
         }
-        free(cmd_current->cmd);
-        free(cmd_current);
+        free(lexer_current->cmd);
+        free(lexer_current);
     }
 }

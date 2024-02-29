@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 00:00:39 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:24:24 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ char	*get_str_readline(void)
 int	main(int ac, char **argv, char **envs)
 {
 	t_env	*head;
-	t_cmd *cmd;
 	t_data	data;
 	char	*line;
 	char	*str_readline;
 
 	data.env_var = 0;
+	data.temp = NULL;
 	head = env_init(envs);
 	line = NULL;
 	init_signal();
@@ -63,24 +63,14 @@ int	main(int ac, char **argv, char **envs)
 			add_history(line);
 		else
 			data.env_var = 0;
-		cmd = parsing(line);
-		// t_node *node;
-		// while(cmd)
-		// {
-		// 	ft_printf("\n\ncmd: %s\n", cmd->cmd);
-		// 	node = cmd->head;
-		// 	while(node)
-		// 	{
-		// 		ft_printf("Token: %d; Name: %s\n", node->token, node->name);
-		// 		node = node->next;
-		// 	}
-		// 	cmd = cmd->next;
-		// }
-		if (cmd)
-			if (!builtins(&head, &data, cmd->cmd))
-				process(head, &data, line);
+		if (!ft_strcmp(line, "exit"))
+		{
+			ft_free(1, &line);
+			ft_printf("exit\n");
+			break ;
+		}
+		process(&head, &data, ft_parsing(ft_lexer(line)));
 		ft_free(1, &line);
-		free_parsing(cmd);
 	}
 	free_env_list(head);
 	//rl_clear_history();

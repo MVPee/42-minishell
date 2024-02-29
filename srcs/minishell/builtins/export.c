@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/26 14:03:12 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:11:51 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void add_env(t_env *head, char *key, char *value, bool append_content)
 		return ;
 	if (!is_key_valid(key))
 	{
-		error_handler_export(key, value);
 		ft_free(2, &key, &value);
+		error_handler_export(key, value);
 		return ;
 	}
 	if (append_content)
@@ -62,14 +62,19 @@ static void *add_content(t_env *head, char *line)
 	add_env(head, key, value, append_content);
 }
 
-void	ft_export(t_env *head, t_data *data, char *line)
+char	*ft_export(t_env *head, t_data *data, char *line)
 {
 	char	**splitted_args;
+	char	*output;
+	char	*temp;
 	size_t	index;
 
+	output = ft_strdup("");
+	if (!output)
+		return (NULL);
 	splitted_args = ft_split(line, " ");
 	if (!splitted_args)
-		return ;
+		return (NULL);
 	if (ft_splitlen((const char **) splitted_args) > 1)
 	{
 		index = 1;
@@ -77,7 +82,8 @@ void	ft_export(t_env *head, t_data *data, char *line)
 			add_content(head, splitted_args[index++]);
 	}
 	else 
-		ft_sorted_env(head);
+		output = ft_sorted_env(head);
 	ft_free_matrix(1, &splitted_args);
 	data->env_var = 0;
+	return (output);
 }

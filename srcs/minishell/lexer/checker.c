@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 18:04:40 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 22:35:32 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,53 @@ static char *check_variable(char *line, t_env *head, t_data data)
                 i++;
             }
         }
-        if (line[i] == '\'')
+        if (line[i] == '\"')
+        {
+            while(line[++i] != '\"' && line[i])
+            {
+                if (line[i] == '$')
+                {
+                    if (line[i + 1] == '?')
+                    {
+                        i++;
+                        value = ft_itoa(data.env_var);
+                        p = -1;
+                        while(value[++p])
+                        {
+                            buffer[j] = value[p];
+                            j++;
+                        }
+                    }
+                    else
+                    {
+                        while(ft_isalnum(line[++i]))
+                        {
+                            buffer2[k] = line[i];
+                            k++;
+                        }
+                        buffer2[k] = '\0';
+                        if (find_key(head, buffer2))
+                        {
+                            value = ft_strdup(find_key(head, buffer2)->value);
+                            p = -1;
+                            while(value[++p])
+                            {
+                                buffer[j] = value[p];
+                                j++;
+                            }
+                        }
+                        ft_memset(buffer2, 0, 500);
+                        k = 0;
+                        i--;
+                    }
+                }
+                else
+                {
+                    buffer[j++] = line[i];
+                }
+            }
+        }
+        else if (line[i] == '\'')
         {
             while(line[++i] != '\'' && line[i])
             {
@@ -97,6 +143,7 @@ static char *check_variable(char *line, t_env *head, t_data data)
                     buffer2[k] = line[i];
                     k++;
                 }
+                i--;
                 buffer2[k] = '\0';
                 if (find_key(head, buffer2))
                 {
@@ -112,11 +159,8 @@ static char *check_variable(char *line, t_env *head, t_data data)
                 }
             }
         }
-        else if (line[i] != '\"')
-        {
-            buffer[j] = line[i];
-            j++;
-        }
+        else
+            buffer[j++] = line[i];
         if (!line[i])
             break;
     }

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 17:53:52 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/02/29 18:04:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,20 @@ static char *check_variable(char *line, t_env *head, t_data data)
     k = 0;
     while(line[++i])
     {
-        if(i > 1)
+        if(i >= 1)
         {
             if (line[i] == '~' && line[i - 1] == ' ' && (line[i + 1] == ' ' || !line[i + 1]))
             {
-                if (value = find_key(head, "HOME")->value)
+                if (find_key(head, "HOME"))
                 {
-                    p = -1;
-                    while(value[++p])
+                    if (value = find_key(head, "HOME")->value)
                     {
-                        buffer[j] = value[p];
-                        j++;
+                        p = -1;
+                        while(value[++p])
+                        {
+                            buffer[j] = value[p];
+                            j++;
+                        }
                     }
                 }
                 else

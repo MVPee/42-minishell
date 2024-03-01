@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/01 14:42:51 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 20:03:30 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static t_lexer set_lexer(char *str)
 				i++;
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]))
+				while(ft_isprint(str[i]) && str[i] != ' ')
 				{
 					buffer2[k] = str[i];
 					k++;
@@ -99,7 +99,7 @@ static t_lexer set_lexer(char *str)
 			{
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]))
+				while(ft_isprint(str[i]) && str[i] != ' ')
 				{
 					buffer2[k] = str[i];
 					k++;
@@ -122,7 +122,7 @@ static t_lexer set_lexer(char *str)
 				i++;
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]))
+				while(ft_isprint(str[i]) && str[i] != ' ')
 				{
 					buffer2[k] = str[i];
 					k++;
@@ -137,7 +137,7 @@ static t_lexer set_lexer(char *str)
 			{
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]))
+				while(ft_isprint(str[i]) && str[i] != ' ')
 				{
 					buffer2[k] = str[i];
 					k++;

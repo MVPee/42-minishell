@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 08:54:15 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/19 17:09:26 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:37:08 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ int					ft_ischarin(char c, char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 void				ft_free_matrix(unsigned int count, ...);
 void				ft_free(unsigned int count, ...);
+char				**ft_splitjoin(char **split, char *need_to_add_to_split);
+char				**ft_splittrim(char **split, char *set);
+void				ft_putsplit(char **split, char *message_before);
 
 // PRINTF
 int					ft_printf(const char *format, ...);

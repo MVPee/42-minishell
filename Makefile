@@ -19,9 +19,9 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/process/process.c \
 		srcs/minishell/lexer/lexer.c \
 		srcs/minishell/lexer/lexer_utils.c \
-		srcs/minishell/lexer/checker.c \
 		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
+		srcs/minishell/parsing/checker.c \
 		srcs/minishell/parsing/utils_parsing.c
 
 OBJS = $(SRCS:.c=.o)

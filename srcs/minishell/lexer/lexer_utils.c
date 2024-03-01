@@ -6,92 +6,207 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 18:15:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:53:32 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_lexer	*ft_lexer_new(char *cmd)
+char **get_cmd_splitted(char *line, int *count)
 {
-	t_lexer	*lexer;
+	char **split = NULL;
+	char buffer[1000];
 
-	lexer = malloc(sizeof(t_lexer));
-	if (!lexer)
-		return (NULL);
-	lexer->cmd = ft_strdup(cmd);
-    if (!lexer->cmd)
-        return (NULL);
-	lexer->head = NULL;
-	lexer->next = NULL;
-	lexer->pid = 0;
-	return (lexer);
-}
-
-void	ft_lexer_add(t_lexer **head, t_lexer *new)
-{
-	t_lexer	*last;
-
-	if (!head || !new)
-		return ;
-	if (!*head)
-		*head = new;
-	else
+	int i = -1;
+	int j = 0;
+	while(line[++i])
 	{
-		last = *head;
-		while (last->next)
-			last = last->next;
-		last->next = new;
+		if (line[i] == '\"')
+		{
+			buffer[j++] = line[i];
+			while(line[++i] != '\"')
+			{
+				buffer[j] = line[i];
+				j++;
+			}
+			buffer[j++] = line[i];
+		}
+		else if (line[i] == '\'')
+		{
+			buffer[j++] = line[i];
+			while(line[++i] != '\'')
+			{
+				buffer[j] = line[i];
+				j++;
+			}
+			buffer[j++] = line[i];
+		}
+		else if (line[i] == '|')
+		{
+			buffer[j] = '\0';
+			split = ft_splitjoin(split, buffer);
+			if (!split)
+				return (NULL);
+			(*count)++;
+			ft_memset(buffer, 0, 1000);
+			j = 0;
+		}
+		else
+		{
+			buffer[j] = line[i];
+			j++;
+		}
+		if (!line[i])
+			break;
 	}
-}
-
-t_node	*ft_node_new(char *name, t_token token)
-{
-	t_node	*node;
-
-	if (!name)
-		return (ft_printf("syntax error near unexpected token '%d'\n", token), NULL);
-	if (!ft_strcmp(name, "<") || !ft_strcmp(name, ">") || !ft_strcmp(name, "<<") || !ft_strcmp(name, ">>") || name[0] == '|')
-		return (ft_printf("syntax error near unexpected token '%s'\n", name), NULL);
-	node = malloc(sizeof(t_node));
-	if (!node)
+	buffer[j] = '\0';
+	(*count)++;
+	split = ft_splitjoin(split, buffer);
+	if (!split)
 		return (NULL);
-	node->name = name;
-	node->token = token;
-	node->next = NULL;
-	return (node);
+	ft_memset(buffer, 0, 1000);
+	return split;
 }
 
-bool	ft_node_add(t_node **head, t_node *new)
+static bool	check_after(char *line, int i)
 {
-	if (!head || !new)
-		return false;
-	if (!*head)
-		*head = new;
-	else
+	int	j;
+
+	j = i;
+	while (line[++j])
 	{
-		t_node *last = *head;
-		while (last->next)
-			last = last->next;
-		last->next = new;
+		while(line[j] == ' ')
+			j++;
+		if (ft_isprint(line[j]))
+			return false;
+		else if (line[i] == '|')
+			return (true);
+		else if (!line[i])
+			return (true);
 	}
-	return true;
+	return (true);
 }
 
-void free_lexer(t_lexer *lexer) {
-    t_lexer *lexer_current;
-    t_node *node_current;
+bool	check_after_pipe_and_semicolon(char *line)
+{
+	int	i;
 
-    while (lexer) {
-        lexer_current = lexer;
-        lexer = lexer->next;
-        while (lexer_current->head) {
-            node_current = lexer_current->head;
-            lexer_current->head = lexer_current->head->next;
-            free(node_current->name);
-            free(node_current);
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '\"')
+		{
+			i++;
+			while (line[i] != '\"' && line[i])
+				i++;
+		}
+		else if (line[i] == '\'')
+		{
+			i++;
+			while (line[i] != '\'' && line[i])
+				i++;
+		}
+		else if (line[i] == ';')
+		{
+			if (line[i + 1])
+				return (ft_printf("syntax error near unexpected token '%c'\n", line[i + 1]), true);
+			return (ft_printf("syntax error near unexpected token 'newline'\n"), true);
+		}
+		else if (line[i] == '|' && check_after(line, i))
+			return (ft_printf("syntax error near unexpected token '|'\n"), true);
+		else if (line[i] == '<')
+		{
+			if (line[i + 1] == '>')
+				return (ft_printf("syntax error near unexpected token <'\n"), true);
+			if (line[i + 1] == '<')
+			{
+				i = i + 2;
+				while(line[i] == ' ')
+					i++;
+				if (ft_ischarin(line[i], "<>|") || !line[i])
+					return (ft_printf("syntax error near unexpected token '<'\n"), true);
+			}
+			else
+			{
+				i++;
+				while(line[i] == ' ')
+					i++;
+				if (ft_ischarin(line[i], "<>|") || !line[i])
+					return (ft_printf("syntax error near unexpected token '<'\n"), true);
+			}
+			i--;
+		}
+		else if (line[i] == '>')
+		{
+			if (line[i + 1] == '<')
+				return (ft_printf("syntax error near unexpected token '>'\n"), true);
+			if (line[i + 1] == '>')
+			{
+				i = i + 2;
+				while(line[i] == ' ')
+					i++;
+				if (ft_ischarin(line[i], "<>|") || !line[i])
+					return (ft_printf("syntax error near unexpected token '>'\n"), true);
+			}
+			else
+			{
+				i++;
+				while(line[i] == ' ')
+					i++;
+				if (ft_ischarin(line[i], "<>|") || !line[i])
+					return (ft_printf("syntax error near unexpected token '>'\n"), true);
+			}
+			i--;
+		}
+		if (!line[i])
+			break ;
+	}
+	return (false);
+}
+
+int	number_of_cmd(char *line)
+{
+	int	i;
+	int	flag;
+	int	count;
+
+	flag = 0;
+	count = 1;
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '\'')
+			while (line[i != '\''] && line[i])
+				i++;
+		else if (line[i] == '\"')
+			while (line[i != '\"'] && line[i])
+				i++;
+		else if (line[i] == '|')
+			count++;
+		if (!line[i])
+			break ;
+	}
+	return (count);
+}
+
+void free_lexer(t_lexer *lexer)
+{
+    if (lexer) {
+        if (lexer->cmd) {
+            free(lexer->cmd);
+            lexer->cmd = NULL;
         }
-        free(lexer_current->cmd);
-        free(lexer_current);
+        
+        t_node *current = lexer->head;
+        while (current) {
+            t_node *temp = current;
+            current = current->next;
+            free(temp->name);
+            free(temp);
+        }
+        
+        lexer->head = NULL;
+        
+        free(lexer);
     }
 }

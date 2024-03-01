@@ -6,32 +6,11 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/29 23:33:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 09:34:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static bool check_after_pipe_and_semicolon(char *line)
-{
-	char **split;
-	int i;
-
-	split = ft_split(line, " ");
-	i = -1;
-	while(split[++i])
-	{
-		if (!ft_strcmp(split[i], ";"))
-		{
-			if (split[i + 1])
-				return(ft_printf("syntax error near unexpected token '%s'\n", split[i + 1]), ft_free(1, &split), true);
-			return (ft_free(1, &split), ft_printf("syntax error near unexpected token 'newline'\n"), true);
-		}
-		if (!ft_strcmp(split[i], "|") && !split[i + 1])
-			return (ft_free(1, &split), ft_printf("syntax error near unexpected token 'newline'\n"), true);
-	}
-	return (false);
-}
 
 static char *check_variable(char *line, t_env *head, t_data data)
 {
@@ -178,8 +157,6 @@ char *checker(char *line, t_env *head, t_data data)
 {
     char *new_line = NULL;
 
-	if (check_after_pipe_and_semicolon(line))
-		return (NULL);
     new_line = check_variable(line, head, data);
 	return (new_line);
 }

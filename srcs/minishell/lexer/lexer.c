@@ -3,66 +3,187 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/29 12:52:47 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/01 13:55:04 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static t_lexer *lexer_parsing(char *str)
+t_node	*new_node(char *name, t_token token)
 {
-	char	**split;
-	int		i;
-	bool	flag;
-	t_lexer	*cmd;
-	t_node	*node;
-
-	i = -1;
-	split = ft_split(str, " ");
-	cmd = ft_lexer_new(str);
-	node = NULL;
-	while (split[++i])
-	{
-		if (!ft_strcmp(split[i], "<<"))
-			flag = ft_node_add(&node, ft_node_new(split[++i], HEREDOC));
-		else if (!ft_strcmp(split[i], "<"))
-			flag = ft_node_add(&node, ft_node_new(split[++i], INPUT));
-		else if (!ft_strcmp(split[i], ">"))
-			flag = ft_node_add(&node, ft_node_new(split[++i], OUTPUT));
-		else if (!ft_strcmp(split[i], ">>"))
-			flag = ft_node_add(&node, ft_node_new(split[++i], APPEND));
-		else
-			flag = ft_node_add(&node, ft_node_new(split[i], CMD));
-		if (!flag)
-			return (NULL);
-	}
-	cmd->head = node;
-	return (cmd);
+	t_node *node = malloc(sizeof(t_node));
+	if (!node)
+		exit(1);
+	node->name = strdup(name);
+	node->token = token;
+	node->next = NULL;
+	return node;
 }
+
+void	append_node(t_node **head, char *name, t_token token)
+{
+	t_node *new = new_node(name, token);
+	if (*head == NULL)
+		*head = new;
+	else
+	{
+		t_node *current = *head;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
+	}
+}
+
+static t_lexer set_lexer(char *str)
+{
+	t_lexer new_lexer;
+	new_lexer.cmd = NULL;
+	new_lexer.head = NULL;
+	t_node *head = NULL;
+	
+	int i = -1;
+	char buffer[10000];
+	int j = 0;
+	char buffer2[100];
+	int k = 0;
+
+	while(str[++i])
+	{
+		if (str[i] == '\"')
+		{
+			buffer[j++] = str[i++];
+			while(str[i] != '\"')
+			{
+				buffer[j] = str[i];
+				i++;
+				j++;
+			}
+			buffer[j++] = str[i];
+		}
+		else if (str[i] == '\'')
+		{
+			buffer[j++] = str[i++];
+			while(str[i] != '\'')
+			{
+				buffer[j] = str[i];
+				i++;
+				j++;
+			}
+			buffer[j++] = str[i];
+		}
+		//INPUT
+		else if (str[i] == '<')
+		{
+			i++;
+			//HEREDOC
+			if (str[i] == '<')
+			{
+				i++;
+				while(str[i] == ' ')
+					i++;
+				while(ft_isalnum(str[i]))
+				{
+					buffer2[k] = str[i];
+					k++;
+					i++;
+				}
+				buffer2[k] = '\0';
+				append_node(&(new_lexer.head), buffer2, HEREDOC);
+				ft_memset(buffer2, 0, 100);
+				k = 0;
+			}
+			else
+			{
+				while(str[i] == ' ')
+					i++;
+				while(ft_isalnum(str[i]))
+				{
+					buffer2[k] = str[i];
+					k++;
+					i++;
+				}
+				buffer2[k] = '\0';
+				append_node(&(new_lexer.head), buffer2, INPUT);
+				ft_memset(buffer2, 0, 100);
+				k = 0;
+			}
+			i--;
+		}
+		//OUTPUT
+		else if (str[i] == '>')
+		{
+			i++;
+			//APPEND
+			if (str[i] == '>')
+			{
+				i++;
+				while(str[i] == ' ')
+					i++;
+				while(ft_isalnum(str[i]))
+				{
+					buffer2[k] = str[i];
+					k++;
+					i++;
+				}
+				buffer2[k] = '\0';
+				append_node(&(new_lexer.head), buffer2, APPEND);
+				ft_memset(buffer2, 0, 100);
+				k = 0;
+			}
+			else
+			{
+				while(str[i] == ' ')
+					i++;
+				while(ft_isalnum(str[i]))
+				{
+					buffer2[k] = str[i];
+					k++;
+					i++;
+				}
+				buffer2[k] = '\0';
+				append_node(&(new_lexer.head), buffer2, OUTPUT);
+				ft_memset(buffer2, 0, 100);
+				k = 0;
+			}
+			i--;
+		}
+		else
+			buffer[j++] = str[i];
+		if (!str[i])
+			break;
+	}
+	buffer[j] = '\0';
+	new_lexer.cmd = ft_strdup(buffer);
+	return new_lexer;
+} 
 
 t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 {
 	char	**split;
-	int		i;
-	t_lexer	*head = NULL;
-	t_lexer	*lexer = NULL;
-	char *new_line;
+	t_lexer	*lexer;
+	int count;
+	int i;
 
-	if (!(new_line = checker(line, env, *data)))
-		return (data->env_var = 2, NULL);
-	if (!ft_strcmp(new_line, "\0"))
+	count = 0;
+	lexer = NULL;
+	if (!line)
 		return (NULL);
+	if (!strcmp(line, "\0"))
+		return (ft_free(1, &line), NULL);
+	if (check_after_pipe_and_semicolon(line))
+		return (ft_free(1, &line), NULL);
+	split = ft_splittrim(get_cmd_splitted(line, &count), " ");
+	if (!split)
+		return (ft_free(1, &line), NULL);
+	lexer = malloc(sizeof(t_lexer) * count);
+	if (!lexer)
+		return (ft_free(1, &line), NULL);
+	data->nbr_cmd = count;
 	i = -1;
-	split = ft_split(new_line, "|");
-	while (split[++i])
-	{
-		lexer = lexer_parsing(split[i]);
-		if (!lexer)
-			free_lexer(lexer);
-		ft_lexer_add(&head, lexer);
-	}
-	return (head);
+	while(++i < count)
+		lexer[i] = set_lexer(split[i]);
+	return (ft_free_matrix(1, &split), ft_free(1, &line), lexer);
 }

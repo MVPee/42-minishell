@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 18:08:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:53:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	ft_open(char *file, t_token token)
 	return (-1);
 }
 
-bool	check_file(t_parsing *parsing, t_lexer *lexer)
+bool	check_file(t_parsing *parsing, t_lexer lexer)
 {
 	t_node	*node;
 	char	*temp;
 	char	*temp_cmd;
 
 	node = NULL;
-	node = lexer->head;
+	node = lexer.head;
 	while (node)
 	{
 		if (node->token == INPUT)
@@ -63,30 +63,6 @@ bool	check_file(t_parsing *parsing, t_lexer *lexer)
 				return (false);
 			}
 		}
-		else if (node->token == CMD)
-		{
-			temp = ft_strdup(node->name);
-			if (!temp)
-			{
-				perror("Memory allocation error");
-				return (false);
-			}
-			if (parsing->cmd == NULL)
-				parsing->cmd = temp;
-			else
-			{
-				temp_cmd = ft_strjoin(parsing->cmd, " ");
-				if (!temp_cmd)
-				{
-					perror("Memory allocation error");
-					free(temp);
-					return (false);
-				}
-				parsing->cmd = ft_strjoin(temp_cmd, temp);
-				free(temp);
-				free(temp_cmd);
-			}
-		}
 		else if (node->token == HEREDOC)
 		{
 			parsing->heredoc = ft_heredoc(node->name);
@@ -114,21 +90,26 @@ void	init_parsing(t_parsing *parsing)
 	parsing->next = NULL;
 }
 
-t_parsing *ft_parsing(t_lexer *lexer, t_data *data)
+t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 {
     t_parsing *head = NULL;
     t_parsing *prev_parsing = NULL;
+	int i = -1;
 
     if (!lexer)
         return (data->env_var = 2, NULL);
-    while (lexer)
+    while (++i < data->nbr_cmd)
     {
         t_parsing *current_parsing = malloc(sizeof(t_parsing));
         if (!current_parsing)
             return NULL;
         init_parsing(current_parsing);
-        if (!check_file(current_parsing, lexer))
+        if (!check_file(current_parsing, lexer[i]))
             return (data->env_var = 1, NULL);
+		if (!ft_strcmp(ft_split(lexer[i].cmd, " ")[0], "export"))
+			current_parsing->cmd = ft_strdup(lexer[i].cmd);
+		else
+			current_parsing->cmd = checker(lexer[i].cmd, env, *data);
         if (isbuiltins(current_parsing->cmd))
             current_parsing->isbuiltins = true;
         if (prev_parsing)
@@ -136,7 +117,7 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data)
         else
             head = current_parsing;
         prev_parsing = current_parsing;
-        lexer = lexer->next;
     }
+	free_lexer(lexer);
     return head;
 }

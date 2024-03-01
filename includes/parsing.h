@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 17:03:26 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 13:45:52 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ typedef struct s_parsing
 	struct s_parsing	*next;
 }						t_parsing;
 
-t_parsing				*ft_parsing(t_lexer *lexer, t_data *data);
+t_parsing				*ft_parsing(t_lexer *lexer, t_data *data, t_env *head);
 void					init_parsing(t_parsing *parsing);
 char					*ft_heredoc(char *stop);
+char					*checker(char *line, t_env *head, t_data data);
 
 #endif

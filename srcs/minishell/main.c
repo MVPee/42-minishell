@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/29 12:18:45 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/01 13:44:16 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int ac, char **argv, char **envs)
 	print_welcome_message(head);
 	while (1)
 	{
+		data.nbr_cmd = 0;
 		str_readline = get_str_readline();
 		line = readline(str_readline);
 		ft_free(1, &str_readline);
@@ -69,7 +70,7 @@ int	main(int ac, char **argv, char **envs)
 			ft_printf("exit\n");
 			break ;
 		}
-		process(&head, &data, ft_parsing(ft_lexer(line, &data, head), &data));
+		process(&head, &data, ft_parsing(ft_lexer(ft_strtrim(line, " "), &data, head), &data, head));
 		ft_free(1, &line);
 	}
 	free_env_list(head);

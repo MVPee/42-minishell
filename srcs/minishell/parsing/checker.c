@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/01 09:34:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:51:36 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,17 @@ static char *check_variable(char *line, t_env *head, t_data data)
                 buffer[j] = line[i];
                 j++;
             }
+        }
+        else if (line[i] == '\\')
+        {
+            i++;
+            if (line[i] == '\\')
+            {
+                buffer[j] = line[i];
+                j++;
+            }
+            else
+                i--;
         }
         else if (line[i] == '$')
         {

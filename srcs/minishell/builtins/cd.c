@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/29 14:35:33 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/01 19:27:53 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,12 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 	return (ft_free(1, &temp), 0);
 }
 
-char	*ft_cd(t_env *head, t_data *data, char **split, t_parsing *next)
+void	ft_cd(t_env *head, t_data *data, char **split)
 {
 	
 	char	buffer[500];
 	char	*temp;
 
-	if (next)
-		return(ft_strdup(""));
 	data->env_var = 0;
 	if (ft_splitlen((const char **)split) > 2)
 	{
@@ -84,5 +82,4 @@ char	*ft_cd(t_env *head, t_data *data, char **split, t_parsing *next)
 		data->env_var = ft_cd_with_minus(head, split);
 	else
 		data->env_var = ft_cd_others(head, split);
-	return(NULL);
 }

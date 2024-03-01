@@ -6,16 +6,16 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 10:59:48 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/02/27 20:37:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 19:16:19 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-char	*ft_pwd(t_data *data, t_env **head)
+void	ft_pwd(t_data *data, t_env **head)
 {
 	char buffer[500];
 
 	data->env_var = 0;
-	return (ft_strjoin(getcwd(buffer, 500), "\n"));
+	ft_printf("%s\n", getcwd(buffer, 500));
 }

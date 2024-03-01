@@ -22,12 +22,13 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
 		srcs/minishell/parsing/checker.c \
+		srcs/minishell/parsing/path_checker.c \
 		srcs/minishell/parsing/utils_parsing.c
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) -g -ggdb3 -fsanitize=address #-Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft -lreadline -g -ggdb3 -fsanitize=address
+CFLAGS = -I$(LIBFT) #-g -ggdb3 -fsanitize=address #-Wall -Werror -Wextra
+LDFLAGS = -L$(LIBFT) -lft -lreadline #-g -ggdb3 -fsanitize=address
 
 RED=\033[0;31m
 GREEN=\033[0;32m

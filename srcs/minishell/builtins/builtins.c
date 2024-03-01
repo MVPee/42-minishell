@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/28 18:08:54 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/01 19:16:33 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool isbuiltins(char *line)
 	return (ft_free_matrix(1, &result), ft_free(1, &str), false);
 }
 
-char *builtins(t_env **head, t_data *data, char *line, t_parsing *next)
+char *builtins(t_env **head, t_data *data, char *line)
 {
 	char	**split;
 	char *temp;
@@ -39,17 +39,17 @@ char *builtins(t_env **head, t_data *data, char *line, t_parsing *next)
 		return (ft_free(1, &temp), NULL);
 	split = ft_split(line, " ");
 	if (!ft_strcmp(split[0], "echo"))
-		return(ft_echo(data, split));
+		ft_echo(data, line);
 	else if (!ft_strcmp(split[0], "env"))
-		return(ft_env(data, *head, split));
+		ft_env(data, *head, split);
 	else if (!ft_strcmp(split[0], "pwd"))
-		return(ft_pwd(data, head));
+		ft_pwd(data, head);
 	else if (!ft_strcmp(split[0], "unset"))
-		return(ft_unset(head, data, line));
+		ft_unset(head, data, line);
 	else if (!ft_strcmp(split[0], "export"))
 		ft_export(*head, data, line);
 	else if(!ft_strcmp(split[0], "cd"))
-		return(ft_cd(*head, data, split, next));
+		ft_cd(*head, data, split);
 	else
 		return (ft_free(1, &temp), ft_free_matrix(1, &split), NULL);
 	return (ft_free(1, &temp), ft_free_matrix(1, &split), NULL);

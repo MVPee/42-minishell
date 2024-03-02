@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/01 20:19:42 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/02 14:26:17 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	if (!parsing || !parsing->cmd)
 		return ;
 
-	// if (data->nbr_cmd == 1)
-	// {
-	// 	builtins(head, data, parsing[0].cmd);
-	// 	return;
-	// }
+	if (data->nbr_cmd == 1 && !ft_strcmp(ft_split(parsing[0].cmd, " ")[0], "cd"))
+	{
+		builtins(head, data, parsing[0].cmd);
+		return;
+	}
 
 	for (int i = 0; i < data->nbr_cmd - 1; i++)
         pipe(pipefds[i]);
@@ -37,6 +37,12 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		
 		if (pid[i] == 0)
         {
+			if (parsing[i].path == NULL && !parsing[i].isbuiltins)
+			{
+				ft_printf("%s: command not found\n", ft_split(parsing[i].cmd, " ")[0]);
+                exit(1);
+			}
+
             if (i < data->nbr_cmd - 1)
             	dup2(pipefds[i][1], STDOUT_FILENO);
 

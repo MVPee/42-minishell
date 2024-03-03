@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 17:01:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 18:39:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,15 @@ char **get_args(char *line, t_env *head, t_data data)
         {
             while(line[++i] != '\'' && line[i])
             {
+                ft_printf("line: %c\n", line[i]);
                 buffer[j] = line[i];
                 j++;
             }
-            i++;
         }
         else if (line[i] == '\\')
             if (line[++i] == '\\')
                 buffer[j++] = line[i++];
-        if (line[i] == '$')
+        else if (line[i] == '$')
         {
             if (line[i + 1] == '?')
             {
@@ -158,8 +158,9 @@ char **get_args(char *line, t_env *head, t_data data)
             ft_memset(buffer, 0, 10000);
             j = 0;
         }
-        else
+        if (ft_isprint(line[i]) && line[i] != '\'' && line[i] != '\"' && line[i] != ' ')
             buffer[j++] = line[i];
+            
         if (!line[i])
             break;
     }
@@ -167,6 +168,5 @@ char **get_args(char *line, t_env *head, t_data data)
     if (buffer[0] != '\0')
         split = ft_splitjoin(split, buffer);
     ft_memset(buffer, 0, 10000);
-    ft_putsplit(split, "RESULT:");
     return (split);
 }

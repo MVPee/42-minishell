@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 16:53:12 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:56:12 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		if (pid[i] == 0)
         {
 			if (parsing[i].cmd == NULL)
+			{
+				if (parsing[i].input != -1 || parsing[i].output != -1)
+					exit(0);
 				exit(1);
-
+			}
+				
 			if (parsing[i].path == NULL && !parsing[i].isbuiltins)
 			{
 				ft_printf("%s: command not found\n", parsing[i].cmd_args[0]);

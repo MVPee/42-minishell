@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 14:34:52 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:35:52 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_env
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>
+#include <errno.h>
 
 // Env Init
 t_env				*env_init(char **envs);

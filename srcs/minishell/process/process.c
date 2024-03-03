@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 16:32:38 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:35:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 			{
 				execve(parsing[i].path, parsing[i].cmd_args, env_to_tab(*head));
 				perror(parsing[i].cmd);
+				if (errno == EACCES)
+					exit(126);
 				exit(1);
 			}
         }
@@ -108,7 +110,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 
 	for (int i = 0; i < data->nbr_cmd; i++)
         waitpid(pid[i], &status, 0);
-
 
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);

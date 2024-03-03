@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 14:52:22 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:04:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ char **get_args(char *line, t_env *head, t_data data)
         }
         if (line[i] == '\"')
         {
-            buffer[j] = '\0';
-            if (buffer[0] != '\0')
-                split = ft_splitjoin(split, buffer);
-            ft_memset(buffer, 0, 10000);
-            j = 0;
             while(line[++i] != '\"' && line[i])
             {
                 if (line[i] == '$')
@@ -104,30 +99,15 @@ char **get_args(char *line, t_env *head, t_data data)
                     buffer[j++] = line[i];
                 }
             }
-            buffer[j] = '\0';
-            if (buffer[0] != '\0')
-                split = ft_splitjoin(split, buffer);
-            ft_memset(buffer, 0, 10000);
-            j = 0;
             i++;
         }
         else if (line[i] == '\'')
         {
-            buffer[j] = '\0';
-            if (buffer[0] != '\0')
-                split = ft_splitjoin(split, buffer);
-            ft_memset(buffer, 0, 10000);
-            j = 0;
             while(line[++i] != '\'' && line[i])
             {
                 buffer[j] = line[i];
                 j++;
             }
-            buffer[j] = '\0';
-            if (buffer[0] != '\0')
-                split = ft_splitjoin(split, buffer);
-            ft_memset(buffer, 0, 10000);
-            j = 0;
             i++;
         }
         else if (line[i] == '\\')

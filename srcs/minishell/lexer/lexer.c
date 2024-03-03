@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/01 20:03:30 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 15:34:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_lexer set_lexer(char *str)
 		if (str[i] == '\"')
 		{
 			buffer[j++] = str[i++];
-			while(str[i] != '\"')
+			while(str[i] != '\"' && str[i])
 			{
 				buffer[j] = str[i];
 				i++;
@@ -66,7 +66,7 @@ static t_lexer set_lexer(char *str)
 		else if (str[i] == '\'')
 		{
 			buffer[j++] = str[i++];
-			while(str[i] != '\'')
+			while(str[i] != '\'' && str[i])
 			{
 				buffer[j] = str[i];
 				i++;

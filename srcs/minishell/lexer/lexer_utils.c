@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 15:09:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 15:37:21 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char **get_cmd_splitted(char *line, int *count)
 		if (line[i] == '\"')
 		{
 			buffer[j++] = line[i];
-			while(line[++i] != '\"')
+			while(line[++i] != '\"' && line[i])
 			{
 				buffer[j] = line[i];
 				j++;
@@ -34,7 +34,7 @@ char **get_cmd_splitted(char *line, int *count)
 		else if (line[i] == '\'')
 		{
 			buffer[j++] = line[i];
-			while(line[++i] != '\'')
+			while(line[++i] != '\'' && line[i])
 			{
 				buffer[j] = line[i];
 				j++;
@@ -121,14 +121,18 @@ bool	check_after_pipe_and_semicolon(char *str)
 		if (line[i] == '\"')
 		{
 			i++;
-			while (line[i] != '\"' && line[i])
+			while (line[i] && line[i] != '\"')
 				i++;
+			if (!line[i])
+				return (ft_printf("syntax error unclosed \" token\n"), true);
 		}
 		else if (line[i] == '\'')
 		{
 			i++;
-			while (line[i] != '\'' && line[i])
+			while (line[i] && line[i] != '\'')
 				i++;
+			if (!line[i])
+				return (ft_printf("syntax error unclosed \' token\n"), true);
 		}
 		else if (line[i] == ';')
 		{

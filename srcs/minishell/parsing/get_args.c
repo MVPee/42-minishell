@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 14:21:56 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 14:52:22 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char **get_args(char *line, t_env *head, t_data data)
         else if (line[i] == '\\')
             if (line[++i] == '\\')
                 buffer[j++] = line[i++];
-        else if (line[i] == '$')
+        if (line[i] == '$')
         {
             if (line[i + 1] == '?')
             {

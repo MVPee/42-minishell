@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 14:30:18 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 15:28:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	pid_t pid[data->nbr_cmd];
 	int pipefds[data->nbr_cmd - 1][2];
 
-	if (!parsing || !parsing->cmd)
+	if (!parsing)
 		return ;
 
-	if (data->nbr_cmd == 1 && !ft_strcmp(parsing[0].cmd_args[0], "cd"))
+	if (parsing[0].cmd && data->nbr_cmd == 1)
 	{
-		builtins(head, data, parsing[0]);
-		return;
+		if (!ft_strcmp(parsing[0].cmd_args[0], "cd"))
+		{
+			builtins(head, data, parsing[0]);
+			return;
+		}
 	}
-
+	
 	for (int i = 0; i < data->nbr_cmd - 1; i++)
         pipe(pipefds[i]);
 
@@ -37,10 +40,13 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		
 		if (pid[i] == 0)
         {
+			if (parsing[i].cmd == NULL)
+				exit(0);
+
 			if (parsing[i].path == NULL && !parsing[i].isbuiltins)
 			{
 				ft_printf("%s: command not found\n", ft_split(parsing[i].cmd, " ")[0]);
-                exit(1);
+                exit(0);
 			}
 
             if (i < data->nbr_cmd - 1)

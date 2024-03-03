@@ -6,17 +6,36 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/02 14:10:00 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 14:46:04 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void ft_echo(t_data *data, char *line)
+void ft_echo(t_data *data, char **split)
 {
-    char *new_line;
+    bool flag;
+    int i;
 
-    new_line = ft_substr(line, 5, ft_strlen(line) - 5);
-    ft_printf("%s\n", new_line);
+    flag = true;
+    i = 0;
+    if (!split[1])
+    {
+        ft_printf("\n");
+        return ;
+    }
+    if (!ft_strcmp(split[1], "-n"))
+    {
+        i++;
+        flag = false;
+    }
+    while(split[++i])
+    {
+        ft_printf("%s", split[i]);
+        if (split[i + 1])
+            ft_printf(" ");
+    }
+    if (flag)
+        ft_printf("\n");
     data->env_var = 0;
 }

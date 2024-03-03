@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 14:28:44 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 14:34:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char *builtins(t_env **head, t_data *data, t_parsing parsing)
 	char buffer[500];
 
 	if (!ft_strcmp(parsing.cmd_args[0], "echo"))
-		ft_echo(data, parsing.cmd);
+		ft_echo(data, parsing.cmd_args);
 	else if (!ft_strcmp(parsing.cmd_args[0], "env"))
 		ft_env(data, *head, parsing.cmd_args);
 	else if (!ft_strcmp(parsing.cmd_args[0], "pwd"))

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 18:39:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 18:42:26 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,18 @@ char **get_args(char *line, t_env *head, t_data data)
             }
             i++;
         }
-        else if (line[i] == '\'')
+        if (line[i] == '\'')
         {
             while(line[++i] != '\'' && line[i])
             {
-                ft_printf("line: %c\n", line[i]);
                 buffer[j] = line[i];
                 j++;
             }
         }
-        else if (line[i] == '\\')
+        if (line[i] == '\\')
             if (line[++i] == '\\')
                 buffer[j++] = line[i++];
-        else if (line[i] == '$')
+        if (line[i] == '$')
         {
             if (line[i + 1] == '?')
             {

@@ -23,7 +23,8 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/parsing/parsing.c \
 		srcs/minishell/parsing/checker.c \
 		srcs/minishell/parsing/path_checker.c \
-		srcs/minishell/parsing/utils_parsing.c
+		srcs/minishell/parsing/utils_parsing.c \
+		srcs/minishell/parsing/get_args.c
 
 OBJS = $(SRCS:.c=.o)
 

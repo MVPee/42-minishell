@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/02 14:26:17 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 14:30:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	if (!parsing || !parsing->cmd)
 		return ;
 
-	if (data->nbr_cmd == 1 && !ft_strcmp(ft_split(parsing[0].cmd, " ")[0], "cd"))
+	if (data->nbr_cmd == 1 && !ft_strcmp(parsing[0].cmd_args[0], "cd"))
 	{
-		builtins(head, data, parsing[0].cmd);
+		builtins(head, data, parsing[0]);
 		return;
 	}
 
@@ -81,14 +81,13 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 				dup2(pipefds[i][1], STDOUT_FILENO);
 				close(pipefds[i][1]);
 				close(pipefds[i][0]);
-				builtins(head, data, parsing[i].cmd);
+				builtins(head, data, parsing[i]);
 				exit(0);
 			}
 				
 			else
 			{
-				char **split_cmd = ft_split(parsing[i].cmd, " ");
-				execve(parsing[i].path, split_cmd, env_to_tab(*head));
+				execve(parsing[i].path, parsing[i].cmd_args, env_to_tab(*head));
 				perror(parsing[i].cmd);
 				exit(1);
 			}

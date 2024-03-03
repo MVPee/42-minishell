@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/02 13:51:15 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 14:26:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_parsing init_parsing()
 	t_parsing parsing;
 
 	parsing.cmd = NULL;
+	parsing.cmd_args = NULL;
 	parsing.input = -1;
 	parsing.output = -1;
     parsing.isbuiltins = false;
@@ -109,14 +110,11 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 			parsing[i].cmd = ft_strdup(lexer[i].cmd);
 		else
 			parsing[i].cmd = checker(lexer[i].cmd, env, *data);
+		parsing[i].cmd_args = get_args(lexer[i].cmd, env, *data);
 		if (!(parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), ft_split(parsing[i].cmd, " ")[0])))
-		{
 			if (isbuiltins(parsing[i].cmd))
             	parsing[i].isbuiltins = true;
-			// else
-			// 	return (free_lexer(lexer), NULL); // free parsing;
-		}
     }
 	free_lexer(lexer);
-    return parsing;
+    return (parsing);
 }

@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 10:46:23 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/03 12:10:02 by mvpee            ###   ########.fr       */
+/*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
+/*   Updated: 2024/03/03 14:21:56 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static char *check_variable(char *line, t_env *head, t_data data)
+char **get_args(char *line, t_env *head, t_data data)
 {
+    char **split = NULL;
     int i = -1;
-    int j;
-    int k;
-    int p;
     char buffer[10000];
-    char buffer2[500];
+    int j = 0;
+    char buffer2[1000];
+    int k = 0;
     char *value;
-    int flag = 0;
+    int p = 0;
 
-    j = 0;
-    k = 0;
     while(line[++i])
     {
         if (i == 0)
@@ -58,6 +56,11 @@ static char *check_variable(char *line, t_env *head, t_data data)
         }
         if (line[i] == '\"')
         {
+            buffer[j] = '\0';
+            if (buffer[0] != '\0')
+                split = ft_splitjoin(split, buffer);
+            ft_memset(buffer, 0, 10000);
+            j = 0;
             while(line[++i] != '\"' && line[i])
             {
                 if (line[i] == '$')
@@ -101,26 +104,35 @@ static char *check_variable(char *line, t_env *head, t_data data)
                     buffer[j++] = line[i];
                 }
             }
+            buffer[j] = '\0';
+            if (buffer[0] != '\0')
+                split = ft_splitjoin(split, buffer);
+            ft_memset(buffer, 0, 10000);
+            j = 0;
+            i++;
         }
         else if (line[i] == '\'')
         {
+            buffer[j] = '\0';
+            if (buffer[0] != '\0')
+                split = ft_splitjoin(split, buffer);
+            ft_memset(buffer, 0, 10000);
+            j = 0;
             while(line[++i] != '\'' && line[i])
             {
                 buffer[j] = line[i];
                 j++;
             }
+            buffer[j] = '\0';
+            if (buffer[0] != '\0')
+                split = ft_splitjoin(split, buffer);
+            ft_memset(buffer, 0, 10000);
+            j = 0;
+            i++;
         }
         else if (line[i] == '\\')
-        {
-            i++;
-            if (line[i] == '\\')
-            {
-                buffer[j] = line[i];
-                j++;
-            }
-            else
-                i--;
-        }
+            if (line[++i] == '\\')
+                buffer[j++] = line[i++];
         else if (line[i] == '$')
         {
             if (line[i + 1] == '?')
@@ -157,19 +169,22 @@ static char *check_variable(char *line, t_env *head, t_data data)
                 i--;
             }
         }
+        if (line[i] == ' ')
+        {
+            buffer[j] = '\0';
+            if (buffer[0] != '\0')
+                split = ft_splitjoin(split, buffer);
+            ft_memset(buffer, 0, 10000);
+            j = 0;
+        }
         else
             buffer[j++] = line[i];
         if (!line[i])
             break;
     }
     buffer[j] = '\0';
-    return (ft_strdup(buffer));
-}
-
-char *checker(char *line, t_env *head, t_data data)
-{
-    char *new_line = NULL;
-
-    new_line = check_variable(line, head, data);
-	return (new_line);
+    if (buffer[0] != '\0')
+        split = ft_splitjoin(split, buffer);
+    ft_memset(buffer, 0, 10000);
+    return (split);
 }

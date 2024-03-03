@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:24 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/01 18:58:25 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 11:51:32 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ static char	*find_executable_path(char **paths, char *cmd)
 	int		i;
 	char	*path;
 	char	*temp;
+	char	**split;
 
-	if (!paths || !cmd)
+	if (!cmd)
+		return (NULL);
+	if (access(ft_split(cmd, " ")[0], F_OK) == 0)
+		return (ft_split(cmd, " ")[0]);
+	if (!paths)
 		return (NULL);
 	if (cmd[0] == '.' && cmd[1] == '/')
 		return (ft_free_matrix(1, &paths), NULL);

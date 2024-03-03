@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:02:28 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/01 10:46:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 13:12:09 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char    **ft_splitjoin(char **split, char *need_to_add_to_split)
     i = -1;
     while (++i < count)
         new_split[i] = ft_strdup(split[i]);
-    new_split[count] = ft_strjoin(need_to_add_to_split, "");
+    new_split[count] = ft_strdup(need_to_add_to_split);
     if (!new_split[count])
         return (ft_free_matrix(2, &new_split, &split), NULL);
     new_split[count + 1] = NULL;

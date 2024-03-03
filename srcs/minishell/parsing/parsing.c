@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 15:27:12 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:17:01 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,11 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
     {
         parsing[i] = init_parsing();
         if (!check_file(&parsing[i], lexer[i]))
-            return (data->env_var = 1, NULL);
+        {
+			data->env_var = 1;
+			ft_free(1, &lexer[i].cmd);
+			lexer[i].cmd = ft_strdup("");
+		}
 		if (ft_strcmp(lexer[i].cmd, ""))
 		{
 			if (!ft_strcmp(ft_split(lexer[i].cmd, " ")[0], "export"))

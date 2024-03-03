@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 16:04:48 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:22:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char **get_args(char *line, t_env *head, t_data data)
                     buffer[j] = value[p];
                     j++;
                 }
+                i++;
             }
             else
             {

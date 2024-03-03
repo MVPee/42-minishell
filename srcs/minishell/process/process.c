@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 15:28:25 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 16:32:38 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 
 			if (parsing[i].path == NULL && !parsing[i].isbuiltins)
 			{
-				ft_printf("%s: command not found\n", ft_split(parsing[i].cmd, " ")[0]);
-                exit(0);
+				ft_printf("%s: command not found\n", parsing[i].cmd_args[0]);
+                exit(127);
 			}
 
             if (i < data->nbr_cmd - 1)
@@ -107,6 +107,9 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
     }
 
 	for (int i = 0; i < data->nbr_cmd; i++)
-        waitpid(pid[i], NULL, 0);
+        waitpid(pid[i], &status, 0);
 
+
+	if (WIFEXITED(status))
+		data->env_var = WEXITSTATUS(status);
 }

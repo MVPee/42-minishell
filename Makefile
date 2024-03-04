@@ -13,6 +13,7 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/builtins/pwd.c \
 		srcs/minishell/builtins/unset.c \
 		srcs/minishell/builtins/export.c \
+		srcs/minishell/builtins/exit.c \
 		srcs/minishell/builtins/utils/export_utils.c \
 		srcs/minishell/builtins/utils/export_sort.c \
 		srcs/minishell/builtins/cd.c \

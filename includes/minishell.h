@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 16:35:52 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/04 03:43:15 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[37m"
 # define BLACK "\033[30m"
-
-# include <stdbool.h>
+# define LONG_MAX_STRING "9223372036854775807"
+# define LONG_MIN_STRING "-9223372036854775808"
 
 typedef struct s_data
 {
@@ -49,7 +49,9 @@ typedef struct s_env
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <sys/wait.h>
-#include <errno.h>
+# include <errno.h>
+# include <stdbool.h>
+
 
 // Env Init
 t_env				*env_init(char **envs);
@@ -65,8 +67,10 @@ t_env				*find_key(t_env *head, char *key);
 char				*get_value(t_env *target_node);
 t_env				*remove_top_node(t_env **head);
 t_env				*get_last_entry(t_env **head);
-void				write_value(t_env *head, char *key, char *value);
+void				write_value(t_env **head, char *key, char *value);
 void				free_env_list(t_env *head);
+void				shell_lvl_handler(t_env *head);
+void				update_content_of_node(t_env **created_node, char **splitted_arguments);
 
 // Builtins
 char				*builtins(t_env **head, t_data *data, t_parsing parsing);
@@ -75,8 +79,9 @@ void				ft_echo(t_data *data, char **split);
 void				ft_env(t_data *data, t_env *head, char **split);
 void				ft_pwd(t_data *data, t_env **head);
 void				ft_unset(t_env **head, t_data *data, char *line);
-void				ft_export(t_env *head, t_data *data, char *line);
+void				ft_export(t_env **head, t_data *data, char **split);
 void				ft_cd(t_env *head, t_data *data, char **split);
+void				ft_exit(t_env *head ,t_data *data, char **split);
 
 // Builtsins Utils
 bool				is_key_valid(char *str);

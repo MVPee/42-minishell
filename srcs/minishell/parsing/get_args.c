@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 17:01:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 19:12:04 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,5 @@ char **get_args(char *line, t_env *head, t_data data)
     if (buffer[0] != '\0')
         split = ft_splitjoin(split, buffer);
     ft_memset(buffer, 0, 10000);
-    ft_putsplit(split, "RESULT:");
     return (split);
 }

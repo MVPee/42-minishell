@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 14:34:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/04 03:28:28 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool isbuiltins(char *line)
 		return false;
 	char **result = ft_split(line, " ");
 	char *str = ft_strdup(result[0]);
-	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", NULL};
+	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", "exit", NULL};
 	int i = -1;
 
 	while(split[++i])
@@ -41,8 +41,10 @@ char *builtins(t_env **head, t_data *data, t_parsing parsing)
 	else if (!ft_strcmp(parsing.cmd_args[0], "unset"))
 		ft_unset(head, data, parsing.cmd);
 	else if (!ft_strcmp(parsing.cmd_args[0], "export"))
-		ft_export(*head, data, parsing.cmd);
+		ft_export(head, data, parsing.cmd_args);
 	else if(!ft_strcmp(parsing.cmd_args[0], "cd"))
 		ft_cd(*head, data, parsing.cmd_args);
+	else if (!ft_strcmp(parsing.cmd_args[0], "exit"))
+		ft_exit(*head, data, parsing.cmd_args);	
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/26 13:34:53 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/03 19:36:58 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ char	*get_value(t_env *target_node)
 	return (NULL);
 }
 
-void	write_value(t_env *head, char *key, char *value)
+void	write_value(t_env **head, char *key, char *value)
 {
 	t_env	*target_node;
 	char	*initial_string;
 	char	*string_to_join;
 
-	target_node = find_key(head, key);
+	target_node = find_key(*head, key);
 	if (!target_node || !value)
 		return ;
 	initial_string = target_node->value;

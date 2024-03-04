@@ -3,63 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/29 10:17:15 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/04 03:46:01 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-char	**env_split(char *env)
+static t_env	*create_null_node(char *entry)
 {
-	char	**result;
-	char	*split;
-	size_t	len;
-	
-	split = ft_strchr(env, '=');
-	if (!split || split == env)
+	t_env	*created_node;
+
+	created_node = (t_env *)malloc(sizeof(t_env));
+	if (!created_node)
 		return (NULL);
-	len = split - env;
-	result = (char **)malloc(3 * sizeof(char *));
-	if (!result)
-		return (NULL);
-	result[0] = ft_strndup(env, len);
-	if (!result[0])
-		return (free(result), NULL);
-	result[1] = ft_strdup(split + 1);
-	result[2] = NULL;
-	return (result);
+	created_node->key = ft_strdup(entry);
+	created_node->value = NULL;
+	created_node->next = NULL;
+	created_node->prv = NULL;
+	return (created_node);
 }
 
 static t_env	*create_node(char *entry)
 {
 	t_env	*created_node;
-	char *temp;
 	char	**splitted_arguments;
 	
-	created_node = (t_env *)malloc(sizeof(t_env));
-	if (!created_node)
+	if (!entry)
 		return (NULL);
 	splitted_arguments = env_split(entry);
 	if (!splitted_arguments)
-		return (free(created_node), created_node = NULL, NULL);
+		return (create_null_node(entry));
+	created_node = (t_env *)malloc(sizeof(t_env));
+	if (!created_node)
+		return (ft_free_matrix(1, &splitted_arguments), NULL);
 	created_node->key = NULL;
 	if (splitted_arguments[0])
 		created_node->key = ft_strdup(splitted_arguments[0]);
 	created_node->value = NULL;
 	if (splitted_arguments[1])
-	{
-		if (!ft_strcmp(created_node->key, "SHLVL"))
-			created_node->value = ft_itoa(ft_atoi(splitted_arguments[1]) + 1);
-		else
-		{
-			temp = ft_strdup(splitted_arguments[1]);
-			created_node->value = ft_strtrim(temp, " ");
-			free(temp);
-		}
-	}
+		update_content_of_node(&created_node, splitted_arguments);
 	created_node->next = NULL;
 	created_node->prv = NULL;
 	ft_free_matrix(1, &splitted_arguments);
@@ -115,7 +100,6 @@ t_env	*env_remove_entry(t_env **head, char *key)
 t_env	*env_init(char **envs)
 {	
 	t_env	*head;
-	t_env	*tmp;
 	int		i;
 
 	head = NULL;
@@ -125,13 +109,6 @@ t_env	*env_init(char **envs)
 		head = env_add_entry(head, envs[i]);
 		i++;
 	}
-	if (find_key(head, "SHLVL") == NULL)
-		head = env_add_entry(head, "SHLVL=0");
-	else
-	{
-		tmp = find_key(head, "SHLVL");
-		if (ft_atoi(tmp->value) >= 1000)
-			tmp->value = ft_itoa(1);
-	}
+	shell_lvl_handler(head);
 	return (head);
 }

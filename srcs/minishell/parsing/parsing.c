@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 16:17:01 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/03 18:49:31 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,10 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 				parsing[i].cmd = ft_strdup(lexer[i].cmd);
 			else
 				parsing[i].cmd = checker(lexer[i].cmd, env, *data);
-			parsing[i].cmd_args = get_args(lexer[i].cmd, env, *data);
-			if (!(parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), ft_split(parsing[i].cmd, " ")[0])))
+			parsing[i].cmd_args = get_args(lexer[i].cmd, env, *data), " ";
+			if (!parsing[i].cmd_args)
+				return (free_lexer(lexer), NULL);
+			if (parsing[i].cmd && !(parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), parsing[i].cmd_args[0])))
 				if (isbuiltins(parsing[i].cmd))
 					parsing[i].isbuiltins = true;
 		}

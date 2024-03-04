@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 19:12:04 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/04 07:28:56 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,15 @@ char **get_args(char *line, t_env *head, t_data data)
             }
             i++;
         }
-        else if (line[i] == '\'')
+        if (line[i] == '\'')
         {
             while(line[++i] != '\'' && line[i])
             {
                 buffer[j] = line[i];
                 j++;
             }
-            i++;
         }
-        else if (line[i] == '\\')
+        if (line[i] == '\\')
             if (line[++i] == '\\')
                 buffer[j++] = line[i++];
         if (line[i] == '$')
@@ -158,8 +157,9 @@ char **get_args(char *line, t_env *head, t_data data)
             ft_memset(buffer, 0, 10000);
             j = 0;
         }
-        else
+        if (ft_isprint(line[i]) && line[i] != '\'' && line[i] != '\"' && line[i] != ' ')
             buffer[j++] = line[i];
+            
         if (!line[i])
             break;
     }

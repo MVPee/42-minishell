@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/02/29 10:09:10 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/04 03:48:20 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,26 @@ static void add_env(t_env *head, char *key, char *value, bool append_content)
 		return ;
 	}
 	if (append_content)
-		write_value(head, key, value);
+		write_value(&head, key, value);
 	else
 	{
-		clean_entry = reconstructed_entry(key, value);
+		if (key && value)
+			clean_entry = reconstructed_entry(key, value);
+		else
+		 	clean_entry = ft_strdup(key);
 		if (find_key(head, key))
 			env_remove_entry(&head, key);
 		env_add_entry(head, clean_entry);
 		free(clean_entry);
 	}
 	ft_free(2, &key, &value);
+}
+
+static void *add_null_content(t_env *head, char *key)
+{
+	if (!head || !key)
+		return (NULL);
+	add_env(head, key, NULL, false);
 }
 
 static void *add_content(t_env *head, char *line)
@@ -47,9 +57,7 @@ static void *add_content(t_env *head, char *line)
 
 	equal_address = ft_strchr(line, '=');
 	if (!equal_address)
-		return (error_arguments_without_equal(line));
-	else if (equal_address == line)	
-		return (error_arguments_without_equal(line));
+		return (NULL);
 	append_content = (*(equal_address - 1) == '+');
 	if (append_content)
 		stop_location = equal_address - 1;
@@ -63,22 +71,25 @@ static void *add_content(t_env *head, char *line)
 	return (NULL);
 }
 
-void	ft_export(t_env *head, t_data *data, char *line)
+void	ft_export(t_env **head, t_data *data, char **split)
 {
-	char	**splitted_args;
+	char	*temp;
 	size_t	index;
 
-	splitted_args = ft_split(line, " ");
-	if (!splitted_args)
-		return ;
-	if (ft_splitlen((const char **) splitted_args) > 1)
+	ft_putsplit(split, "RESULT:");
+	if (ft_splitlen((const char **) split) > 1)
 	{
 		index = 1;
-		while (splitted_args[index])
-			add_content(head, splitted_args[index++]);
+		while (split[index])
+		{
+			if (ft_strchr(split[index], '=') == NULL)
+			{
+				add_null_content(*head, split[index++]);
+			}
+			else
+				add_content(*head, split[index++]);
+		}
 	}
-	else 
-		ft_sorted_env(head);
-	ft_free_matrix(1, &splitted_args);
+	ft_sorted_env(*head);
 	data->env_var = 0;
 }

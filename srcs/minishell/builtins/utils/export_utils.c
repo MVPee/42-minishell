@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/24 20:12:36 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/03 23:17:32 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ bool	is_key_valid(char *str)
 
 	while (str[index])
 	{
-		if(!ft_isalnum(str[index]) && !(str[index] == '_'))
+		if (index == 0 && ft_isdigit(str[index]))
+			return (false);
+		else if(!ft_isalnum(str[index]) && !(str[index] == '_'))
 			return (false);
 		index++;
 	}

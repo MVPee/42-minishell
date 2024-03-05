@@ -24,7 +24,7 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
 		srcs/minishell/parsing/path_checker.c \
-		srcs/minishell/parsing/utils_parsing.c \
+		srcs/minishell/parsing/ft_heredoc.c \
 		srcs/minishell/parsing/parsing_cmd.c
 
 OBJS = $(SRCS:.c=.o)

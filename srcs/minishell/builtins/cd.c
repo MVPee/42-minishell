@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/02 14:22:15 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:36:17 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 
 void	ft_cd(t_env *head, t_data *data, char **split)
 {
-	
 	char	buffer[500];
 	char	*temp;
 

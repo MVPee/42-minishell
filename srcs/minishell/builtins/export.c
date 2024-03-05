@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/04 03:48:20 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:36:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void add_env(t_env *head, char *key, char *value, bool append_content)
+static void	add_env(t_env *head, char *key, char *value, bool append_content)
 {
 	char	*clean_entry;
-	
+
 	if (!head || !key)
 		return ;
 	if (!is_key_valid(key))
@@ -31,7 +31,7 @@ static void add_env(t_env *head, char *key, char *value, bool append_content)
 		if (key && value)
 			clean_entry = reconstructed_entry(key, value);
 		else
-		 	clean_entry = ft_strdup(key);
+			clean_entry = ft_strdup(key);
 		if (find_key(head, key))
 			env_remove_entry(&head, key);
 		env_add_entry(head, clean_entry);
@@ -40,14 +40,14 @@ static void add_env(t_env *head, char *key, char *value, bool append_content)
 	ft_free(2, &key, &value);
 }
 
-static void *add_null_content(t_env *head, char *key)
+static void	*add_null_content(t_env *head, char *key)
 {
 	if (!head || !key)
 		return (NULL);
 	add_env(head, key, NULL, false);
 }
 
-static void *add_content(t_env *head, char *line)
+static void	*add_content(t_env *head, char *line)
 {
 	char	*equal_address;
 	char	*stop_location;
@@ -77,15 +77,13 @@ void	ft_export(t_env **head, t_data *data, char **split)
 	size_t	index;
 
 	ft_putsplit(split, "RESULT:");
-	if (ft_splitlen((const char **) split) > 1)
+	if (ft_splitlen((const char **)split) > 1)
 	{
 		index = 1;
 		while (split[index])
 		{
 			if (ft_strchr(split[index], '=') == NULL)
-			{
 				add_null_content(*head, split[index++]);
-			}
 			else
 				add_content(*head, split[index++]);
 		}

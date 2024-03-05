@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:12:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/02/22 14:51:05 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:35:56 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	swap_env_node(t_env *a, t_env *b)
 	b->value = temp_value;
 }
 
-static t_env *copy_env_list(t_env *head) 
+static t_env	*copy_env_list(t_env *head)
 {
 	t_env	*new_head;
 	t_env	*prev;
@@ -34,7 +34,7 @@ static t_env *copy_env_list(t_env *head)
 	new_head = NULL;
 	prev = NULL;
 	new_node = NULL;
-	while (head) 
+	while (head)
 	{
 		new_node = (t_env *)malloc(sizeof(t_env));
 		if (!new_node)
@@ -42,8 +42,7 @@ static t_env *copy_env_list(t_env *head)
 		new_node->key = ft_strdup(head->key);
 		new_node->value = ft_strdup(head->value);
 		new_node->next = NULL;
-		
-		if (prev) 
+		if (prev)
 			prev->next = new_node;
 		else
 			new_head = new_node;
@@ -53,7 +52,7 @@ static t_env *copy_env_list(t_env *head)
 	return (new_head);
 }
 
-static void sort_env_list(t_env *head)
+static void	sort_env_list(t_env *head)
 {
 	int		swapped;
 	t_env	*traveling_node;
@@ -77,9 +76,9 @@ static void sort_env_list(t_env *head)
 	}
 }
 
-static void print_sorted_env(t_env *head) 
+static void	print_sorted_env(t_env *head)
 {
-	while (head) 
+	while (head)
 	{
 		ft_printf("declare -x %s=\"%s\"\n", head->key, head->value);
 		head = head->next;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/03 23:17:32 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:36:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-void *error_arguments_without_equal(char *line)
+void	*error_arguments_without_equal(char *line)
 {
 	if (!line)
 		return (NULL);
@@ -31,15 +31,14 @@ void	error_handler_export(char *s1, char *s2)
 
 bool	is_key_valid(char *str)
 {
-	size_t index;
+	size_t	index;
 
 	index = 0;
-
 	while (str[index])
 	{
 		if (index == 0 && ft_isdigit(str[index]))
 			return (false);
-		else if(!ft_isalnum(str[index]) && !(str[index] == '_'))
+		else if (!ft_isalnum(str[index]) && !(str[index] == '_'))
 			return (false);
 		index++;
 	}
@@ -48,8 +47,8 @@ bool	is_key_valid(char *str)
 
 char	*reconstructed_entry(char *s1, char *s2)
 {
-	char	*joined_string;
-	
+	char *joined_string;
+
 	joined_string = NULL;
 	if (!s1)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 12:20:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:37:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,56 @@
 
 t_node	*new_node(char *name, t_token token)
 {
-	t_node *node = malloc(sizeof(t_node));
+	t_node	*node;
+
+	node = malloc(sizeof(t_node));
 	if (!node)
 		exit(1);
 	node->name = strdup(name);
 	node->token = token;
 	node->next = NULL;
-	return node;
+	return (node);
 }
 
 void	append_node(t_node **head, char *name, t_token token)
 {
-	t_node *new = new_node(name, token);
+	t_node	*new;
+	t_node	*current;
+
+	new = new_node(name, token);
 	if (*head == NULL)
 		*head = new;
 	else
 	{
-		t_node *current = *head;
+		current = *head;
 		while (current->next != NULL)
 			current = current->next;
 		current->next = new;
 	}
 }
 
-static t_lexer set_lexer(char *str, t_env *env, t_data data)
+static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 {
-	t_lexer new_lexer;
+	t_lexer	new_lexer;
+	t_node	*head;
+	int		i;
+	char	buffer[10000];
+	int		j;
+	char	buffer2[100];
+	int		k;
+
 	new_lexer.cmd = NULL;
 	new_lexer.head = NULL;
-	t_node *head = NULL;
-	
-	int i = -1;
-	char buffer[10000];
-	int j = 0;
-	char buffer2[100];
-	int k = 0;
-
-	while(str[++i])
+	head = NULL;
+	i = -1;
+	j = 0;
+	k = 0;
+	while (str[++i])
 	{
 		if (str[i] == '\"')
 		{
 			buffer[j++] = str[i++];
-			while(str[i] != '\"' && str[i])
+			while (str[i] != '\"' && str[i])
 			{
 				buffer[j] = str[i];
 				i++;
@@ -66,7 +74,7 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 		else if (str[i] == '\'')
 		{
 			buffer[j++] = str[i++];
-			while(str[i] != '\'' && str[i])
+			while (str[i] != '\'' && str[i])
 			{
 				buffer[j] = str[i];
 				i++;
@@ -74,22 +82,22 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 			}
 			buffer[j++] = str[i];
 		}
-		//INPUT
+		// INPUT
 		else if (str[i] == '<')
 		{
 			i++;
-			//HEREDOC
+			// HEREDOC
 			if (str[i] == '<')
 			{
 				i++;
-				while(str[i] == ' ')
+				while (str[i] == ' ')
 					i++;
-				while(str[i] != ' ' && str[i])
+				while (str[i] != ' ' && str[i])
 				{
 					if (str[i] == '\'')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\'' && str[i])
+						while (str[i] != '\'' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -100,7 +108,7 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 					else if (str[i] == '\"')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\"' && str[i])
+						while (str[i] != '\"' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -118,14 +126,14 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 			}
 			else
 			{
-				while(str[i] == ' ')
+				while (str[i] == ' ')
 					i++;
-				while(str[i] != ' ' && str[i])
+				while (str[i] != ' ' && str[i])
 				{
 					if (str[i] == '\'')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\'' && str[i])
+						while (str[i] != '\'' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -136,7 +144,7 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 					else if (str[i] == '\"')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\"' && str[i])
+						while (str[i] != '\"' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -154,22 +162,22 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 			}
 			i--;
 		}
-		//OUTPUT
+		// OUTPUT
 		else if (str[i] == '>')
 		{
 			i++;
-			//APPEND
+			// APPEND
 			if (str[i] == '>')
 			{
 				i++;
-				while(str[i] == ' ')
+				while (str[i] == ' ')
 					i++;
-				while(str[i] != ' ' && str[i])
+				while (str[i] != ' ' && str[i])
 				{
 					if (str[i] == '\'')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\'' && str[i])
+						while (str[i] != '\'' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -180,7 +188,7 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 					else if (str[i] == '\"')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\"' && str[i])
+						while (str[i] != '\"' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -198,14 +206,14 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 			}
 			else
 			{
-				while(str[i] == ' ')
+				while (str[i] == ' ')
 					i++;
-				while(str[i] != ' ' && str[i])
+				while (str[i] != ' ' && str[i])
 				{
 					if (str[i] == '\'')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\'' && str[i])
+						while (str[i] != '\'' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -216,7 +224,7 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 					else if (str[i] == '\"')
 					{
 						buffer2[k++] = str[i++];
-						while(str[i] != '\"' && str[i])
+						while (str[i] != '\"' && str[i])
 						{
 							buffer2[k] = str[i];
 							k++;
@@ -237,19 +245,19 @@ static t_lexer set_lexer(char *str, t_env *env, t_data data)
 		else
 			buffer[j++] = str[i];
 		if (!str[i])
-			break;
+			break ;
 	}
 	buffer[j] = '\0';
 	new_lexer.cmd = ft_strdup(buffer);
-	return new_lexer;
-} 
+	return (new_lexer);
+}
 
 t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 {
 	char	**split;
 	t_lexer	*lexer;
-	int count;
-	int i;
+	int		count;
+	int		i;
 
 	count = 0;
 	lexer = NULL;
@@ -267,7 +275,7 @@ t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 		return (ft_free(1, &line), NULL);
 	data->nbr_cmd = count;
 	i = -1;
-	while(++i < count)
+	while (++i < count)
 		lexer[i] = set_lexer(split[i], env, *data);
 	return (ft_free_matrix(1, &split), ft_free(1, &line), lexer);
 }

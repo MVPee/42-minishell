@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/04 03:32:43 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:36:26 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int check_differences(char *str, char *bound)
+static int	check_differences(char *str, char *bound)
 {
 	size_t	index;
-	
+
 	index = 0;
 	while (str[index] && bound[index])
 	{
@@ -26,8 +26,8 @@ static int check_differences(char *str, char *bound)
 	return (1);
 }
 
-static int long_bound_check(char *str, char *bound)
-{	
+static int	long_bound_check(char *str, char *bound)
+{
 	if (!str)
 		return (0);
 	else if (*str == '-' && !ft_strcmp(bound, LONG_MAX_STRING))
@@ -35,7 +35,7 @@ static int long_bound_check(char *str, char *bound)
 	if (ft_strlen(str) == ft_strlen(bound))
 		return (check_differences(str, bound));
 	else if (ft_strlen(str) < ft_strlen(bound))
-		return (1);	
+		return (1);
 	else if (ft_strlen(str) > ft_strlen(bound))
 		return (0);
 	return (1);
@@ -53,7 +53,8 @@ static void	error_message(size_t exit_code, char **split_args)
 	}
 }
 
-static size_t error_handler(char **split_args, size_t nbr_args, long *exit_code)
+static size_t	error_handler(char **split_args, size_t nbr_args,
+		long *exit_code)
 {
 	if (nbr_args >= 2)
 	{
@@ -62,7 +63,7 @@ static size_t error_handler(char **split_args, size_t nbr_args, long *exit_code)
 			*exit_code = NUMERICAL_ARGUMENT_NESCESSARY;
 			return (-1);
 		}
-		else if (!long_bound_check(split_args[1], LONG_MIN_STRING) 
+		else if (!long_bound_check(split_args[1], LONG_MIN_STRING)
 			|| !long_bound_check(split_args[1], LONG_MAX_STRING))
 		{
 			*exit_code = NUMERICAL_ARGUMENT_NESCESSARY;
@@ -77,13 +78,13 @@ static size_t error_handler(char **split_args, size_t nbr_args, long *exit_code)
 	return (0);
 }
 
-void	ft_exit(t_env *head ,t_data *data, char **split)
+void	ft_exit(t_env *head, t_data *data, char **split)
 {
-	size_t		number_of_args;
-	long        exit_code;
-	
+	size_t number_of_args;
+	long exit_code;
+
 	exit_code = 0;
-	number_of_args = ft_splitlen((const char **) split);
+	number_of_args = ft_splitlen((const char **)split);
 	if (!error_handler(split, number_of_args, &exit_code))
 	{
 		if (number_of_args == 1)

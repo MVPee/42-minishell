@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:33:03 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:36:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char	**get_cmd_splitted(char *line, int *count)
 
 void	free_lexer(t_lexer *lexer)
 {
-	t_node *current;
-	t_node *temp;
+	t_node	*current;
+	t_node	*temp;
 
 	if (lexer)
 	{

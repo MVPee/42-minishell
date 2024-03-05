@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:24 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 11:51:32 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:38:21 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static char	*find_executable_path(char **paths, char *cmd)
 	return (NULL);
 }
 
-char *path_checker(char **paths, char *cmd)
+char	*path_checker(char **paths, char *cmd)
 {
-    char *path;
-    char buffer[500];
+	char *path;
+	char buffer[500];
 
-    path = find_executable_path(paths, cmd);
-    if (!path)
+	path = find_executable_path(paths, cmd);
+	if (!path)
 		path = ft_strjoin(getcwd(buffer, 500), ft_strtrim(cmd, ". "));
-    if (access(path, F_OK) == 0)
-        return (path);
-    return (NULL);
+	if (access(path, F_OK) == 0)
+		return (path);
+	return (NULL);
 }

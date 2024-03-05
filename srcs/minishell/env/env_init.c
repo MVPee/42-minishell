@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/04 03:46:01 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:35:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_env	*create_node(char *entry)
 {
 	t_env	*created_node;
 	char	**splitted_arguments;
-	
+
 	if (!entry)
 		return (NULL);
 	splitted_arguments = env_split(entry);
@@ -53,8 +53,8 @@ static t_env	*create_node(char *entry)
 
 t_env	*env_add_entry(t_env *head, char *entry)
 {
-	t_env			*new_element;
-	t_env			*current;
+	t_env	*new_element;
+	t_env	*current;
 
 	new_element = create_node(entry);
 	if (!new_element)
@@ -98,7 +98,7 @@ t_env	*env_remove_entry(t_env **head, char *key)
 }
 
 t_env	*env_init(char **envs)
-{	
+{
 	t_env	*head;
 	int		i;
 

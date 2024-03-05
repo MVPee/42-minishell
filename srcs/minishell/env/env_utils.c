@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/04 03:43:44 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:35:31 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**env_split(char *env)
 	char	**result;
 	char	*split;
 	size_t	len;
-	
+
 	split = ft_strchr(env, '=');
 	if (!split || split == env)
 		return (NULL);
@@ -33,26 +33,26 @@ char	**env_split(char *env)
 	return (result);
 }
 
-void    free_env_list(t_env *head)
+void	free_env_list(t_env *head)
 {
-    t_env   *tmp;
-    
-    while (head)
-    {
-        tmp = head;
-        head = head->next;
-        free(tmp->key);
-        free(tmp->value);
-        free(tmp);
-        tmp = NULL;
-    }
+	t_env	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
-void    shell_lvl_handler(t_env *head)
+void	shell_lvl_handler(t_env *head)
 {
-    t_env *tmp;
-    
-    if (find_key(head, "SHLVL") == NULL)
+	t_env	*tmp;
+
+	if (find_key(head, "SHLVL") == NULL)
 		head = env_add_entry(head, "SHLVL=0");
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 11:26:23 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:46:29 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int	main(int ac, char **argv, char **envs)
 		ft_free(1, &line);
 	}
 	free_env_list(head);
-	//rl_clear_history();
+	ft_printf("exit\n");
 	return (data.env_var);
 }

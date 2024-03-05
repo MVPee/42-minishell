@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:38:11 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:55:52 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_heredoc(char *stop, t_env *env, t_data data)
 
 	temp = NULL;
 	stop = check_heredoc_stop(stop, &flag);
-	ft_printf("> ");
+    ft_printf("> ");
 	while ((line = get_next_line(0)))
 	{
 		if (!ft_strcmp(line, ft_strjoin(stop, "\n")))
@@ -108,13 +108,13 @@ char	*ft_heredoc(char *stop, t_env *env, t_data data)
 				temp = ft_strdup("");
 			break ;
 		}
+        ft_printf("> ");
 		if (!temp)
 			temp = ft_strdup("");
 		if (!flag)
 			temp = ft_strjoin_free(temp, heredoc_parsing(line, env, data));
 		else
 			temp = ft_strjoin_free(temp, line);
-		ft_printf("> ");
 		free(line);
 	}
 	free(line);

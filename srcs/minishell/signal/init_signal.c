@@ -6,37 +6,25 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:29:06 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:39:01 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:42:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void sigint_handler()
+void	signal_handler(int signum)
 {
-	char *line;
-
-	line = get_str_readline();
-	ft_printf(("%s\n"), line);
-	free(line);
-}
-
-void sigterm_handler()
-{
-	ft_printf("exit\n");
-	exit(0);
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 void init_signal(void)
 {
-    if (signal(SIGINT, sigint_handler) == SIG_ERR)
-    {
-        perror("signal(SIGINT)");
-        exit(EXIT_FAILURE);
-    }
-	if (signal(SIGTERM, sigterm_handler) == SIG_ERR)
-    {
-        perror("signal(SIGTERM)");
-        exit(EXIT_FAILURE);
-    }
+    signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

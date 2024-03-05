@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 11:36:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:50:26 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ static bool	check_file(t_parsing *parsing, t_lexer lexer, t_env *env, t_data dat
 		{
 			parsing->heredoc = ft_heredoc(node->name, env, data);
 			if (!parsing->heredoc)
-			{
-				perror("Memory allocation error");
 				return (false);
-			}
 			close(parsing->input);
 			parsing->input = -1;
 		}

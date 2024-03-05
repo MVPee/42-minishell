@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 08:54:15 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/05 11:54:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:23:08 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void				ft_free(unsigned int count, ...);
 char				**ft_splitjoin(char **split, char *need_to_add_to_split);
 char				**ft_splittrim(char **split, char *set);
 void				ft_putsplit(char **split, char *message_before);
+char	*ft_strjoinchar_free(char *s1, char s2);
 
 // PRINTF
 int					ft_printf(const char *format, ...);

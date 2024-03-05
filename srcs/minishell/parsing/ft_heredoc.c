@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 12:48:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:31:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,6 @@
 // 	return (str);
 // }
 
-static char	*ft_strjoinchar_free(char *s1, char s2)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	if (!s1 || !s2)
-		return (NULL);
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 2));
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	while (s1[++i])
-		str[j++] = s1[i];
-	i = -1;
-	str[j++] = s2;
-	str[j] = '\0';
-	ft_free(1, &s1);
-	return (str);
-}
-
 static char *heredoc_parsing(char *line, t_env *env, t_data data)
 {
     char *str;
@@ -69,16 +47,16 @@ static char *heredoc_parsing(char *line, t_env *env, t_data data)
     {
         if (line[i] == '$')
         {
-            buffer = ft_strdup("");
-            while(ft_isalpha(line[++i]) || line[i] == '_' || line[i] == '?')
-                buffer = ft_strjoinchar_free(buffer, line[i]);
-            if (!ft_strcmp(buffer, "?"))
+            if (line[i + 1] == '?')
             {
                 str = ft_strjoin_free(str, ft_itoa(data.env_var));
-                str = ft_strjoin_free(str, "\n");
+                i++;
             }
             else
             {
+                buffer = ft_strdup("");
+                while(ft_isalpha(line[++i]) || line[i] == '_' || line[i] == '?')
+                    buffer = ft_strjoinchar_free(buffer, line[i]);
                 if (find_key(env, buffer))
                 {
                     char *value = ft_strdup(find_key(env, buffer)->value);
@@ -86,6 +64,7 @@ static char *heredoc_parsing(char *line, t_env *env, t_data data)
                     free(value);
                     str = ft_strjoin_free(str, "\n");
                 }
+                free(buffer);
             }
         }
         else

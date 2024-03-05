@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 12:39:23 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 12:46:08 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ static char *check_heredoc_stop(char *stop, bool *flag)
     while(stop[++i])
         if (stop[i] != '\'' && stop[i] != '\"')
             new_stop = ft_strjoinchar_free(new_stop, stop[i]);
+    free(stop);
     return new_stop;
 }
 

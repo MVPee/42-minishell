@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/04 03:28:28 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:49:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ char *builtins(t_env **head, t_data *data, t_parsing parsing)
 	char *result;
 	char buffer[500];
 
-	if (!ft_strcmp(parsing.cmd_args[0], "echo"))
-		ft_echo(data, parsing.cmd_args);
-	else if (!ft_strcmp(parsing.cmd_args[0], "env"))
-		ft_env(data, *head, parsing.cmd_args);
-	else if (!ft_strcmp(parsing.cmd_args[0], "pwd"))
+	if (!ft_strcmp(parsing.cmd[0], "echo"))
+		ft_echo(data, parsing.cmd);
+	else if (!ft_strcmp(parsing.cmd[0], "env"))
+		ft_env(data, *head, parsing.cmd);
+	else if (!ft_strcmp(parsing.cmd[0], "pwd"))
 		ft_pwd(data, head);
-	else if (!ft_strcmp(parsing.cmd_args[0], "unset"))
+	else if (!ft_strcmp(parsing.cmd[0], "unset"))
 		ft_unset(head, data, parsing.cmd);
-	else if (!ft_strcmp(parsing.cmd_args[0], "export"))
-		ft_export(head, data, parsing.cmd_args);
-	else if(!ft_strcmp(parsing.cmd_args[0], "cd"))
-		ft_cd(*head, data, parsing.cmd_args);
-	else if (!ft_strcmp(parsing.cmd_args[0], "exit"))
-		ft_exit(*head, data, parsing.cmd_args);	
+	else if (!ft_strcmp(parsing.cmd[0], "export"))
+		ft_export(head, data, parsing.cmd);
+	else if(!ft_strcmp(parsing.cmd[0], "cd"))
+		ft_cd(*head, data, parsing.cmd);
+	else if (!ft_strcmp(parsing.cmd[0], "exit"))
+		ft_exit(*head, data, parsing.cmd);	
 	return (NULL);
 }

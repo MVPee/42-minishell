@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/04 07:22:26 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:26:23 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ int	main(int ac, char **argv, char **envs)
 		if (!line)
 			break;
 		if (ft_strcmp(line, "\0"))
+		{
 			add_history(line);
-		else
-			data.env_var = 0;
-		process(&head, &data, ft_parsing(ft_lexer(ft_strtrim(line, " "), &data, head), &data, head));
+			process(&head, &data, ft_parsing(ft_lexer(ft_strtrim(line, " "), &data, head), &data, head));
+		}
+		
 		ft_free(1, &line);
 	}
 	free_env_list(head);

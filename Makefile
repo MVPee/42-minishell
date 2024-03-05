@@ -20,12 +20,12 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/process/process.c \
 		srcs/minishell/lexer/lexer.c \
 		srcs/minishell/lexer/lexer_utils.c \
+		srcs/minishell/lexer/syntax_check.c \
 		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
-		srcs/minishell/parsing/checker.c \
 		srcs/minishell/parsing/path_checker.c \
 		srcs/minishell/parsing/utils_parsing.c \
-		srcs/minishell/parsing/get_args.c
+		srcs/minishell/parsing/parsing_cmd.c
 
 OBJS = $(SRCS:.c=.o)
 

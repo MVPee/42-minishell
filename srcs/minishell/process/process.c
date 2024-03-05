@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/04 10:45:33 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 10:50:09 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 				
 			if (parsing[i].path == NULL && !parsing[i].isbuiltins)
 			{
-				ft_printf("%s: command not found\n", parsing[i].cmd_args[0]);
+				ft_printf("%s: command not found\n", parsing[i].cmd[0]);
                 exit(127);
 			}
 
@@ -94,8 +94,8 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 				
 			else
 			{
-				execve(parsing[i].path, parsing[i].cmd_args, env_to_tab(*head));
-				perror(parsing[i].cmd);
+				execve(parsing[i].path, parsing[i].cmd, env_to_tab(*head));
+				perror(parsing[i].cmd[0]);
 				if (errno == EACCES)
 					exit(126);
 				exit(1);

@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 18:49:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 11:36:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	ft_open(char *file, t_token token)
+static int	ft_open(char *file, t_token token)
 {
 	if (token == INPUT)
 		return (open(file, O_RDONLY));
@@ -23,7 +23,7 @@ int	ft_open(char *file, t_token token)
 	return (-1);
 }
 
-bool	check_file(t_parsing *parsing, t_lexer lexer)
+static bool	check_file(t_parsing *parsing, t_lexer lexer, t_env *env, t_data data)
 {
 	t_node	*node;
 	char	*temp;
@@ -62,7 +62,7 @@ bool	check_file(t_parsing *parsing, t_lexer lexer)
 		}
 		else if (node->token == HEREDOC)
 		{
-			parsing->heredoc = ft_heredoc(node->name);
+			parsing->heredoc = ft_heredoc(node->name, env, data);
 			if (!parsing->heredoc)
 			{
 				perror("Memory allocation error");
@@ -76,12 +76,11 @@ bool	check_file(t_parsing *parsing, t_lexer lexer)
 	return (true);
 }
 
-t_parsing init_parsing()
+static t_parsing init_parsing()
 {
 	t_parsing parsing;
 
 	parsing.cmd = NULL;
-	parsing.cmd_args = NULL;
 	parsing.input = -1;
 	parsing.output = -1;
     parsing.isbuiltins = false;
@@ -104,7 +103,7 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
     while (++i < data->nbr_cmd)
     {
         parsing[i] = init_parsing();
-        if (!check_file(&parsing[i], lexer[i]))
+        if (!check_file(&parsing[i], lexer[i], env, *data))
         {
 			data->env_var = 1;
 			ft_free(1, &lexer[i].cmd);
@@ -112,15 +111,11 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 		}
 		if (ft_strcmp(lexer[i].cmd, ""))
 		{
-			if (!ft_strcmp(ft_split(lexer[i].cmd, " ")[0], "export"))
-				parsing[i].cmd = ft_strdup(lexer[i].cmd);
-			else
-				parsing[i].cmd = checker(lexer[i].cmd, env, *data);
-			parsing[i].cmd_args = get_args(lexer[i].cmd, env, *data), " ";
-			if (!parsing[i].cmd_args)
+			parsing[i].cmd = parsing_cmd(lexer[i].cmd, env, *data), " ";
+			if (!parsing[i].cmd)
 				return (free_lexer(lexer), NULL);
-			if (parsing[i].cmd && !(parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), parsing[i].cmd_args[0])))
-				if (isbuiltins(parsing[i].cmd))
+			if (parsing[i].cmd && !(parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), parsing[i].cmd[0])))
+				if (isbuiltins(parsing[i].cmd[0]))
 					parsing[i].isbuiltins = true;
 		}
     }

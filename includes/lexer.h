@@ -29,7 +29,7 @@ typedef struct s_lexer
 t_lexer				*ft_lexer(char *line, t_data *data, t_env *head);
 
 void				free_lexer(t_lexer *lexer);
-bool				check_after_pipe_and_semicolon(char *line);
+bool				syntax_check(char *line);
 char				**get_cmd_splitted(char *line, int *count);
 int					number_of_cmd(char *line);
 

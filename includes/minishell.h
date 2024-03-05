@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/04 03:43:15 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:49:03 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ typedef struct s_env
 # include "error.h"
 # include "lexer.h"
 # include "parsing.h"
+# include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <sys/wait.h>
-# include <errno.h>
 # include <stdbool.h>
-
+# include <sys/wait.h>
 
 // Env Init
 t_env				*env_init(char **envs);
@@ -70,7 +69,8 @@ t_env				*get_last_entry(t_env **head);
 void				write_value(t_env **head, char *key, char *value);
 void				free_env_list(t_env *head);
 void				shell_lvl_handler(t_env *head);
-void				update_content_of_node(t_env **created_node, char **splitted_arguments);
+void				update_content_of_node(t_env **created_node,
+						char **splitted_arguments);
 
 // Builtins
 char				*builtins(t_env **head, t_data *data, t_parsing parsing);
@@ -78,10 +78,10 @@ bool				isbuiltins(char *line);
 void				ft_echo(t_data *data, char **split);
 void				ft_env(t_data *data, t_env *head, char **split);
 void				ft_pwd(t_data *data, t_env **head);
-void				ft_unset(t_env **head, t_data *data, char *line);
+void				ft_unset(t_env **head, t_data *data, char **split);
 void				ft_export(t_env **head, t_data *data, char **split);
 void				ft_cd(t_env *head, t_data *data, char **split);
-void				ft_exit(t_env *head ,t_data *data, char **split);
+void				ft_exit(t_env *head, t_data *data, char **split);
 
 // Builtsins Utils
 bool				is_key_valid(char *str);

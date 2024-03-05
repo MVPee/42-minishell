@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/03 15:34:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 12:20:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	append_node(t_node **head, char *name, t_token token)
 	}
 }
 
-static t_lexer set_lexer(char *str)
+static t_lexer set_lexer(char *str, t_env *env, t_data data)
 {
 	t_lexer new_lexer;
 	new_lexer.cmd = NULL;
@@ -84,11 +84,32 @@ static t_lexer set_lexer(char *str)
 				i++;
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]) && str[i] != ' ')
+				while(str[i] != ' ' && str[i])
 				{
-					buffer2[k] = str[i];
-					k++;
-					i++;
+					if (str[i] == '\'')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\'' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else if (str[i] == '\"')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\"' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else
+						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
 				append_node(&(new_lexer.head), buffer2, HEREDOC);
@@ -99,14 +120,35 @@ static t_lexer set_lexer(char *str)
 			{
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]) && str[i] != ' ')
+				while(str[i] != ' ' && str[i])
 				{
-					buffer2[k] = str[i];
-					k++;
-					i++;
+					if (str[i] == '\'')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\'' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else if (str[i] == '\"')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\"' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else
+						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
-				append_node(&(new_lexer.head), buffer2, INPUT);
+				append_node(&(new_lexer.head), parsing_cmd(buffer2, env, data)[0], INPUT);
 				ft_memset(buffer2, 0, 100);
 				k = 0;
 			}
@@ -122,14 +164,35 @@ static t_lexer set_lexer(char *str)
 				i++;
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]) && str[i] != ' ')
+				while(str[i] != ' ' && str[i])
 				{
-					buffer2[k] = str[i];
-					k++;
-					i++;
+					if (str[i] == '\'')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\'' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else if (str[i] == '\"')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\"' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else
+						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
-				append_node(&(new_lexer.head), buffer2, APPEND);
+				append_node(&(new_lexer.head), parsing_cmd(buffer2, env, data)[0], HEREDOC);
 				ft_memset(buffer2, 0, 100);
 				k = 0;
 			}
@@ -137,14 +200,35 @@ static t_lexer set_lexer(char *str)
 			{
 				while(str[i] == ' ')
 					i++;
-				while(ft_isprint(str[i]) && str[i] != ' ')
+				while(str[i] != ' ' && str[i])
 				{
-					buffer2[k] = str[i];
-					k++;
-					i++;
+					if (str[i] == '\'')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\'' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else if (str[i] == '\"')
+					{
+						buffer2[k++] = str[i++];
+						while(str[i] != '\"' && str[i])
+						{
+							buffer2[k] = str[i];
+							k++;
+							i++;
+						}
+						buffer2[k++] = str[i++];
+					}
+					else
+						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
-				append_node(&(new_lexer.head), buffer2, OUTPUT);
+				append_node(&(new_lexer.head), parsing_cmd(buffer2, env, data)[0], OUTPUT);
 				ft_memset(buffer2, 0, 100);
 				k = 0;
 			}
@@ -173,7 +257,7 @@ t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 		return (NULL);
 	if (!strcmp(line, "\0"))
 		return (ft_free(1, &line), NULL);
-	if (check_after_pipe_and_semicolon(line))
+	if (syntax_check(line))
 		return (ft_free(1, &line), NULL);
 	split = ft_splittrim(get_cmd_splitted(line, &count), " ");
 	if (!split)
@@ -184,6 +268,6 @@ t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 	data->nbr_cmd = count;
 	i = -1;
 	while(++i < count)
-		lexer[i] = set_lexer(split[i]);
+		lexer[i] = set_lexer(split[i], env, *data);
 	return (ft_free_matrix(1, &split), ft_free(1, &line), lexer);
 }

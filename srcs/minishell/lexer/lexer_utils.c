@@ -6,25 +6,28 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 10:52:50 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/05 13:33:03 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-char **get_cmd_splitted(char *line, int *count)
+char	**get_cmd_splitted(char *line, int *count)
 {
-	char **split = NULL;
-	char buffer[1000];
+	char	**split;
+	char	buffer[1000];
+	int		i;
+	int		j;
 
-	int i = -1;
-	int j = 0;
-	while(line[++i])
+	split = NULL;
+	i = -1;
+	j = 0;
+	while (line[++i])
 	{
 		if (line[i] == '\"')
 		{
 			buffer[j++] = line[i];
-			while(line[++i] != '\"' && line[i])
+			while (line[++i] != '\"' && line[i])
 			{
 				buffer[j] = line[i];
 				j++;
@@ -34,7 +37,7 @@ char **get_cmd_splitted(char *line, int *count)
 		else if (line[i] == '\'')
 		{
 			buffer[j++] = line[i];
-			while(line[++i] != '\'' && line[i])
+			while (line[++i] != '\'' && line[i])
 			{
 				buffer[j] = line[i];
 				j++;
@@ -57,7 +60,7 @@ char **get_cmd_splitted(char *line, int *count)
 			j++;
 		}
 		if (!line[i])
-			break;
+			break ;
 	}
 	buffer[j] = '\0';
 	(*count)++;
@@ -65,52 +68,30 @@ char **get_cmd_splitted(char *line, int *count)
 	if (!split)
 		return (NULL);
 	ft_memset(buffer, 0, 1000);
-	return split;
+	return (split);
 }
 
-int	number_of_cmd(char *line)
+void	free_lexer(t_lexer *lexer)
 {
-	int	i;
-	int	flag;
-	int	count;
+	t_node *current;
+	t_node *temp;
 
-	flag = 0;
-	count = 1;
-	i = -1;
-	while (line[++i])
+	if (lexer)
 	{
-		if (line[i] == '\'')
-			while (line[i != '\''] && line[i])
-				i++;
-		else if (line[i] == '\"')
-			while (line[i != '\"'] && line[i])
-				i++;
-		else if (line[i] == '|')
-			count++;
-		if (!line[i])
-			break ;
+		if (lexer->cmd)
+		{
+			free(lexer->cmd);
+			lexer->cmd = NULL;
+		}
+		current = lexer->head;
+		while (current)
+		{
+			temp = current;
+			current = current->next;
+			free(temp->name);
+			free(temp);
+		}
+		lexer->head = NULL;
+		free(lexer);
 	}
-	return (count);
-}
-
-void free_lexer(t_lexer *lexer)
-{
-    if (lexer) {
-        if (lexer->cmd) {
-            free(lexer->cmd);
-            lexer->cmd = NULL;
-        }
-        
-        t_node *current = lexer->head;
-        while (current) {
-            t_node *temp = current;
-            current = current->next;
-            free(temp->name);
-            free(temp);
-        }
-        
-        lexer->head = NULL;
-        
-        free(lexer);
-    }
 }

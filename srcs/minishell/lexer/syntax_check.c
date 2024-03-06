@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:37:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 11:09:27 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ static bool	check_before(char *line, int i)
 bool	syntax_check(char *str)
 {
 	int	i;
-	char *line = ft_strtrim(str, " ");
-
+	char *line;
+	
+	line = ft_strtrim(str, " ");
+	if (!line)
+		return (true);
 	i = -1;
 	while (line[++i])
 	{
@@ -138,5 +141,6 @@ bool	syntax_check(char *str)
 		if (!line[i])
 			break ;
 	}
+	free(line);
 	return (false);
 }

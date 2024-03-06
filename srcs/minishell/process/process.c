@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 10:46:21 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 10:57:23 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
+
+	free_parsing(parsing, *data);
 }

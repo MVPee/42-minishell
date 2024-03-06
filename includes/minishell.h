@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 09:50:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 23:17:58 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void				free_env_list(t_env *head);
 void				shell_lvl_handler(t_env *head);
 void				update_content_of_node(t_env **created_node,
 						char **splitted_arguments);
+char				*no_null_join(char *s1, char *s2);
 
 // Builtins
 char				*builtins(t_env **head, t_data *data, t_parsing parsing);

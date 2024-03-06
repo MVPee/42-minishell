@@ -6,29 +6,38 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:55:23 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+bool	isspecial(t_parsing parsing)
+{
+	int		i;
+
+	char *split[] = {"unset", "cd", "exit", NULL};
+	i = -1;
+	while (split[++i])
+		if (!ft_strcmp(split[i], parsing.cmd[0]))
+			return (true);
+	if (!ft_strcmp("export", parsing.cmd[0]) && parsing.cmd[1])
+		return (true);
+	return (false);
+}
+
 bool	isbuiltins(char *line)
 {
-	char	**result;
-	char	*str;
 	int		i;
 
 	if (!line)
 		return (false);
-	result = ft_split(line, " ");
-	str = ft_strdup(result[0]);
-	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", "exit", \
-		NULL};
+	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", "exit", NULL};
 	i = -1;
 	while (split[++i])
-		if (!ft_strcmp(str, split[i]))
-			return (ft_free_matrix(1, &result), ft_free(1, &str), true);
-	return (ft_free_matrix(1, &result), ft_free(1, &str), false);
+		if (!ft_strcmp(line, split[i]))
+			return (true);
+	return (false);
 }
 
 char	*builtins(t_env **head, t_data *data, t_parsing parsing)

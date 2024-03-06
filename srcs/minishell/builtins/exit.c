@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:26 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 10:02:08 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ static void	error_message(size_t exit_code, char **split_args)
 {
 	ft_printf("exit\n");
 	if (exit_code == TOO_MANY_ARGUMENTS)
-		ft_printf("exit : Too many arguments\n");
+		ft_printf_fd(2, "exit : Too many arguments\n");
 	else if (exit_code == NUMERICAL_ARGUMENT_NESCESSARY)
 	{
 		ft_printf("exit : %s ", split_args[1]);
-		ft_printf(": numerical argument necessary\n");
+		ft_printf_fd(2, ": numerical argument necessary\n");
 	}
 }
 

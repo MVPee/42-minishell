@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 11:36:55 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:22:56 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_parsing
 	int		input;
 	int		output;
 	bool	isbuiltins;
+	bool	isspecial;
 	char	*heredoc;
 	char	*path;
 }			t_parsing;

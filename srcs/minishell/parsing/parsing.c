@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:50:26 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:53:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static t_parsing init_parsing()
 	parsing.input = -1;
 	parsing.output = -1;
     parsing.isbuiltins = false;
+	parsing.isspecial = false;
 	parsing.heredoc = NULL;
 	parsing.path = NULL;
 	return (parsing);
@@ -111,9 +112,9 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 			parsing[i].cmd = parsing_cmd(lexer[i].cmd, env, *data), " ";
 			if (!parsing[i].cmd)
 				return (free_lexer(lexer), NULL);
-			if (parsing[i].cmd && !(parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), parsing[i].cmd[0])))
-				if (isbuiltins(parsing[i].cmd[0]))
-					parsing[i].isbuiltins = true;
+			parsing[i].isbuiltins = isbuiltins(parsing[i].cmd[0]);
+			parsing[i].isspecial = isspecial(parsing[i]);
+			parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), parsing[i].cmd[0]);
 		}
     }
 	free_lexer(lexer);

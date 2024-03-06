@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:17 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:58:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_cd_with_minus(t_env *head, char **split)
 	temp = ft_strdup(getcwd(buffer, 500));
 	if (!find_key(head, "OLDPWD"))
 	{
-		ft_printf("%s: OLDPWD not set\n", split[0]);
+		ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]);
 		return (ft_free(1, &temp), 1);
 	}
 	if (chdir(find_key(head, "OLDPWD")->value) != 0)
@@ -72,7 +72,7 @@ void	ft_cd(t_env *head, t_data *data, char **split)
 	data->env_var = 0;
 	if (ft_splitlen((const char **)split) > 2)
 	{
-		ft_printf("%s: too many arguments\n", split[0]);
+		ft_printf_fd(2, "%s: too many arguments\n", split[0]);
 		data->env_var = 1;
 	}
 	else if (!split[1])

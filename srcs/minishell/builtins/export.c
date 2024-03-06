@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:39:23 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_export(t_env **head, t_data *data, char **split)
 	char	*temp;
 	size_t	index;
 
-	ft_putsplit(split, "RESULT:");
 	if (ft_splitlen((const char **)split) > 1)
 	{
 		index = 1;

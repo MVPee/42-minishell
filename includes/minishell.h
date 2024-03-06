@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 10:49:03 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:50:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void				update_content_of_node(t_env **created_node,
 // Builtins
 char				*builtins(t_env **head, t_data *data, t_parsing parsing);
 bool				isbuiltins(char *line);
+bool				isspecial(t_parsing parsing);
 void				ft_echo(t_data *data, char **split);
 void				ft_env(t_data *data, t_env *head, char **split);
 void				ft_pwd(t_data *data, t_env **head);

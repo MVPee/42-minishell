@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 10:50:09 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 10:03:12 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 void	process(t_env **head, t_data *data, t_parsing *parsing)
 {
 	int status;
-	char *path;
 	pid_t pid[data->nbr_cmd];
 	int pipefds[data->nbr_cmd - 1][2];
 
 	if (!parsing)
 		return ;
 
-	if (parsing[0].cmd && data->nbr_cmd == 1 && parsing[0].isbuiltins)
+	if (data->nbr_cmd == 1 && parsing[0].isspecial)
 	{
 		builtins(head, data, parsing[0]);
 		return;

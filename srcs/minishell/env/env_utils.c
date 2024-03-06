@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:35:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 23:18:46 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,30 @@ void	update_content_of_node(t_env **created_node, char **splitted_arguments)
 		(*created_node)->value = ft_itoa(ft_atoi(splitted_arguments[1]) + 1);
 	else
 		(*created_node)->value = ft_strtrim(splitted_arguments[1], " ");
+}
+
+char	*no_null_join(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (s1)
+	{
+		while (s1[++i])
+			str[j++] = s1[i];
+	}
+	i = -1;
+	if (s2)
+	{
+		while (s2[++i])
+			str[j++] = s2[i];
+	}
+	str[j] = '\0';
+	return (str);
 }

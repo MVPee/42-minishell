@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:35:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 23:19:23 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static char	*join_env(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	if (s1)
-	{
-		while (s1[++i])
-			str[j++] = s1[i];
-	}
-	i = -1;
-	if (s2)
-	{
-		while (s2[++i])
-			str[j++] = s2[i];
-	}
-	str[j] = '\0';
-	return (str);
-}
 
 static void	*conversion_error_handler(char **envp, size_t count)
 {
@@ -55,10 +29,10 @@ void	*join_key_and_value(t_env *head, char **envp, size_t index)
 	char	*temp;
 
 	joined_string = ft_strlen(head->key) + ft_strlen(head->value) + 2;
-	envp[index] = join_env(head->key, "=");
+	envp[index] = no_null_join(head->key, "=");
 	if (!envp[index])
 		return (conversion_error_handler(envp, index));
-	temp = join_env(envp[index], head->value);
+	temp = no_null_join(envp[index], head->value);
 	free(envp[index]);
 	envp[index] = temp;
 	if (!envp[index])

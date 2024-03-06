@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:35:36 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 23:20:16 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	write_value(t_env **head, char *key, char *value)
 	if (!target_node || !value)
 		return ;
 	initial_string = target_node->value;
-	string_to_join = ft_strjoin(initial_string, value);
+	string_to_join = no_null_join(initial_string, value);
 	free(initial_string);
 	target_node->value = string_to_join;
 }

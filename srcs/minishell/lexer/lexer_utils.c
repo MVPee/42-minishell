@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:55 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 10:50:53 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	free_lexer(t_lexer *lexer)
 			free(temp);
 		}
 		lexer->head = NULL;
-		free(lexer);
+		ft_free(1, &lexer);
 	}
 }

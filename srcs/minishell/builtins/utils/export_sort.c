@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:12:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:35:56 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/06 23:22:33 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,15 @@ static void	sort_env_list(t_env *head)
 }
 
 static void	print_sorted_env(t_env *head)
-{
+{	
+	if (!head)
+		ft_printf("no empty head \n");
 	while (head)
 	{
-		ft_printf("declare -x %s=\"%s\"\n", head->key, head->value);
+		if (!head->value)
+			ft_printf("declare -x %s\n", head->key);
+		else 
+			ft_printf("declare -x %s=\"%s\"\n", head->key, head->value);
 		head = head->next;
 	}
 	ft_printf("declare -x _=/usr/bin/env\n");

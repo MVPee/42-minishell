@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:45:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 10:47:25 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 15:41:00 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_exit(t_env *head, t_data *data, char **split);
 bool	is_key_valid(char *str);
 void	ft_sorted_env(t_env *head);
 char	*reconstructed_entry(char *s1, char *s2);
-void	*error_arguments_without_equal(char *line);
+void	*non_valid_arg(char *line);
 void	error_handler_export(char *s1, char *s2);
 
 #endif

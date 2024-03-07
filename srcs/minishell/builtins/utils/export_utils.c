@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/07 10:44:55 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 15:40:30 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-void	*error_arguments_without_equal(char *line)
+void	*non_valid_arg(char *line)
 {
 	if (!line)
 		return (NULL);

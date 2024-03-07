@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/06 10:02:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 15:13:49 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static size_t	error_handler(char **split_args, size_t nbr_args,
 		else if (nbr_args > 2)
 		{
 			*exit_code = TOO_MANY_ARGUMENTS;
-			return (-1);
+			return (-2);
 		}
 	}
 	return (0);
@@ -80,12 +80,14 @@ static size_t	error_handler(char **split_args, size_t nbr_args,
 
 void	ft_exit(t_env *head, t_data *data, char **split)
 {
-	size_t number_of_args;
-	long exit_code;
+	size_t	number_of_args;
+	long	exit_code;
+	int		error_handler_status;
 
 	exit_code = 0;
 	number_of_args = ft_splitlen((const char **)split);
-	if (!error_handler(split, number_of_args, &exit_code))
+	error_handler_status = error_handler(split, number_of_args, &exit_code);
+	if (error_handler_status == 0)
 	{
 		if (number_of_args == 1)
 			exit_code = 0;
@@ -93,7 +95,10 @@ void	ft_exit(t_env *head, t_data *data, char **split)
 			exit_code = (ft_strtol(split[1], NULL, 10) % 256);
 	}
 	error_message(exit_code, split);
-	ft_free_matrix(1, &split);
-	free_env_list(head);
-	exit(exit_code);
+	if (error_handler_status == 0 || error_handler_status == -1)
+	{
+		ft_free_matrix(1, &split);
+		free_env_list(head);
+		exit(exit_code);
+	}
 }

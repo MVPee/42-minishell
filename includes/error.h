@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:39:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/04 03:13:35 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:49:05 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,4 @@
 # define NUMERICAL_ARGUMENT_NESCESSARY 2
 # define TOO_MANY_ARGUMENTS 1
 
-# endif
+#endif

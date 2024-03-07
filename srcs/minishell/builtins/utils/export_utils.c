@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:00 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 10:44:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	*error_arguments_without_equal(char *line)
 {
 	if (!line)
 		return (NULL);
-	ft_printf("export : « %s » : not a valid identifier\n", line);
+	ft_printf_fd(2, "export : « %s » : not a valid identifier\n", line);
 	return (NULL);
 }
 
 void	error_handler_export(char *s1, char *s2)
 {
 	if (!s2)
-		ft_printf("export : « %s=  »", s1);
+		ft_printf_fd(2, "export : « %s=  »", s1);
 	else
-		ft_printf("export : « %s=%s »", s1, s2);
-	ft_printf(" not a valid identifier\n");
+		ft_printf_fd(2, "export : « %s=%s »", s1, s2);
+	ft_printf_fd(2, " not a valid identifier\n");
 }
 
 bool	is_key_valid(char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 23:17:58 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:48:33 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,12 @@
 # define LONG_MAX_STRING "9223372036854775807"
 # define LONG_MIN_STRING "-9223372036854775808"
 
-typedef struct s_data
-{
-	int				env_var;
-	int				nbr_cmd;
-	char			*temp;
-}					t_data;
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-	struct s_env	*prv;
-}					t_env;
-
 # include "../srcs/libft/includes/libft.h"
+# include "struct.h"
 # include "error.h"
 # include "lexer.h"
 # include "parsing.h"
+# include "builtins.h"
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -72,25 +59,6 @@ void				shell_lvl_handler(t_env *head);
 void				update_content_of_node(t_env **created_node,
 						char **splitted_arguments);
 char				*no_null_join(char *s1, char *s2);
-
-// Builtins
-char				*builtins(t_env **head, t_data *data, t_parsing parsing);
-bool				isbuiltins(char *line);
-bool				isspecial(t_parsing parsing);
-void				ft_echo(t_data *data, char **split);
-void				ft_env(t_data *data, t_env *head, char **split);
-void				ft_pwd(t_data *data, t_env **head);
-void				ft_unset(t_env **head, t_data *data, char **split);
-void				ft_export(t_env **head, t_data *data, char **split);
-void				ft_cd(t_env *head, t_data *data, char **split);
-void				ft_exit(t_env *head, t_data *data, char **split);
-
-// Builtsins Utils
-bool				is_key_valid(char *str);
-void				ft_sorted_env(t_env *head);
-char				*reconstructed_entry(char *s1, char *s2);
-void				*error_arguments_without_equal(char *line);
-void				error_handler_export(char *s1, char *s2);
 
 // Process
 void				process(t_env **head, t_data *data, t_parsing *parsing);

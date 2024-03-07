@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 16:47:54 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/07 10:50:34 by mvpee            ###   ########.fr       */
+/*   Created: 2024/03/07 10:48:04 by mvpee             #+#    #+#             */
+/*   Updated: 2024/03/07 11:28:20 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#ifndef STRUCT_H
+# define STRUCT_H
 
-char	*ft_strndup(const char *s, size_t n)
+typedef struct s_data
 {
-	size_t	len;
-	char	*dup;
+	int				env_var;
+	int				nbr_cmd;
+}					t_data;
 
-	len = ft_strlen(s);
-	if (len > n)
-		len = n;
-	dup = (char *)malloc((len + 1) * sizeof(char));
-	if (!dup)
-		return (NULL);
-	ft_memcpy(dup, s, len);
-	dup[len] = '\0';
-	return (dup);
-}
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prv;
+}					t_env;
+
+#endif

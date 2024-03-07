@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:46:29 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 11:28:23 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 static void	print_welcome_message(t_env *head)
 {
-	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" RED BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
-	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" RED BOLD "██║  ██║██╔════╝██║     ██║     \n" RESET);
-	ft_printf(GREEN "	██╔████╔██║██║██╔██╗ ██║██║" RED BOLD "███████║█████╗  ██║     ██║     \n" RESET);
-	ft_printf(BLUE "	██║╚██╔╝██║██║██║╚██╗██║██║" RED BOLD "██╔══██║██╔══╝  ██║     ██║     \n" RESET);
-	ft_printf(MAGENTA "	██║ ╚═╝ ██║██║██║ ╚████║██║" RED BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
-	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" RED BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
+	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" \
+		RED BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
+	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" \
+		RED BOLD "██║  ██║██╔════╝██║     ██║     \n" RESET);
+	ft_printf(GREEN "	██╔████╔██║██║██╔██╗ ██║██║" \
+		RED BOLD "███████║█████╗  ██║     ██║     \n" RESET);
+	ft_printf(BLUE "	██║╚██╔╝██║██║██║╚██╗██║██║" \
+		RED BOLD "██╔══██║██╔══╝  ██║     ██║     \n" RESET);
+	ft_printf(MAGENTA "	██║ ╚═╝ ██║██║██║ ╚████║██║" \
+		RED BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
+	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" \
+		RED BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
 	ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
 
@@ -47,9 +53,7 @@ int	main(int ac, char **argv, char **envs)
 	char	*str_readline;
 
 	data.env_var = 0;
-	data.temp = NULL;
 	head = env_init(envs);
-	line = NULL;
 	init_signal();
 	print_welcome_message(head);
 	while (1)
@@ -59,13 +63,13 @@ int	main(int ac, char **argv, char **envs)
 		line = readline(str_readline);
 		ft_free(1, &str_readline);
 		if (!line)
-			break;
+			break ;
 		if (ft_strcmp(line, "\0"))
 		{
 			add_history(line);
-			process(&head, &data, ft_parsing(ft_lexer(ft_strtrim(line, " "), &data, head), &data, head));
+			process(&head, &data, ft_parsing(ft_lexer(ft_strtrim(line, " "), \
+						&data, head), &data, head));
 		}
-		
 		ft_free(1, &line);
 	}
 	free_env_list(head);

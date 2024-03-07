@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 23:17:15 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/07 01:59:14 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	add_null_content(t_env *head, char *key)
 	if (!head || !key)
 		return ;
 	add_env(head, key, NULL, false);
-	return ;
 }
 
 static void	*add_content(t_env *head, char *line)

@@ -6,119 +6,83 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 11:21:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:04:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+static bool	init_process(t_data *data)
+{
+	int	i;
+
+	data->pid = malloc(sizeof(pid_t) * (data->nbr_cmd));
+	if (!data->pid)
+		return (true);
+	data->pipefds = malloc(sizeof(int *) * (data->nbr_cmd));
+	if (!data->pipefds)
+		return (ft_free(1, &data->pid), true);
+	i = -1;
+	while (++i < data->nbr_cmd)
+	{
+		data->pipefds[i] = malloc(sizeof(int) * 2);
+		if (!data->pipefds[i])
+		{
+			ft_free(1, &data->pid);
+			ft_free_matrix(1, &data->pipefds);
+			return (true);
+		}
+	}
+	return (false);
+}
+
+static void	free_process(t_parsing *parsing, t_data *data)
+{
+	int	i;
+
+	i = -1;
+	ft_free(1, &data->pid);
+	while (++i < data->nbr_cmd)
+		ft_free(1, &data->pipefds[i]);
+	ft_free(1, &data->pipefds);
+	free_parsing(parsing, *data);
+}
+
+static void	ft_waitpid(t_data *data)
+{
+	int	i;
+	int	status;
+
+	i = -1;
+	while (++i < data->nbr_cmd)
+		waitpid(data->pid[i], &status, 0);
+	if (WIFEXITED(status))
+		data->env_var = WEXITSTATUS(status);
+}
+
 void	process(t_env **head, t_data *data, t_parsing *parsing)
 {
-	int status;
-	pid_t pid[data->nbr_cmd];
-	int pipefds[data->nbr_cmd - 1][2];
+	int	i;
 
 	if (!parsing)
 		return ;
-
+	if (init_process(data))
+		return ;
 	if (data->nbr_cmd == 1 && parsing[0].isspecial)
 	{
 		builtins(head, data, parsing[0]);
-		return;
+		return ;
 	}
-	
-	for (int i = 0; i < data->nbr_cmd - 1; i++)
-        pipe(pipefds[i]);
-
-	for (int i = 0; i < data->nbr_cmd; i++)
+	i = -1;
+	while (++i < data->nbr_cmd)
+		pipe(data->pipefds[i]);
+	child_process(head, data, parsing);
+	i = -1;
+	while (++i < data->nbr_cmd)
 	{
-		pid[i] = fork();
-		
-		if (pid[i] < 0)
-		{
-			perror("fork");
-			exit(1);
-		}
-
-		if (pid[i] == 0)
-        {
-			if (parsing[i].cmd == NULL)
-			{
-				if (parsing[i].input != -1 || parsing[i].output != -1)
-					exit(0);
-				exit(1);
-			}
-				
-			if (parsing[i].path == NULL && !parsing[i].isbuiltins)
-			{
-				ft_printf_fd(2, "%s: command not found\n", parsing[i].cmd[0]);
-                exit(127);
-			}
-
-            if (i < data->nbr_cmd - 1)
-            	dup2(pipefds[i][1], STDOUT_FILENO);
-
-            if (i > 0)
-            	dup2(pipefds[i - 1][0], STDIN_FILENO);
-
-            for (int j = 0; j < data->nbr_cmd - 1; j++)
-            {
-                close(pipefds[j][0]);
-                close(pipefds[j][1]);
-            }
-			
-			if (parsing[i].input != -1)
-			{
-				dup2(parsing[i].input, STDIN_FILENO);
-				close(parsing[i].input);
-			}
-			else if (parsing[i].heredoc)
-			{
-				int pipe_heredoc[2];
-				pipe(pipe_heredoc);
-				write(pipe_heredoc[1], parsing[i].heredoc, ft_strlen(parsing[i].heredoc));
-				close(pipe_heredoc[1]);
-				dup2(pipe_heredoc[0], STDIN_FILENO);
-				close(pipe_heredoc[0]);
-			}
-			
-			if (parsing[i].output != -1)
-			{
-				dup2(parsing[i].output, STDOUT_FILENO);
-				close(parsing[i].output);
-			}
-
-			if (parsing[i].isbuiltins)
-			{
-				dup2(pipefds[i][1], STDOUT_FILENO);
-				close(pipefds[i][1]);
-				close(pipefds[i][0]);
-				builtins(head, data, parsing[i]);
-				exit(0);
-			}
-				
-			else
-			{
-				execve(parsing[i].path, parsing[i].cmd, env_to_tab(*head));
-				perror(parsing[i].cmd[0]);
-				if (errno == EACCES)
-					exit(126);
-				exit(1);
-			}
-        }
+		close(data->pipefds[i][0]);
+		close(data->pipefds[i][1]);
 	}
-
-	for (int i = 0; i < data->nbr_cmd - 1; i++)
-	{
-        close(pipefds[i][0]);
-        close(pipefds[i][1]);
-    }
-
-	for (int i = 0; i < data->nbr_cmd; i++)
-        waitpid(pid[i], &status, 0);
-
-	if (WIFEXITED(status))
-		data->env_var = WEXITSTATUS(status);
-
-	free_parsing(parsing, *data);
+	ft_waitpid(data);
+	free_process(parsing, data);
 }

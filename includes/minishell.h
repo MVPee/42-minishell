@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 10:48:33 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 22:50:41 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,31 @@
 # include <sys/wait.h>
 
 // Env Init
-t_env				*env_init(char **envs);
+t_env	*env_init(char **envs);
 
 // Env Operations
-char				**env_to_tab(t_env *head);
-char				**env_split(char *env);
-t_env				*tab_to_env(char **envp);
-size_t				get_size(t_env *head);
-t_env				*env_add_entry(t_env *head, char *entry);
-t_env				*env_remove_entry(t_env **head, char *key);
-t_env				*find_key(t_env *head, char *key);
-char				*get_value(t_env *target_node);
-t_env				*remove_top_node(t_env **head);
-t_env				*get_last_entry(t_env **head);
-void				write_value(t_env **head, char *key, char *value);
-void				free_env_list(t_env *head);
-void				shell_lvl_handler(t_env *head);
-void				update_content_of_node(t_env **created_node,
-						char **splitted_arguments);
-char				*no_null_join(char *s1, char *s2);
+char	**env_to_tab(t_env *head);
+char	**env_split(char *env);
+t_env	*tab_to_env(char **envp);
+size_t	get_size(t_env *head);
+t_env	*env_add_entry(t_env *head, char *entry);
+t_env	*env_remove_entry(t_env **head, char *key);
+t_env	*find_key(t_env *head, char *key);
+char	*get_value(t_env *target_node);
+t_env	*remove_top_node(t_env **head);
+t_env	*get_last_entry(t_env **head);
+void	write_value(t_env **head, char *key, char *value);
+void	free_env_list(t_env *head);
+void	shell_lvl_handler(t_env *head);
+void	update_content_of_node(t_env **created_node, char **splitted_arguments);
+char	*no_null_join(char *s1, char *s2);
 
 // Process
-void				process(t_env **head, t_data *data, t_parsing *parsing);
+void	process(t_env **head, t_data *data, t_parsing *parsing);
+void	child_process(t_env **head, t_data *data, t_parsing *parsing);
 
 // Signal
-char				*get_str_readline(void);
-void				init_signal(void);
+char	*get_str_readline(void);
+void	init_signal(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:24 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 11:43:21 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:09:02 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@ static char	*find_executable_path(char **paths, t_parsing parsing)
 	int		i;
 	char	*path;
 	char	*temp;
-	char	**split;
 
 	if (!parsing.cmd)
 		return (NULL);
-	if (access(parsing.cmd[0], F_OK) == 0)
-		return (ft_strdup(parsing.cmd[0]));
 	if (!paths)
 		return (NULL);
 	if (parsing.cmd[0][0] == '.' && parsing.cmd[0][1] == '/')
@@ -40,16 +37,17 @@ static char	*find_executable_path(char **paths, t_parsing parsing)
 			return (ft_free_matrix(1, &paths), ft_free(1, &temp), path);
 		ft_free(2, &path, &temp);
 	}
-	ft_free_matrix(1, &paths);
-	return (NULL);
+	return (ft_free_matrix(1, &paths), NULL);
 }
 
 char	*path_checker(char **paths, t_parsing parsing)
 {
-	char *path;
-	char *temp;
-	char buffer[500];
+	char	*path;
+	char	*temp;
+	char	buffer[500];
 
+	if (access(parsing.cmd[0], F_OK) == 0)
+		return (ft_strdup(parsing.cmd[0]));
 	path = find_executable_path(paths, parsing);
 	if (!path)
 	{

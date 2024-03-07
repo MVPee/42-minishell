@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 12:45:22 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:03:35 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	main(int ac, char **argv, char **envs)
 	print_welcome_message(head);
 	while (1)
 	{
-		data.nbr_cmd = 0;
 		str_readline = get_str_readline();
 		line = readline(str_readline);
 		ft_free(1, &str_readline);
@@ -72,7 +71,5 @@ int	main(int ac, char **argv, char **envs)
 		}
 		ft_free(1, &line);
 	}
-	free_env_list(head);
-	ft_printf("exit\n");
-	return (data.env_var);
+	return (free_env_list(head), ft_printf("exit\n"), data.env_var);
 }

@@ -6,20 +6,20 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/07 14:36:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:57:56 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-bool	echo_option(char *str)
+static bool	echo_option(char *str)
 {
-	int i;
+	int	i;
 
+	i = 0;
 	if (str[0] == '-')
 	{
-		i = 0;
-		while(str[++i])
+		while (str[++i])
 			if (str[i] != 'n')
 				return (false);
 	}

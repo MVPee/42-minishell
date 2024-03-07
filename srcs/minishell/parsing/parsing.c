@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 11:15:02 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:01:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,5 @@ t_parsing *ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 			parsing[i].path = path_checker(ft_split((const char *)get_value(find_key(env, "PATH")), ":"), parsing[i]);
 		}
     }
-	free_lexer(lexer);
-    return (parsing);
+    return (free_lexer(lexer), parsing);
 }

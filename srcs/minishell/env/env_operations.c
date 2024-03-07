@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/06 23:20:16 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:53:41 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,16 @@ void	write_value(t_env **head, char *key, char *value)
 	char	*initial_string;
 	char	*string_to_join;
 
-	target_node = find_key(*head, key);
-	if (!target_node || !value)
+	if (!value)
 		return ;
+	target_node = find_key(*head, key);
+	if (!target_node)
+	{
+		string_to_join = reconstructed_entry(key, value);
+		env_add_entry(*head, string_to_join);
+		ft_free(1, &string_to_join);
+		return ;
+	}
 	initial_string = target_node->value;
 	string_to_join = no_null_join(initial_string, value);
 	free(initial_string);

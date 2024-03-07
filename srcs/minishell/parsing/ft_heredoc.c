@@ -6,34 +6,11 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 13:55:52 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/07 11:43:12 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-// static char	*ft_split_to_str(char **split, bool free)
-// {
-// 	char	*str;
-// 	int		i;
-
-// 	if (!split)
-// 		return (NULL);
-// 	str = NULL;
-// 	i = -1;
-// 	while (split[++i])
-// 	{
-// 		if (!str)
-// 			str = ft_strdup("");
-// 		str = ft_strjoin_free(str, split[i]);
-// 		if (split[i + 1])
-// 			str = ft_strjoin_free(str, " ");
-// 	}
-// 	if (free)
-// 		ft_free_matrix(1, &split);
-//     str = ft_strjoin_free(str, "\n");
-// 	return (str);
-// }
 
 static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 {

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:12:55 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 17:30:12 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/08 22:23:08 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*ft_expand_env2(char *line, t_env *head, int *i, char **buffer)
 
 	buffer2 = NULL;
 	value = NULL;
-	while (ft_isalnum(line[++(*i)]))
+	while (ft_isalnum(line[++(*i)]) || line[*i] == '_')
 		buffer2 = ft_strjoinchar_free(&buffer2, line[*i]);
 	if (find_key(head, buffer2))
 	{

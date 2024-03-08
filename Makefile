@@ -24,14 +24,18 @@ SRCS = 	srcs/minishell/main.c \
 		srcs/minishell/lexer/syntax_check.c \
 		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
+		srcs/minishell/parsing/parsing_utils.c \
 		srcs/minishell/parsing/path_checker.c \
+		srcs/minishell/parsing/file_checker.c \
 		srcs/minishell/parsing/ft_heredoc.c \
-		srcs/minishell/parsing/parsing_cmd.c
+		srcs/minishell/parsing/expand/ft_expand.c \
+		srcs/minishell/parsing/expand/ft_expand_env.c \
+		srcs/minishell/parsing/expand/ft_expand_home.c \
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I$(LIBFT) -g #-ggdb3 -fsanitize=address #-Wall -Werror -Wextra
-LDFLAGS = -L$(LIBFT) -lft -lreadline -g #-ggdb3 -fsanitize=address
+CFLAGS = -I$(LIBFT) -g -ggdb3 -fsanitize=address #-Wall -Werror -Wextra
+LDFLAGS = -L$(LIBFT) -lft -lreadline -g -ggdb3 -fsanitize=address
 
 RED=\033[0;31m
 GREEN=\033[0;32m

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 18:39:36 by mvpee             #+#    #+#             */
-/*   Updated: 2023/11/15 09:07:27 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:57:58 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	ft_printf("> ");
 	if (temp == NULL)
 		temp = ft_strdup("");
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));

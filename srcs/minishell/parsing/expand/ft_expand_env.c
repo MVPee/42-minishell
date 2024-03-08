@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expand_env.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/08 15:12:55 by mvpee             #+#    #+#             */
+/*   Updated: 2024/03/08 17:30:12 by mvpee            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../../includes/minishell.h"
+
+static char	*ft_expand_env2(char *line, t_env *head, int *i, char **buffer)
+{
+	char	*buffer2;
+	char	*value;
+	int		p;
+
+	buffer2 = NULL;
+	value = NULL;
+	while (ft_isalnum(line[++(*i)]))
+		buffer2 = ft_strjoinchar_free(&buffer2, line[*i]);
+	if (find_key(head, buffer2))
+	{
+		value = ft_strdup(find_key(head, buffer2)->value);
+		p = -1;
+		while (value[++p])
+			*buffer = ft_strjoinchar_free(buffer, value[p]);
+	}
+	ft_free(2, &buffer2, &value);
+	(*i)--;
+}
+
+char	*ft_expand_env(char *line, t_env *head, t_data data, int *i)
+{
+	char	*value;
+	char	*buffer;
+	int		p;
+
+	buffer = NULL;
+	value = NULL;
+	if (line[*i + 1] == '?')
+	{
+		(*i)++;
+		value = ft_itoa(data.env_var);
+		p = -1;
+		while (value[++p])
+			buffer = ft_strjoinchar_free(&buffer, value[p]);
+		ft_free(1, &value);
+	}
+	else
+		ft_expand_env2(line, head, i, &buffer);
+	if (line[*i + 1] != '\"')
+		i++;
+	return (buffer);
+}

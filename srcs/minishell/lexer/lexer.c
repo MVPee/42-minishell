@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 11:22:19 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/08 12:02:09 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
-				split_temp = parsing_cmd(buffer2, env, data);
+				split_temp = ft_expand(buffer2, env, data);
 				append_node(&(new_lexer.head), split_temp[0], INPUT);
 				ft_free_matrix(1, &split_temp);
 				ft_memset(buffer2, 0, 100);
@@ -203,7 +203,7 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
-				split_temp = parsing_cmd(buffer2, env, data);
+				split_temp = ft_expand(buffer2, env, data);
 				append_node(&(new_lexer.head), split_temp[0], APPEND);
 				ft_free_matrix(1, &split_temp);
 				ft_memset(buffer2, 0, 100);
@@ -241,7 +241,7 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 						buffer2[k++] = str[i++];
 				}
 				buffer2[k] = '\0';
-				split_temp = parsing_cmd(buffer2, env, data);
+				split_temp = ft_expand(buffer2, env, data);
 				append_node(&(new_lexer.head), split_temp[0], OUTPUT);
 				ft_free_matrix(1, &split_temp);
 				ft_memset(buffer2, 0, 100);

@@ -34,7 +34,7 @@ char	*ft_read(int fd)
 	while (line)
 	{
 		temp = file;
-		file = ft_strjoin_free(temp, line);
+		file = ft_strjoin_free(&temp, line);
 		line = get_next_line(fd);
 	}
 	close(fd);

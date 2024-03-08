@@ -1,6 +1,6 @@
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 RED=\033[0;31m
 GREEN=\033[0;32m
@@ -58,6 +58,7 @@ LIBFT_SRCS =	srcs/libft/ft_isalpha.c \
 				srcs/libft/ft_splitlen.c \
 				srcs/libft/ft_read.c \
 				srcs/libft/ft_strjoin_free.c \
+				srcs/libft/ft_strjoin_free_free.c \
 				srcs/libft/ft_ischarin.c \
 				srcs/libft/ft_strcmp.c \
 				srcs/libft/ft_free_matrix.c \
@@ -65,7 +66,7 @@ LIBFT_SRCS =	srcs/libft/ft_isalpha.c \
 				srcs/libft/ft_splitjoin.c \
 				srcs/libft/ft_splittrim.c \
 				srcs/libft/ft_putsplit.c \
-				srcs/libft/ft_strjoinchar_free.c
+				srcs/libft/ft_strjoinchar_free.c \
 
 GNL_SRCS = 		srcs/gnl/get_next_line.c
 

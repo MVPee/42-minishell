@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 08:54:15 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/07 10:54:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/08 17:36:29 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 
 // LIBFT
+
 typedef struct s_list
 {
 	void			*content;
@@ -87,7 +88,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 char				**ft_splitdup(const char **src);
 size_t				ft_splitlen(const char **src);
 char				*ft_read(int fd);
-char				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_free(char **s1, char *s2);
+char				*ft_strjoin_free_free(char **s1, char *s2);
 int					ft_ischarin(char c, char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 void				ft_free_matrix(unsigned int count, ...);
@@ -95,7 +97,7 @@ void				ft_free(unsigned int count, ...);
 char				**ft_splitjoin(char **split, char *need_to_add_to_split);
 char				**ft_splittrim(char **split, char *set);
 void				ft_putsplit(char **split, char *message_before);
-char				*ft_strjoinchar_free(char *s1, char s2);
+char				*ft_strjoinchar_free(char **s1, char s2);
 
 // PRINTF
 int					ft_printf(const char *format, ...);

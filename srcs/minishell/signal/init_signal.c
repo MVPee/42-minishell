@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:29:06 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 12:46:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/08 09:32:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	signal_handler(int signum)
 	}
 }
 
-void init_signal()
+void	init_signal(void)
 {
-    signal(SIGINT, signal_handler);
+	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

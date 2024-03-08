@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/05 11:39:48 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/08 09:42:23 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ char **parsing_cmd(char *line, t_env *head, t_data data)
                     j++;
                 }
             }
+            else if (!ft_isalnum(line[i + 1]))
+                buffer[j++] = line[i];
             else
             {
                 while(ft_isalnum(line[++i]))

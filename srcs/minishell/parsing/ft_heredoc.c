@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 12:20:00 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 13:05:06 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*heredoc_expand(char *line, t_env *env, t_data data, int *i)
 	if (line[*i + 1] == '?')
 	{
 		str = ft_strjoin_free_free(&str, ft_itoa(data.env_var));
-		(*i)+=2;
+		(*i) += 2;
 	}
 	else if (!ft_isalnum(line[*i + 1]))
 		str = ft_strjoinchar_free(&str, line[*i]);
@@ -31,7 +31,7 @@ static char	*heredoc_expand(char *line, t_env *env, t_data data, int *i)
 		while (ft_isalpha(line[++(*i)]) || line[*i] == '_' || line[*i] == '?')
 			buffer = ft_strjoinchar_free(&buffer, line[*i]);
 		if (find_key(env, buffer))
-			str = ft_strjoin_free_free(&str, ft_strdup(find_key(env,
+			str = ft_strjoin_free_free(&str, ft_strdup(find_key(env, \
 						buffer)->value));
 		ft_free(1, &buffer);
 	}
@@ -50,7 +50,8 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 	while (line[++i])
 	{
 		if (line[i] == '$')
-			str = ft_strjoin_free_free(&str, heredoc_expand(line, env, data, &i));
+			str = ft_strjoin_free_free(&str, heredoc_expand(line, env, data, \
+					&i));
 		if (line[i])
 			str = ft_strjoinchar_free(&str, line[i]);
 	}
@@ -87,7 +88,6 @@ char	*ft_heredoc(char **stop, t_env *env, t_data data)
 	line = readline("> ");
 	while ((line))
 	{
-		
 		if (!ft_strcmp(line, *stop) || !line)
 			break ;
 		if (!flag)

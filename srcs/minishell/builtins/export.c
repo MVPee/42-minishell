@@ -6,17 +6,17 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 15:44:23 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:07:26 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	add_env(t_env *head, char *key, char *value, bool append_content)
+static void	add_env(t_env **head, char *key, char *value, bool append_content)
 {
 	char	*clean_entry;
 
-	if (!head || !key)
+	if (!key)
 		return ;
 	if (!is_key_valid(key))
 	{
@@ -25,31 +25,32 @@ static void	add_env(t_env *head, char *key, char *value, bool append_content)
 		return ;
 	}
 	if (append_content)
-		write_value(&head, key, value);
+		write_value(head, key, value);
 	else
 	{
 		if (key && value)
 			clean_entry = reconstructed_entry(key, value);
 		else
 			clean_entry = ft_strdup(key);
-		if (find_key(head, key))
-			env_remove_entry(&head, key);
-		env_add_entry(head, clean_entry);
+		if (find_key(*head, key))
+			env_remove_entry(head, key);
+		env_entry_update(head, clean_entry);
 		free(clean_entry);
 	}
 	ft_free(2, &key, &value);
 }
 
-static void	*add_null_content(t_env *head, char *key)
+static void	*add_null_content(t_env **head, char *key, t_data **data)
 {
-	if (!head || !key)
+	if (!key)
 		return (NULL);
 	if (!is_key_valid(key))
 		return (non_valid_arg(key));
 	add_env(head, key, NULL, false);
+	return (NULL);
 }
 
-static void	*add_content(t_env *head, char *line)
+static void	*add_content(t_env **head, char *line, t_data **data)
 {
 	char	*equal_address;
 	char	*stop_location;
@@ -77,16 +78,16 @@ void	ft_export(t_env **head, t_data *data, char **split)
 {
 	char	*temp;
 	size_t	index;
-
+	
 	if (ft_splitlen((const char **)split) > 1)
 	{
 		index = 1;
 		while (split[index])
 		{
 			if (ft_strchr(split[index], '=') == NULL)
-				add_null_content(*head, split[index++]);
+				add_null_content(head, split[index++], &data);
 			else
-				add_content(*head, split[index++]);
+				add_content(head, split[index++], &data);
 		}
 	}
 	else

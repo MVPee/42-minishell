@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/07 15:40:30 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:09:11 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,12 @@ char	*reconstructed_entry(char *s1, char *s2)
 	joined_string = ft_strjoin(s1, "=");
 	joined_string = ft_strjoin(joined_string, s2);
 	return (joined_string);
+}
+
+void	env_entry_update(t_env **head, char *clean_entry)
+{
+	if (!*head)
+		*head = env_add_entry(*head, clean_entry);
+	else
+		env_add_entry(*head, clean_entry);
 }

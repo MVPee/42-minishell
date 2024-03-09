@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 12:03:12 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 12:20:00 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ char	*ft_heredoc(char **stop, t_env *env, t_data data)
 	line = readline("> ");
 	while ((line))
 	{
-		if (!ft_strcmp(line, *stop))
+		
+		if (!ft_strcmp(line, *stop) || !line)
 			break ;
 		if (!flag)
 			temp = ft_strjoin_free_free(&temp, \

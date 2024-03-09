@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 22:41:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 12:16:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	print_welcome_message(t_env *head)
 		RED BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
 	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" \
 		RED BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
-	ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
+	if (head || find_key(head, "SHLVL"))
+		ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
 
 char	*get_str_readline(void)

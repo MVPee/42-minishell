@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:37:37 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/06 23:21:32 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:16:56 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_env(t_data *data, t_env *head, char **split)
 {
-	char	*result;
-	char	*temp;
-
 	if (split[1])
 	{
 		ft_printf_fd(2, "env: '%s' No such file or directory\n", split[1]);

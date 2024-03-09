@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:45:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 15:41:00 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:09:30 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	ft_sorted_env(t_env *head);
 char	*reconstructed_entry(char *s1, char *s2);
 void	*non_valid_arg(char *line);
 void	error_handler_export(char *s1, char *s2);
+void	env_entry_update(t_env **head, char *clean_entry);
 
 #endif

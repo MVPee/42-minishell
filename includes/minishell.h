@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 11:55:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 15:15:35 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_env	*env_init(char **envs);
 char	**env_to_tab(t_env *head);
 char	**env_split(char *env);
 t_env	*tab_to_env(char **envp);
-size_t	get_size(t_env *head);
 t_env	*env_add_entry(t_env *head, char *entry);
 t_env	*env_remove_entry(t_env **head, char *key);
 t_env	*find_key(t_env *head, char *key);
@@ -58,6 +57,7 @@ void	free_env_list(t_env *head);
 void	shell_lvl_handler(t_env *head);
 void	update_content_of_node(t_env **created_node, char **splitted_arguments);
 char	*no_null_join(char *s1, char *s2);
+t_env	*minimal_env(void);
 
 // Process
 void	process(t_env **head, t_data *data, t_parsing *parsing);

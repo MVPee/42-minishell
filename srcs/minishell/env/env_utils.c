@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/06 23:18:46 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:07:50 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ char	**env_split(char *env)
 	result[1] = ft_strdup(split + 1);
 	result[2] = NULL;
 	return (result);
-}
-
-void	free_env_list(t_env *head)
-{
-	t_env	*tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		tmp = NULL;
-	}
 }
 
 void	shell_lvl_handler(t_env *head)
@@ -94,4 +79,13 @@ char	*no_null_join(char *s1, char *s2)
 	}
 	str[j] = '\0';
 	return (str);
+}
+
+t_env	*minimal_env(void)
+{
+	t_env	*head;
+
+	head = NULL;
+	head = env_add_entry(head, "SHLVL=");
+	return (head);
 }

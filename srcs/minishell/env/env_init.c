@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/05 13:35:40 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 15:19:09 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,16 @@ t_env	*env_init(char **envs)
 
 	head = NULL;
 	i = 0;
-	while (envs[i])
+	if (*envs)
 	{
-		head = env_add_entry(head, envs[i]);
-		i++;
+		while (envs[i])
+		{
+			head = env_add_entry(head, envs[i]);
+			i++;
+		}
 	}
-	shell_lvl_handler(head);
+	else 
+		head = minimal_env();
+	shell_lvl_handler(head);	
 	return (head);
 }

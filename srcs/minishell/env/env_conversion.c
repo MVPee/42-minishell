@@ -6,11 +6,24 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/06 23:19:23 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:12:17 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static size_t	get_size(t_env *head)
+{
+	size_t	i;
+
+	i = 0;
+	while (head)
+	{
+		i++;
+		head = head->next;
+	}
+	return (i);
+}
 
 static void	*conversion_error_handler(char **envp, size_t count)
 {
@@ -59,12 +72,4 @@ char	**env_to_tab(t_env *head)
 	}
 	envp[size_of_env] = NULL;
 	return (envp);
-}
-
-t_env	*tab_to_env(char **envp)
-{
-	t_env	*head;
-
-	head = env_init(envp);
-	return (head);
 }

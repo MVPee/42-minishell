@@ -6,24 +6,11 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/07 14:53:41 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:11:57 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-size_t	get_size(t_env *head)
-{
-	size_t	i;
-
-	i = 0;
-	while (head)
-	{
-		i++;
-		head = head->next;
-	}
-	return (i);
-}
 
 t_env	*find_key(t_env *head, char *key)
 {
@@ -67,9 +54,26 @@ void	write_value(t_env **head, char *key, char *value)
 	target_node->value = string_to_join;
 }
 
-t_env	*get_last_entry(t_env **head)
+void	free_env_element(t_env *node)
 {
-	while ((*head)->next)
-		*head = (*head)->next;
-	return (*head);
+	if (!node)
+		return ;
+	if (node->key)
+		free(node->key);
+	if (node->value)
+		free(node->value);
+	free(node);
+}
+
+void	free_env_list(t_env *head)
+{
+	t_env	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free_env_element(tmp);
+		tmp = NULL;
+	}
 }

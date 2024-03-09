@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:57:18 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 15:01:01 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 13:14:19 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ char	*ft_strjoin_free_free(char **s1, char *s2)
 	char	*str;
 
 	if (!s2)
-		return (NULL);
+	{
+		str = ft_strdup(*s1);
+		return (ft_free(1, s1), str);
+	}
 	if (!(*s1))
 		*s1 = ft_strdup("");
 	if (!(*s1))
@@ -35,6 +38,5 @@ char	*ft_strjoin_free_free(char **s1, char *s2)
 	while ((s2)[++i])
 		str[j++] = (s2)[i];
 	str[j] = '\0';
-	ft_free(2, s1, &s2);
-	return (str);
+	return (ft_free(2, s1, &s2), str);
 }

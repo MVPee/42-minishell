@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 17:47:20 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 13:10:38 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ char	*ft_expand2(char *line, t_env *head, t_data data, int *i)
 	if (line[*i] == '$')
 		buffer = ft_strjoin_free_free(&buffer, ft_expand_env(line, head, data, \
 				i));
-	else if (ft_isprint(line[*i]) && line[*i] != '\'' && line[*i] != '\"' \
-		&& line[*i] != ' ')
+	else if (ft_isprint(line[*i]) && line[*i] != '\'' && line[*i] != '\"' && line[*i] != ' ')
+	{
 		buffer = ft_strjoinchar_free(&buffer, line[*i]);
+	}
+	ft_printf("STR: %s\n", buffer);
 	return (buffer);
 }
 
@@ -68,8 +70,8 @@ char	**ft_expand(char *line, t_env *head, t_data data)
 	{
 		ft_expand_home(line, &i, &buffer);
 		if (line[i] != ' ')
-			buffer = ft_strjoin_free_free(&buffer, ft_expand2(line, head, data, \
-					&i));
+			buffer = ft_strjoin_free_free(&buffer, ft_expand2(line, head, data, &i));
+		ft_printf("HERE: %s\n", buffer);
 		if (line[i] == ' ' && line[i])
 		{
 			if (buffer)
@@ -81,5 +83,7 @@ char	**ft_expand(char *line, t_env *head, t_data data)
 	}
 	if (buffer)
 		split = ft_splitjoin(split, buffer);
+	ft_printf("BUFFER: %s\n", buffer);
+	ft_putsplit(split, "RESULT:");
 	return (ft_free(1, &buffer), split);
 }

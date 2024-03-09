@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 11:55:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 12:00:04 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 	char	*str;
 	int		i;
 
+	if (!line || !env)
+		return (NULL);
 	i = -1;
 	str = NULL;
 	while (line[++i])

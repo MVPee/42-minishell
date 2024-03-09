@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 19:00:34 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/09 11:55:43 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*heredoc_expand(char *line, t_env *env, t_data data, int *i)
 		while (ft_isalpha(line[++(*i)]) || line[*i] == '_' || line[*i] == '?')
 			buffer = ft_strjoinchar_free(&buffer, line[*i]);
 		if (find_key(env, buffer))
-			str = ft_strjoin_free_free(&str, ft_strdup(find_key(env, \
+			str = ft_strjoin_free_free(&str, ft_strdup(find_key(env,
 						buffer)->value));
 		ft_free(1, &buffer);
 	}
@@ -44,7 +44,7 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 	int		i;
 
 	i = -1;
-	str = ft_strdup("");
+	str = NULL;
 	while (line[++i])
 	{
 		if (line[i] == '$')
@@ -52,7 +52,7 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 		if (line[i])
 			str = ft_strjoinchar_free(&str, line[i]);
 	}
-	return (str);
+	return (ft_free(1, &line), str);
 }
 
 static char	*check_heredoc_stop(char **stop, bool *flag)
@@ -69,7 +69,7 @@ static char	*check_heredoc_stop(char **stop, bool *flag)
 		if ((*stop)[i] != '\'' && (*stop)[i] != '\"')
 			new_stop = ft_strjoinchar_free(&new_stop, (*stop)[i]);
 	ft_free(1, stop);
-	return (ft_strjoin_free(&new_stop, "\n"));
+	return (new_stop);
 }
 
 char	*ft_heredoc(char **stop, t_env *env, t_data data)
@@ -82,18 +82,18 @@ char	*ft_heredoc(char **stop, t_env *env, t_data data)
 	*stop = check_heredoc_stop(stop, &flag);
 	if (!(*stop))
 		return (NULL);
-	line = get_next_line(0);
+	line = readline("> ");
 	while ((line))
 	{
 		if (!ft_strcmp(line, *stop))
 			break ;
 		if (!flag)
-			temp = ft_strjoin_free_free(&temp, heredoc_parsing(line, env, \
-					data));
+			temp = ft_strjoin_free_free(&temp, \
+				heredoc_parsing(ft_strjoin_free(&line, "\n"), env, data));
 		else
 			temp = ft_strjoin_free(&temp, line);
 		ft_free(1, &line);
-		line = get_next_line(0);
+		line = readline("> ");
 	}
 	return (ft_free(1, &line), temp);
 }

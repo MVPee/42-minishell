@@ -2,7 +2,7 @@ NAME = minishell
 
 LIBFT = srcs/libft
 
-SRCS = 	srcs/minishell/main.c \
+SRCS = 	main.c \
 		srcs/minishell/env/env_init.c \
 		srcs/minishell/env/env_operations.c \
 		srcs/minishell/env/env_conversion.c \

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 15:15:35 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:48:30 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	child_process(t_env **head, t_data *data, t_parsing *parsing);
 
 // Signal
 char	*get_str_readline(void);
-void	init_signal(void);
+void	init_signal(t_data *data);
 
 #endif

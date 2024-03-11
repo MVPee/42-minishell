@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 10:59:48 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/11 17:28:41 by nechaara         ###   ########.fr       */
+/*   Created: 2024/03/11 15:13:36 by nechaara          #+#    #+#             */
+/*   Updated: 2024/03/11 15:45:33 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#ifndef SIGNAL_H
+#define SIGNAL_H
 
-void	ft_pwd(t_data *data, t_env **head)
-{
-	char	buffer[500];
 
-	data->env_var = SUCCESSFUL_COMMAND;
-	ft_printf("%s\n", getcwd(buffer, 500));
-}
+#endif

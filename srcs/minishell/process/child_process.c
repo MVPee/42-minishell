@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 13:21:49 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:52:47 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 		execve(parsing.path, parsing.cmd, env_to_tab(*head));
 		perror(parsing.cmd[0]);
 		if (errno == EACCES)
-			exit(126);
+			exit(MISSING_RIGHTS);
 		exit(1);
 	}
 }

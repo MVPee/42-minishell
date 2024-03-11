@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:50:48 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:45:32 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int ac, char **argv, char **envs)
 	data.env_var = 0;
 	data.flag = false;
 	head = env_init(envs);
-	init_signal();
+	init_signal(&data);
 	print_welcome_message(head);
 	while (1)
 	{

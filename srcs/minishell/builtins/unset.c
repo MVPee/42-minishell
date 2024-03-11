@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:11:33 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/05 13:36:45 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 17:28:46 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	ft_unset(t_env **head, t_data *data, char **split)
 			index++;
 		}
 	}
-	data->env_var = 0;
+	data->env_var = SUCCESSFUL_COMMAND;
 }

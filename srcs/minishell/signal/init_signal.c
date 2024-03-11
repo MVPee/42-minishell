@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_signal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:29:06 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:37:03 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:47:17 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@ void	signal_handler(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-
+		signal_flag = true;
 	}
 }
 
 void	init_signal(t_data *data)
 {
 	//CTRL-C
-	if (signal(SIGINT, signal_handler) != SIG_ERR)
-		(*data).env_var = COMMAND_INTERRUPTED;
+	signal(SIGINT, signal_handler);
 	//CTRL-D
-	else if (signal(SIGQUIT, SIG_IGN) != SIG_ERR)
-		(*data).env_var = SUCCESSFUL_COMMAND;
+	signal(SIGQUIT, SIG_IGN);
 }

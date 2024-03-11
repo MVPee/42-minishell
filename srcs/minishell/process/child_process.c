@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:36:53 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:54:03 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void	ft_pipe(t_data *data, int i)
 
 static void	ft_redirection(t_parsing parsing, t_data *data)
 {
-	int	pipe_heredoc[2];
-
 	if (parsing.input != -1)
 	{
 		dup2(parsing.input, STDIN_FILENO);

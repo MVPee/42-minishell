@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 20:23:53 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 20:59:59 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_signal
 	bool			flag;
     bool            execve;
     bool            heredoc;
+    bool            minishell;
 }					t_signal;
 
 // Env Init

@@ -21,8 +21,9 @@ void	signal_handler(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (signum == SIGINT && (g_sig.execve || g_sig.heredoc))
-		ft_printf("\n");
+	if (!g_sig.minishell)
+		if (signum == SIGINT && (g_sig.heredoc || g_sig.execve))
+			ft_printf("\n");
 	g_sig.flag = true;
 }
 
@@ -31,6 +32,7 @@ void	init_signal(t_data *data)
 	g_sig.execve = false;
 	g_sig.heredoc = false;
 	g_sig.flag = false;
+	g_sig.minishell = false;
 	//CTRL-C
 	signal(SIGINT, signal_handler);
 	//CTRL-D

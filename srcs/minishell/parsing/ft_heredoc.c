@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 16:36:02 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 20:28:51 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,12 @@ void ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 
 	if (data->flag)
 		return ;
+	g_sig.heredoc = true;
 	pid = fork();
 	if (pid == 0)
 		heredoc(fd, stop, env, *data);
 	waitpid(pid, &status, 0);
+	g_sig.heredoc = false;
 	if (!WIFEXITED(status))
 		data->flag = true;
 }

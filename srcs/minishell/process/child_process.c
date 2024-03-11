@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:54:03 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 20:40:16 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	child_process(t_env **head, t_data *data, t_parsing *parsing)
 	int	i;
 
 	i = -1;
+	g_sig.execve = true;
 	while (++i < data->nbr_cmd)
 	{
 		data->pid[i] = fork();

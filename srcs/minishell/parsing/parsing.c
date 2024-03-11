@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:52:30 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 20:26:06 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	t_parsing	*parsing;
 	int			i;
 
-	if (signal_flag)
+	if (data->flag)
 	{
-		signal_flag = false;
+		data->flag = false;
 		data->env_var = 130;
 	}
 	if (!lexer)

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:47:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 20:23:53 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@
 # include <stdbool.h>
 # include <sys/wait.h>
 
-extern bool signal_flag;
+typedef struct s_signal
+{
+	bool			flag;
+    bool            execve;
+    bool            heredoc;
+}					t_signal;
 
 // Env Init
 t_env	*env_init(char **envs);
@@ -68,5 +73,7 @@ void	child_process(t_env **head, t_data *data, t_parsing *parsing);
 // Signal
 char	*get_str_readline(void);
 void	init_signal(t_data *data);
+
+extern t_signal g_sig;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:37:00 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:35:17 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static void	ft_waitpid(t_data *data)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
-	else
-		data->env_var = COMMAND_INTERRUPTED;
 }
 
 void	process(t_env **head, t_data *data, t_parsing *parsing)
@@ -86,5 +84,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		close(data->pipefds[i][1]);
 	}
 	ft_waitpid(data);
+	g_sig.execve = false;
 	free_process(parsing, data);
 }

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 20:35:17 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 20:46:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 {
 	int	i;
 
+	if (data->flag)
+	{
+		data->flag = false;
+		data->env_var = 130;
+	}
 	if (!parsing)
 		return ;
 	if (init_process(data))

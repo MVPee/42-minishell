@@ -16,13 +16,13 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT && !g_sig.execve && !g_sig.heredoc)
 	{
-		printf("\n");
+		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (signum == SIGINT && (g_sig.execve || g_sig.heredoc))
-		printf("\n");
+		ft_printf("\n");
 	g_sig.flag = true;
 }
 

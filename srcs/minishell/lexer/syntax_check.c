@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 13:06:05 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 17:56:26 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ bool	syntax_check(char *str)
 				return (ft_printf("syntax error unclosed \' token\n"), true);
 		}
 		else if (line[i] == ';')
-		{
-			if (line[i + 1])
-				return (ft_printf("syntax error near unexpected token '%c'\n", line[i + 1]), true);
-			return (ft_printf("syntax error near unexpected token 'newline'\n"), true);
-		}
+			return (ft_printf("syntax error near unexpected token ';'\n", true));
 		else if (line[i] == '|')
 		{
 			if (check_before(line, i))

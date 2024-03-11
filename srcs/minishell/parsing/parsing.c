@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:32:20 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:19:04 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env, int i)
 		parsing.isspecial = isspecial(parsing);
 		parsing.path = path_checker(ft_split((const char *)get_value(find_key \
 			(env, "PATH")), ":"), parsing);
+		//ft_printf("PATH: %s\n", parsing.path);
 	}
 	return (parsing);
 }

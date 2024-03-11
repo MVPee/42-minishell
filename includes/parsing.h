@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:28:48 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:12:44 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_parsing
 	int		output;
 	bool	isbuiltins;
 	bool	isspecial;
+	bool	flag;
 	char	*path;
 }			t_parsing;
 

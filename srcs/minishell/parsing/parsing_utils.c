@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:26:27 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:45:55 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:13:31 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_parsing	init_parsing(void)
 	parsing.isbuiltins = false;
 	parsing.isspecial = false;
 	parsing.path = NULL;
+	parsing.flag = false;
 	return (parsing);
 }
 

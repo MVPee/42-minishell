@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 13:18:57 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:21:49 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 		exit(127);
 	}
 	if (parsing.flag)
-		exit(2);
+		exit(1);
 	ft_pipe(data, i);
 	ft_redirection(parsing, data);
 	if (parsing.isbuiltins)

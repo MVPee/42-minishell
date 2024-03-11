@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 23:04:00 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 12:54:08 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	ft_waitpid(t_data *data)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
+	else
+		data->env_var = 130;
 }
 
 void	process(t_env **head, t_data *data, t_parsing *parsing)
@@ -66,6 +68,13 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 
 	if (!parsing)
 		return ;
+	if (data->flag)
+	{
+		free_parsing(parsing, *data);
+		data->flag = false;
+		data->env_var = 130;
+		return ;
+	}
 	if (init_process(data))
 		return ;
 	if (data->nbr_cmd == 1 && parsing[0].isspecial)

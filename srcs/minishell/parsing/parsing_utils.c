@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:26:27 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 11:05:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:45:55 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void	free_parsing(t_parsing *parsing, t_data data)
 	i = -1;
 	while (++i < data.nbr_cmd)
 	{
-		ft_free_matrix(1, &parsing[i].cmd);
-		ft_free(1, &parsing[i].path);
+		//ft_free_matrix(1, &parsing[i].cmd);
+		// ft_free(1, &parsing[i].path);
 		if (parsing[i].input != -1)
 			close(parsing[i].input);
 		if (parsing[i].output != -1)
 			close(parsing[i].output);
 	}
-	ft_free(1, &parsing);
-	return ;
+	// ft_free(1, &parsing);
 }

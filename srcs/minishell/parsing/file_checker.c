@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 11:32:20 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:27:50 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_open(char *file, t_token token)
 	return (-1);
 }
 
-static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, t_data data)
+static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, t_data *data)
 {
 	if (parsing->input != -1)
 		close(parsing->input);
@@ -62,7 +62,7 @@ static bool	output_check(t_parsing *parsing, t_node *node)
 	return (true);
 }
 
-bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, t_data data)
+bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, t_data *data)
 {
 	t_node	*node;
 	char	*temp;

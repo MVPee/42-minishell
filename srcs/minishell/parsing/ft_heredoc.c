@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 11:38:54 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:54:45 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void heredoc(int fd, char **stop, t_env *env, t_data data)
 	char *line;
 	bool flag;
 
+	//signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_DFL);
 	*stop = check_heredoc_stop(stop, &flag);
 	while((line = readline("> ")))
 	{
@@ -90,14 +92,17 @@ void heredoc(int fd, char **stop, t_env *env, t_data data)
 		}
 		if (!flag)
 			line = heredoc_parsing(line, env, data);
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
+		if (line)
+		{
+			write(fd, line, ft_strlen(line));
+			write(fd, "\n", 1);
+			ft_free(1, &line);
+		}
 	}
 	exit(0);
 }
 
-void ft_heredoc(int fd, char **stop, t_env *env, t_data data)
+void ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 {
 	int status;
 	bool flag;
@@ -105,6 +110,8 @@ void ft_heredoc(int fd, char **stop, t_env *env, t_data data)
 
 	pid = fork();
 	if (pid == 0)
-		heredoc(fd, stop, env, data);
+		heredoc(fd, stop, env, *data);
 	waitpid(pid, &status, 0);
+	if (!WIFEXITED(status))
+		data->flag = true;
 }

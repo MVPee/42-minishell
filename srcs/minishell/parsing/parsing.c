@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 22:27:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 12:32:20 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env, int i)
 	t_parsing	parsing;
 
 	parsing = init_parsing();
-	if (!file_checker(&parsing, lexer, env, *data))
+	if (!file_checker(&parsing, lexer, env, data))
 	{
 		data->env_var = 1;
 		return (parsing);

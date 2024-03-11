@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:48:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 18:16:16 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 12:49:27 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_data
 	int				nbr_cmd;
 	pid_t			*pid;
 	int				**pipefds;
+	bool			flag;
 }					t_data;
 
 typedef struct s_env

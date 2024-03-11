@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/07 23:04:23 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 11:33:04 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ static void	ft_redirection(t_parsing parsing, t_data *data)
 	{
 		dup2(parsing.input, STDIN_FILENO);
 		close(parsing.input);
-	}
-	else if (parsing.heredoc)
-	{
-		pipe(pipe_heredoc);
-		write(pipe_heredoc[1], parsing.heredoc, ft_strlen(parsing.heredoc));
-		close(pipe_heredoc[1]);
-		dup2(pipe_heredoc[0], STDIN_FILENO);
-		close(pipe_heredoc[0]);
 	}
 	if (parsing.output != -1)
 	{

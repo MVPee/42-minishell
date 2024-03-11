@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 10:39:17 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 11:08:16 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_parsing
 	int		output;
 	bool	isbuiltins;
 	bool	isspecial;
-	char	*heredoc;
 	char	*path;
 }			t_parsing;
 
@@ -33,7 +32,7 @@ char		*path_checker(char **paths, t_parsing parsing);
 bool		file_checker(t_parsing *parsing, t_lexer lexer, t_env *env,
 				t_data data);
 
-char		*ft_heredoc(char **stop, t_env *env, t_data data);
+void		ft_heredoc(int fd, char **stop, t_env *env, t_data data);
 
 t_parsing	init_parsing(void);
 void		free_parsing(t_parsing *parsing, t_data data);

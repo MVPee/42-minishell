@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_process.c                                    :+:      :+:    :+:   */
+/*   child_executor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -71,7 +71,7 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 	}
 }
 
-void	child_process(t_env **head, t_data *data, t_parsing *parsing)
+void	child_executor(t_env **head, t_data *data, t_parsing *parsing)
 {
 	int	i;
 

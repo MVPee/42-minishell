@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   executor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 21:02:23 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 21:11:38 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static bool	init_process(t_data *data)
+static bool	init_executor(t_data *data)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ static bool	init_process(t_data *data)
 	return (false);
 }
 
-static void	free_process(t_parsing *parsing, t_data *data)
+static void	free_executor(t_parsing *parsing, t_data *data)
 {
 	int	i;
 
@@ -58,9 +58,11 @@ static void	ft_waitpid(t_data *data)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
+	g_sig.execve = false;
+	g_sig.minishell = false;
 }
 
-void	process(t_env **head, t_data *data, t_parsing *parsing)
+void	executor(t_env **head, t_data *data, t_parsing *parsing)
 {
 	int	i;
 
@@ -71,7 +73,7 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	}
 	if (!parsing)
 		return ;
-	if (init_process(data))
+	if (init_executor(data))
 		return ;
 	if (data->nbr_cmd == 1 && parsing[0].isspecial)
 	{
@@ -81,7 +83,7 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 	i = -1;
 	while (++i < data->nbr_cmd)
 		pipe(data->pipefds[i]);
-	child_process(head, data, parsing);
+	child_executor(head, data, parsing);
 	i = -1;
 	while (++i < data->nbr_cmd)
 	{
@@ -89,7 +91,5 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 		close(data->pipefds[i][1]);
 	}
 	ft_waitpid(data);
-	g_sig.execve = false;
-	g_sig.minishell = false;
-	free_process(parsing, data);
+	free_executor(parsing, data);
 }

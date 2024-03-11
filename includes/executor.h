@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.h                                           :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 15:13:36 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/11 17:40:54 by mvpee            ###   ########.fr       */
+/*   Created: 2024/03/11 21:18:31 by mvpee             #+#    #+#             */
+/*   Updated: 2024/03/11 21:19:17 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-#define SIGNAL_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-typedef struct s_signal
-{
-	bool			flag;
-    bool            execve;
-    bool            heredoc;
-    bool            minishell;
-}					t_signal;
-
-extern t_signal g_sig;
-
-char	*get_str_readline(void);
-void	init_signal(t_data *data);
+void	executor(t_env **head, t_data *data, t_parsing *parsing);
+void	child_executor(t_env **head, t_data *data, t_parsing *parsing);
 
 #endif

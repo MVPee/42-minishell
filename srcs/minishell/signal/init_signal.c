@@ -22,8 +22,12 @@ void	signal_handler(int signum)
 		rl_redisplay();
 	}
 	if (!g_sig.minishell)
-		if (signum == SIGINT && (g_sig.heredoc || g_sig.execve))
+	{
+		if (signum == SIGINT && g_sig.execve)
 			ft_printf("\n");
+		if (signum == SIGINT && g_sig.heredoc)
+			ft_printf("^C\n");
+	}
 	g_sig.flag = true;
 }
 

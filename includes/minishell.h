@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 20:59:59 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 21:19:16 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,13 @@
 # include "lexer.h"
 # include "parsing.h"
 # include "builtins.h"
+# include "signal.h"
+# include "executor.h"
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
 # include <sys/wait.h>
-
-typedef struct s_signal
-{
-	bool			flag;
-    bool            execve;
-    bool            heredoc;
-    bool            minishell;
-}					t_signal;
 
 // Env Init
 t_env	*env_init(char **envs);
@@ -66,15 +60,5 @@ void	shell_lvl_handler(t_env *head);
 void	update_content_of_node(t_env **created_node, char **splitted_arguments);
 char	*no_null_join(char *s1, char *s2);
 t_env	*minimal_env(void);
-
-// Process
-void	process(t_env **head, t_data *data, t_parsing *parsing);
-void	child_process(t_env **head, t_data *data, t_parsing *parsing);
-
-// Signal
-char	*get_str_readline(void);
-void	init_signal(t_data *data);
-
-extern t_signal g_sig;
 
 #endif

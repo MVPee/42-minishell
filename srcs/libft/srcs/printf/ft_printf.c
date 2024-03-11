@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:12:15 by mvan-pee          #+#    #+#             */
-/*   Updated: 2023/11/15 10:39:56 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:14:07 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ft_checkflag(va_list args, char a, int *len, int fd)
 	return (*len);
 }
 
-static int	process_format(const char *format, va_list args, int *len_ptr,
+static int	executor_format(const char *format, va_list args, int *len_ptr,
 		int fd)
 {
 	int	i;
@@ -84,7 +84,7 @@ int	ft_printf_fd(int fd, const char *format, ...)
 
 	len = 0;
 	va_start(args, format);
-	if (process_format(format, args, &len, fd) < 0)
+	if (executor_format(format, args, &len, fd) < 0)
 	{
 		va_end(args);
 		return (-1);
@@ -100,7 +100,7 @@ int	ft_printf(const char *format, ...)
 
 	len = 0;
 	va_start(args, format);
-	if (process_format(format, args, &len, 1) < 0)
+	if (executor_format(format, args, &len, 1) < 0)
 	{
 		va_end(args);
 		return (-1);

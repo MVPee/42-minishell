@@ -17,8 +17,8 @@ SRCS = 	main.c \
 		srcs/minishell/builtins/utils/export_utils.c \
 		srcs/minishell/builtins/utils/export_sort.c \
 		srcs/minishell/builtins/cd.c \
-		srcs/minishell/process/process.c \
-		srcs/minishell/process/child_process.c \
+		srcs/minishell/executor/executor.c \
+		srcs/minishell/executor/child_executor.c \
 		srcs/minishell/lexer/lexer.c \
 		srcs/minishell/lexer/lexer_utils.c \
 		srcs/minishell/lexer/syntax_check.c \

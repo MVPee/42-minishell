@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 12:02:09 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 10:35:15 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*new_node(char *name, t_token token)
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node->name = strdup(name);
+	node->name = ft_strdup(name);
 	node->token = token;
 	node->next = NULL;
 	return (node);
@@ -270,7 +270,7 @@ t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 	lexer = NULL;
 	if (!line)
 		return (NULL);
-	if (!strcmp(line, "\0"))
+	if (!ft_strcmp(line, "\0"))
 		return (ft_free(1, &line), NULL);
 	if (syntax_check(line))
 		return (ft_free(1, &line), NULL);

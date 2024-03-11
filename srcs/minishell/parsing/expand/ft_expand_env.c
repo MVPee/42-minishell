@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:12:55 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 22:23:08 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/11 10:38:28 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static char	*ft_expand_env2(char *line, t_env *head, int *i, char **buffer)
+static void ft_expand_env2(char *line, t_env *head, int *i, char **buffer)
 {
 	char	*buffer2;
 	char	*value;

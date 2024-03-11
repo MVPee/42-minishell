@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:54:45 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:36:02 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void heredoc(int fd, char **stop, t_env *env, t_data data)
 	char *line;
 	bool flag;
 
-	//signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_DFL);
 	*stop = check_heredoc_stop(stop, &flag);
 	while((line = readline("> ")))
@@ -108,6 +107,8 @@ void ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 	bool flag;
 	pid_t pid;
 
+	if (data->flag)
+		return ;
 	pid = fork();
 	if (pid == 0)
 		heredoc(fd, stop, env, *data);

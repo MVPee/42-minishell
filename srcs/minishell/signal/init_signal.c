@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_signal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:29:06 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:57:12 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:58:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		//printf("\n");
-		//rl_replace_line("", 0);
+		printf("\n");
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		//data.env_var = 130.

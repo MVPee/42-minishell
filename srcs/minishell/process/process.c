@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 12:54:08 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:22:47 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,6 @@ void	process(t_env **head, t_data *data, t_parsing *parsing)
 
 	if (!parsing)
 		return ;
-	if (data->flag)
-	{
-		free_parsing(parsing, *data);
-		data->flag = false;
-		data->env_var = 130;
-		return ;
-	}
 	if (init_process(data))
 		return ;
 	if (data->nbr_cmd == 1 && parsing[0].isspecial)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 20:45:28 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 11:40:44 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void heredoc(int fd, char **stop, t_env *env, t_data data)
 	char *line;
 	bool flag;
 
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, signal_heredoc);
+	signal(SIGQUIT, SIG_DFL);
 	*stop = check_heredoc_stop(stop, &flag);
 	while((line = readline("> ")))
 	{
@@ -115,6 +116,8 @@ void ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 		heredoc(fd, stop, env, *data);
 	waitpid(pid, &status, 0);
 	g_sig.heredoc = false;
-	if (!WIFEXITED(status))
+	if (WIFEXITED(status))
+		data->env_var = WEXITSTATUS(status);
+	if (data->env_var == 130)
 		data->flag = true;
 }

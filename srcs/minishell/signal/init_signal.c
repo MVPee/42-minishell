@@ -22,11 +22,17 @@ void	signal_handler(int signum)
 		rl_redisplay();
 		g_sig.flag = true;
 	}
-	else if (!g_sig.minishell)
+	else if (!g_sig.minishell && signum == SIGINT )
 	{
-		if (signum == SIGINT && (g_sig.execve || g_sig.heredoc))
+		if (g_sig.heredoc)
 			ft_printf("\n");
 	}
+}
+
+void signal_heredoc(int signum)
+{
+	if (g_sig.heredoc)
+		exit(130);
 }
 
 void	init_signal(t_data *data)

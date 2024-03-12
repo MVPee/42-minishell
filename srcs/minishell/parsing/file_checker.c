@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:37:59 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:03:33 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, t_data *da
 		if (parsing->input == -1)
 			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
+	if (data->env_var == 130)
+		return (false);
 	return (true);
 }
 

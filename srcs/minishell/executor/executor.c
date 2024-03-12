@@ -72,6 +72,7 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 	{
 		data->flag = false;
 		data->env_var = 130;
+		return ;
 	}
 	if (!parsing)
 		return ;

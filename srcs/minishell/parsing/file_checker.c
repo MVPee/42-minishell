@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 13:16:16 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:37:59 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_open(char *file, t_token token)
 	else if (token == APPEND)
 		return (open(file, O_CREAT | O_APPEND | O_WRONLY, 0644));
 	else if (token == HEREDOC)
-		return (open("tmp/.heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644));	
+		return (open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644));	
 	return (-1);
 }
 
@@ -38,15 +38,15 @@ static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, t_data *da
 			parsing->flag = true;
 		}	
 		else
-			return (ft_printf_fd(2, RED "CHMOD 777 tmp/.heredoc\n" RESET), false);
+			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
 	if (node->token == HEREDOC)
 	{
 		ft_heredoc(parsing->input, &node->name, env, data);
 		close(parsing->input);
-		parsing->input = open("tmp/.heredoc", O_RDONLY, 0644);
+		parsing->input = open(".heredoc", O_RDONLY, 0644);
 		if (parsing->input == -1)
-			return (ft_printf_fd(2, RED "CHMOD 777 tmp/.heredoc\n" RESET), false);
+			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
 	return (true);
 }

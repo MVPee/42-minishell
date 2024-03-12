@@ -62,6 +62,7 @@ $(NAME): $(OBJS) $(LIBFT)/libft.a
 clean:
 	$(MAKE) -C $(LIBFT) clean
 	@rm -f $(OBJS)
+	@rm -f .heredoc
 
 fclean: clean
 	$(MAKE) -C $(LIBFT) fclean

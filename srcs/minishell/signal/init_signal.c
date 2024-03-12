@@ -35,6 +35,8 @@ void	init_signal(t_data *data)
 	g_sig.heredoc = false;
 	g_sig.flag = false;
 	g_sig.minishell = false;
+	data->env_var = 0;
+	data->flag = false;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

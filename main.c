@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:32:16 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:34:36 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int	main(int ac, char **argv, char **envs)
 	char	*line;
 	char	*str_readline;
 
-	data.env_var = 0;
-	data.flag = false;
 	head = env_init(envs);
 	init_signal(&data);
 	print_welcome_message(head);
@@ -67,11 +65,6 @@ int	main(int ac, char **argv, char **envs)
 		ft_free(1, &str_readline);
 		if (!line)
 			break ;
-		if (g_sig.flag)
-		{
-			g_sig.flag = false;
-			data.env_var = 1;
-		}
 		if (ft_strcmp(line, "\0"))
 		{
 			add_history(line);

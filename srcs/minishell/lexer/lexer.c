@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 15:11:20 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:55:50 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	append_node(t_node **head, char *name, t_token token)
 	t_node	*new;
 	t_node	*current;
 
+	ft_printf("%p\n", name);
 	new = new_node(name, token);
 	if (*head == NULL)
 		*head = new;

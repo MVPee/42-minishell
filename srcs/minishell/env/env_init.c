@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/09 15:19:09 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:24:54 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ t_env	*env_init(char **envs)
 			i++;
 		}
 	}
-	else 
+	else
 		head = minimal_env();
-	shell_lvl_handler(head);	
+	shell_lvl_handler(head);
 	return (head);
 }

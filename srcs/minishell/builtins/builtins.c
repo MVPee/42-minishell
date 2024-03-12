@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:13:39 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:27:35 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_isspecial(t_parsing parsing)
 {
-	int		i;
+	int	i;
 
 	char *split[] = {"unset", "cd", "exit", NULL};
 	i = -1;
@@ -28,11 +28,12 @@ bool	ft_isspecial(t_parsing parsing)
 
 bool	isbuiltins(char *line)
 {
-	int		i;
+	int	i;
 
 	if (!line)
 		return (false);
-	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", "exit", NULL};
+	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", "exit",
+		NULL};
 	i = -1;
 	while (split[++i])
 		if (!ft_strcmp(line, split[i]))

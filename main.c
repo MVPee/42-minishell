@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 17:53:42 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 18:26:06 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-t_signal g_sig;
+t_signal	g_sig;
 
 static void	print_welcome_message(t_env *head)
 {

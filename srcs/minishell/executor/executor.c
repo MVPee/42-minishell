@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                          :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 21:11:38 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 18:31:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,21 @@ static void	ft_waitpid(t_data *data)
 	g_sig.minishell = false;
 }
 
-void	executor(t_env **head, t_data *data, t_parsing *parsing)
+static void ft_close(t_data *data)
 {
 	int	i;
+
+	i = -1;
+	while (++i < data->nbr_cmd)
+	{
+		close(data->pipefds[i][0]);
+		close(data->pipefds[i][1]);
+	}
+}
+
+void	executor(t_env **head, t_data *data, t_parsing *parsing)
+{
+	int i;
 
 	if (data->flag)
 	{
@@ -87,12 +99,7 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 	while (++i < data->nbr_cmd)
 		pipe(data->pipefds[i]);
 	child_executor(head, data, parsing);
-	i = -1;
-	while (++i < data->nbr_cmd)
-	{
-		close(data->pipefds[i][0]);
-		close(data->pipefds[i][1]);
-	}
+	ft_close(data);
 	ft_waitpid(data);
 	free_executor(parsing, data);
 }

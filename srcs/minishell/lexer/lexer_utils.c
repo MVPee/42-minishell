@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:06:50 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 18:23:41 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	append_node(t_node **head, char *name, t_token token)
 	}
 }
 
-static void get_quotes(char *line, int *i, char **buffer)
+static void	get_quotes(char *line, int *i, char **buffer)
 {
 	if (line[*i] == '\"')
 	{

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/07 11:38:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 18:27:58 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static int	ft_cd_with_minus(t_env *head, char **split)
 		return (ft_free(1, &temp), 1);
 	}
 	if (chdir(find_key(head, "OLDPWD")->value) != 0)
-		return (ft_printf_fd(2, "cd: %s: No such file or directory\n", find_key(head, "OLDPWD")->value), 1);
+		return (ft_printf_fd(2, "cd: %s: No such file or directory\n", \
+				find_key(head, "OLDPWD")->value), 1);
 	if (find_key(head, "OLDPWD"))
 	{
 		ft_printf("%s\n", find_key(head, "OLDPWD")->value);

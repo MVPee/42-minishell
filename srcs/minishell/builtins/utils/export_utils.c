@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/09 15:09:11 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:28:38 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	is_key_valid(char *str)
 
 char	*reconstructed_entry(char *s1, char *s2)
 {
-	char *joined_string;
+	char	*joined_string;
 
 	joined_string = NULL;
 	if (!s1)

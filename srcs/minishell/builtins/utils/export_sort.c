@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:12:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/11 17:08:44 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:28:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	sort_env_list(t_env *head)
 }
 
 static void	print_sorted_env(t_env *head)
-{	
+{
 	if (!head)
 		ft_printf("no empty head \n");
 	while (head)
@@ -93,7 +93,7 @@ static void	print_sorted_env(t_env *head)
 
 void	ft_sorted_env(t_env *head)
 {
-	t_env *copy_of_env;
+	t_env	*copy_of_env;
 
 	copy_of_env = copy_env_list(head);
 	sort_env_list(copy_of_env);

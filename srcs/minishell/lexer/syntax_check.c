@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 17:56:26 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 11:48:33 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static bool	check_after(char *line, int i)
 	j = i;
 	while (line[++j])
 	{
-		while(line[j] == ' ')
+		while (line[j] == ' ')
 			j++;
 		if (ft_isprint(line[j]))
-			return false;
+			return (false);
 		else if (line[j] == '|')
 			return (true);
 		else if (!line[j])
@@ -40,10 +40,10 @@ static bool	check_before(char *line, int i)
 		return (true);
 	while (line[--j])
 	{
-		while(line[j] == ' ')
+		while (line[j] == ' ')
 			j--;
 		if (ft_isprint(line[j]))
-			return false;
+			return (false);
 		else if (line[j] == '|')
 			return (true);
 		else if (!line[j])
@@ -56,9 +56,9 @@ static bool	check_before(char *line, int i)
 
 bool	syntax_check(char *str)
 {
-	int	i;
-	char *line;
-	
+	int		i;
+	char	*line;
+
 	line = ft_strtrim(str, " ");
 	if (!line)
 		return (true);
@@ -82,55 +82,64 @@ bool	syntax_check(char *str)
 				return (ft_printf("syntax error unclosed \' token\n"), true);
 		}
 		else if (line[i] == ';')
-			return (ft_printf("syntax error near unexpected token ';'\n", true));
+			return (ft_printf("syntax error near unexpected token ';'\n", \
+					true));
 		else if (line[i] == '|')
 		{
 			if (check_before(line, i))
-				return (ft_printf("syntax error near unexpected token '|'\n"), true);
+				return (ft_printf("syntax error near unexpected token '|'\n"), \
+					true);
 			if (check_after(line, i))
-				return (ft_printf("syntax error near unexpected token '|'\n"), true);
+				return (ft_printf("syntax error near unexpected token '|'\n"), \
+					true);
 		}
 		else if (line[i] == '<')
 		{
 			if (line[i + 1] == '>')
-				return (ft_printf("syntax error near unexpected token <'\n"), true);
+				return (ft_printf("syntax error near unexpected token <'\n"), \
+						true);
 			if (line[i + 1] == '<')
 			{
 				i = i + 2;
-				while(line[i] == ' ')
+				while (line[i] == ' ')
 					i++;
 				if (ft_ischarin(line[i], "<>|") || !line[i])
-					return (ft_printf("syntax error near unexpected token '<'\n"), true);
+					return (ft_printf("syntax error near unexpected token '<'\n"), \
+						true);
 			}
 			else
 			{
 				i++;
-				while(line[i] == ' ')
+				while (line[i] == ' ')
 					i++;
 				if (ft_ischarin(line[i], "<>|") || !line[i])
-					return (ft_printf("syntax error near unexpected token '<'\n"), true);
+					return (ft_printf("syntax error near unexpected token '<'\n"), \
+						true);
 			}
 			i--;
 		}
 		else if (line[i] == '>')
 		{
 			if (line[i + 1] == '<')
-				return (ft_printf("syntax error near unexpected token '>'\n"), true);
+				return (ft_printf("syntax error near unexpected token '>'\n"), \
+					true);
 			if (line[i + 1] == '>')
 			{
 				i = i + 2;
-				while(line[i] == ' ')
+				while (line[i] == ' ')
 					i++;
 				if (ft_ischarin(line[i], "<>|") || !line[i])
-					return (ft_printf("syntax error near unexpected token '>'\n"), true);
+					return (ft_printf("syntax error near unexpected token '>'\n"), \
+						true);
 			}
 			else
 			{
 				i++;
-				while(line[i] == ' ')
+				while (line[i] == ' ')
 					i++;
 				if (ft_ischarin(line[i], "<>|") || !line[i])
-					return (ft_printf("syntax error near unexpected token '>'\n"), true);
+					return (ft_printf("syntax error near unexpected token '>'\n"), \
+						true);
 			}
 			i--;
 		}

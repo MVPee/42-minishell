@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 11:40:44 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:46:13 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,21 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 	return (ft_free(1, &line), str);
 }
 
-void heredoc(int fd, char **stop, t_env *env, t_data data)
+void	heredoc(int fd, char **stop, t_env *env, t_data data)
 {
-	char *line;
-	bool flag;
+	char	*line;
+	bool	flag;
 
 	signal(SIGINT, signal_heredoc);
 	signal(SIGQUIT, SIG_DFL);
 	*stop = check_heredoc_stop(stop, &flag);
-	while((line = readline("> ")))
+	while (1)
 	{
+		line = readline("> ");
 		if (!line || !ft_strcmp(line, *stop))
 		{
 			free(line);
-			break;
+			break ;
 		}
 		if (!flag)
 			line = heredoc_parsing(line, env, data);
@@ -102,11 +103,11 @@ void heredoc(int fd, char **stop, t_env *env, t_data data)
 	exit(0);
 }
 
-void ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
+void	ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 {
-	int status;
-	bool flag;
-	pid_t pid;
+	int		status;
+	bool	flag;
+	pid_t	pid;
 
 	if (data->flag)
 		return ;

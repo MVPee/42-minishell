@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 11:37:49 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:44:54 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	{
 		parsing[i] = parsing_data(lexer[i], data, env, i);
 		if (data->flag)
-			return free_lexer(lexer), (NULL);
+			return (free_lexer(lexer), (NULL));
 		if (!parsing[i].cmd)
 			return (free_lexer(lexer), free_parsing(parsing, *data), NULL);
 	}

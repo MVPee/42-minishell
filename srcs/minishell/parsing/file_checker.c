@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 11:03:33 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 11:47:11 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static int	ft_open(char *file, t_token token)
 	else if (token == APPEND)
 		return (open(file, O_CREAT | O_APPEND | O_WRONLY, 0644));
 	else if (token == HEREDOC)
-		return (open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644));	
+		return (open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644));
 	return (-1);
 }
 
-static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, t_data *data)
+static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, \
+		t_data *data)
 {
 	if (parsing->input != -1)
 		close(parsing->input);
@@ -36,7 +37,7 @@ static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, t_data *da
 		{
 			perror(node->name);
 			parsing->flag = true;
-		}	
+		}
 		else
 			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
@@ -65,7 +66,8 @@ static void	output_check(t_parsing *parsing, t_node *node)
 	}
 }
 
-bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, t_data *data)
+bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, \
+		t_data *data)
 {
 	t_node	*node;
 	char	*temp;

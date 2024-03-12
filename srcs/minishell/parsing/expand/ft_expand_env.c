@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:12:55 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:40:36 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:55:15 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	*ft_expand_env(char *line, t_env *head, t_data data, int *i)
 			buffer = ft_strjoinchar_free(&buffer, value[p]);
 		ft_free(1, &value);
 	}
+	else if (line[*i + 1] == ' ' || !line[*i + 1])
+		buffer = ft_strjoinchar_free(&buffer, '$'); 
 	else
 		ft_expand_env2(line, head, i, &buffer);
 	if (line[*i + 1] != '\"')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 11:46:13 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:20:34 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ static char	*check_heredoc_stop(char **stop, bool *flag)
 	char	*new_stop;
 	int		i;
 
+	if (!ft_strcmp(*stop, "\'\'") || !ft_strcmp(*stop, "\"\""))
+	{
+		ft_free(1, stop);
+		return (ft_strdup(""));
+	}
 	new_stop = NULL;
 	*flag = false;
 	if (ft_ischarin('\'', *stop) || ft_ischarin('\"', *stop))

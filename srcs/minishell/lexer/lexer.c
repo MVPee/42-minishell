@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 15:55:50 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:08:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	append_node(t_node **head, char *name, t_token token)
 	t_node	*new;
 	t_node	*current;
 
-	ft_printf("%p\n", name);
 	new = new_node(name, token);
 	if (*head == NULL)
 		*head = new;
@@ -50,7 +49,7 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 	int		i;
 	char	buffer[10000];
 	int		j;
-	char	buffer2[100];
+	char	file_name[100];
 	int		k;
 	char 	**split_temp;
 
@@ -98,32 +97,32 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 				{
 					if (str[i] == '\'')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\'' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else if (str[i] == '\"')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\"' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 				}
-				buffer2[k] = '\0';
-				append_node(&(new_lexer.head), buffer2, HEREDOC);
-				ft_memset(buffer2, 0, 100);
+				file_name[k] = '\0';
+				append_node(&(new_lexer.head), file_name, HEREDOC);
+				ft_memset(file_name, 0, 100);
 				k = 0;
 			}
 			else
@@ -134,34 +133,39 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 				{
 					if (str[i] == '\'')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\'' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else if (str[i] == '\"')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\"' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 				}
-				buffer2[k] = '\0';
-				split_temp = ft_expand(buffer2, env, data);
-				append_node(&(new_lexer.head), split_temp[0], INPUT);
-				ft_free_matrix(1, &split_temp);
-				ft_memset(buffer2, 0, 100);
+				file_name[k] = '\0';
+				if (!ft_strcmp(file_name, "\'\'") || !ft_strcmp(file_name, "\"\""))
+					append_node(&(new_lexer.head), "", INPUT);
+				else
+				{
+					split_temp = ft_expand(file_name, env, data);
+					append_node(&(new_lexer.head), split_temp[0], INPUT);
+					ft_free_matrix(1, &split_temp);
+				}
+				ft_memset(file_name, 0, 100);
 				k = 0;
 			}
 			i--;
@@ -180,34 +184,39 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 				{
 					if (str[i] == '\'')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\'' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else if (str[i] == '\"')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\"' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 				}
-				buffer2[k] = '\0';
-				split_temp = ft_expand(buffer2, env, data);
-				append_node(&(new_lexer.head), split_temp[0], APPEND);
-				ft_free_matrix(1, &split_temp);
-				ft_memset(buffer2, 0, 100);
+				file_name[k] = '\0';
+				if (!ft_strcmp(file_name, "\'\'") || !ft_strcmp(file_name, "\"\""))
+					append_node(&(new_lexer.head), "", APPEND);
+				else
+				{
+					split_temp = ft_expand(file_name, env, data);
+					append_node(&(new_lexer.head), split_temp[0], APPEND);
+					ft_free_matrix(1, &split_temp);
+				}
+				ft_memset(file_name, 0, 100);
 				k = 0;
 			}
 			else
@@ -218,34 +227,39 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 				{
 					if (str[i] == '\'')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\'' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else if (str[i] == '\"')
 					{
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 						while (str[i] != '\"' && str[i])
 						{
-							buffer2[k] = str[i];
+							file_name[k] = str[i];
 							k++;
 							i++;
 						}
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 					}
 					else
-						buffer2[k++] = str[i++];
+						file_name[k++] = str[i++];
 				}
-				buffer2[k] = '\0';
-				split_temp = ft_expand(buffer2, env, data);
-				append_node(&(new_lexer.head), split_temp[0], OUTPUT);
-				ft_free_matrix(1, &split_temp);
-				ft_memset(buffer2, 0, 100);
+				file_name[k] = '\0';
+				if (!ft_strcmp(file_name, "\'\'") || !ft_strcmp(file_name, "\"\""))
+					append_node(&(new_lexer.head), "", OUTPUT);
+				else
+				{
+					split_temp = ft_expand(file_name, env, data);
+					append_node(&(new_lexer.head), split_temp[0], OUTPUT);
+					ft_free_matrix(1, &split_temp);
+				}
+				ft_memset(file_name, 0, 100);
 				k = 0;
 			}
 			i--;

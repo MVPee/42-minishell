@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 20:52:22 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 10:27:43 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env, int i)
 		if (!parsing.cmd)
 			return (parsing);
 		parsing.isbuiltins = isbuiltins(parsing.cmd[0]);
-		parsing.isspecial = isspecial(parsing);
+		parsing.ft_isspecial = ft_isspecial(parsing);
 		parsing.path = path_checker(ft_split((const char *)get_value(find_key \
 			(env, "PATH")), ":"), parsing);
 	}
@@ -39,11 +39,6 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	t_parsing	*parsing;
 	int			i;
 
-	if (g_sig.flag)
-	{
-		g_sig.flag = false;
-		data->env_var = 130;
-	}
 	if (!lexer)
 		return (data->env_var = 2, NULL);
 	parsing = malloc(sizeof(t_parsing) * data->nbr_cmd);

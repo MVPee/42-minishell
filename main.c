@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 21:14:07 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 10:32:16 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ int	main(int ac, char **argv, char **envs)
 		ft_free(1, &str_readline);
 		if (!line)
 			break ;
+		if (g_sig.flag)
+		{
+			g_sig.flag = false;
+			data.env_var = 1;
+		}
 		if (ft_strcmp(line, "\0"))
 		{
 			add_history(line);
@@ -75,5 +80,6 @@ int	main(int ac, char **argv, char **envs)
 		}
 		ft_free(1, &line);
 	}
+	rl_clear_history();
 	return (free_env_list(head), ft_printf("exit\n"), data.env_var);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:26:27 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 16:30:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/12 10:13:39 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_parsing	init_parsing(void)
 	parsing.input = -1;
 	parsing.output = -1;
 	parsing.isbuiltins = false;
-	parsing.isspecial = false;
+	parsing.ft_isspecial = false;
 	parsing.path = NULL;
 	parsing.flag = false;
 	return (parsing);

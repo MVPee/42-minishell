@@ -58,6 +58,8 @@ static void	ft_waitpid(t_data *data)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
+	else
+		data->env_var = 130;
 	g_sig.execve = false;
 	g_sig.minishell = false;
 }
@@ -75,7 +77,7 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 		return ;
 	if (init_executor(data))
 		return ;
-	if (data->nbr_cmd == 1 && parsing[0].isspecial)
+	if (data->nbr_cmd == 1 && parsing[0].ft_isspecial)
 	{
 		builtins(head, data, parsing[0]);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:23:01 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/12 18:24:47 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:43:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_env_element(t_env *node)
 
 void	free_env_list(t_env *head)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	while (head)
 	{

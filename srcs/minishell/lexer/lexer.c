@@ -6,23 +6,25 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 09:42:57 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:40:44 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void ft_expand_redirection(t_lexer *lexer, t_env *env, t_data data)
+static void	ft_expand_redirection(t_lexer *lexer, t_env *env, t_data data)
 {
-	t_node *node;
-	char **split_temp;
+	t_node	*node;
+	char	**split_temp;
 
 	node = lexer->head;
-	while(node)
+	while (node)
 	{
-		if (node->token == INPUT || node->token == OUTPUT || node->token == APPEND)
+		if (node->token == INPUT || node->token == OUTPUT
+			|| node->token == APPEND)
 		{
-			if (!ft_strcmp(node->name, "\'\'") || !ft_strcmp(node->name, "\"\""))
+			if (!ft_strcmp(node->name, "\'\'") || !ft_strcmp(node->name, \
+					"\"\""))
 			{
 				ft_free(1, &node->name);
 				node->name = ft_strdup("");

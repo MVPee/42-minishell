@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:27:35 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:17:35 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 bool	ft_isspecial(t_parsing parsing)
 {
-	int	i;
-
-	char *split[] = {"unset", "cd", "exit", NULL};
-	i = -1;
-	while (split[++i])
-		if (!ft_strcmp(split[i], parsing.cmd[0]))
-			return (true);
+	if (!ft_strcmp("unset", parsing.cmd[0]) || !ft_strcmp("cd", parsing.cmd[0])
+		|| !ft_strcmp("exit", parsing.cmd[0]))
+		return (true);
 	if (!ft_strcmp("export", parsing.cmd[0]) && parsing.cmd[1])
 		return (true);
 	return (false);
@@ -28,16 +24,13 @@ bool	ft_isspecial(t_parsing parsing)
 
 bool	isbuiltins(char *line)
 {
-	int	i;
-
 	if (!line)
 		return (false);
-	char *split[] = {"echo", "pwd", "env", "unset", "export", "cd", "exit",
-		NULL};
-	i = -1;
-	while (split[++i])
-		if (!ft_strcmp(line, split[i]))
-			return (true);
+	if (!ft_strcmp("echo", line) || !ft_strcmp("pwd", line) \
+		|| !ft_strcmp("env", line) || !ft_strcmp("unset", line) \
+		|| !ft_strcmp("export", line) || !ft_strcmp("cd", line) \
+		|| !ft_strcmp("exit", line))
+		return (true);
 	return (false);
 }
 

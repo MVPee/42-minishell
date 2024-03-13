@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:31:39 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:42:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ft_waitpid(t_data *data)
 	g_sig.minishell = false;
 }
 
-static void ft_close(t_data *data)
+static void	ft_close(t_data *data)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ static void ft_close(t_data *data)
 
 void	executor(t_env **head, t_data *data, t_parsing *parsing)
 {
-	int i;
+	int	i;
 
 	if (data->flag)
 	{
@@ -98,6 +98,7 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 	i = -1;
 	while (++i < data->nbr_cmd)
 		pipe(data->pipefds[i]);
+	g_sig.execve = true;
 	child_executor(head, data, parsing);
 	ft_close(data);
 	ft_waitpid(data);

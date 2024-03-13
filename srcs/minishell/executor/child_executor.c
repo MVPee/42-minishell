@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_executor.c                                    :+:      :+:    :+:   */
+/*   child_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 21:07:01 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:42:44 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	child_executor(t_env **head, t_data *data, t_parsing *parsing)
 	int	i;
 
 	i = -1;
-	g_sig.execve = true;
 	if (!ft_strcmp(parsing->cmd[0], "./minishell"))
 		g_sig.minishell = true;
 	while (++i < data->nbr_cmd)

@@ -20,6 +20,7 @@ SRCS = 	main.c \
 		srcs/minishell/executor/executor.c \
 		srcs/minishell/executor/child_executor.c \
 		srcs/minishell/lexer/lexer.c \
+		srcs/minishell/lexer/set_lexer.c \
 		srcs/minishell/lexer/lexer_utils.c \
 		srcs/minishell/lexer/syntax/syntax_check.c \
 		srcs/minishell/lexer/syntax/syntax_utils.c \

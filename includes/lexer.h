@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 08:57:29 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 09:38:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_lexer
 
 t_lexer				*ft_lexer(char *line, t_data *data, t_env *head);
 
+t_lexer				set_lexer(char *str, t_env *env, t_data data);
 void				free_lexer(t_lexer *lexer);
 bool				syntax_check(char *line);
 char				**get_cmd_splitted(char *line, int *count);

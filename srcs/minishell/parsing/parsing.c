@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 15:36:53 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 15:44:51 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 			return (parsing);
 		parsing.isbuiltins = isbuiltins(parsing.cmd[0]);
 		parsing.ft_isspecial = ft_isspecial(parsing);
-		parsing.path = path_checker(ft_split((const char *)get_value(find_key \
-			(env, "PATH")), ":"), parsing);
+		parsing.path = path_checker(ft_split((const char *) \
+			get_value(find_key(env, "PATH")), ":"), parsing);
 	}
 	return (parsing);
 }
@@ -56,7 +56,8 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 		if (data->flag)
 			return (free_lexer(lexer, data->nbr_cmd), NULL);
 		if (!parsing[i].cmd)
-			return (free_lexer(lexer, data->nbr_cmd), free_parsing(parsing, *data), NULL);
+			return (free_lexer(lexer, data->nbr_cmd), free_parsing(parsing, \
+					*data), NULL);
 	}
 	return (free_lexer(lexer, data->nbr_cmd), parsing);
 }

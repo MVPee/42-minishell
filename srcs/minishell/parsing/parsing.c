@@ -6,11 +6,56 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 19:14:59 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 20:41:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static bool	is_only_space(char *line)
+{
+	int	i;
+
+	if (line[0] == '\'')
+	{
+		i = 0;
+		while (line[++i] != '\'')
+		{
+			if ((line[i]) != ' ')
+				return (false);
+		}
+	}
+	else if (line[0] == '\"')
+	{
+		i = 0;
+		while (line[++i] != '\"')
+		{
+			if ((line[i]) != ' ')
+				return (false);
+		}
+	}
+	else
+		return (false);
+	return (true);
+}
+
+static char	**ft_expand_space(char *str)
+{
+	int		len;
+	char	*result;
+	char	**split;
+
+	split = NULL;
+	result = NULL;
+	len = ft_strlen(str) - 2;
+	if (!len)
+		return (ft_splitjoin(split, ""));
+	while (len--)
+		result = ft_strjoinchar_free(&result, ' ');
+	split = ft_splitjoin(split, result);
+	ft_free(1, &result);
+	return (split);
+}
 
 static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 {
@@ -23,7 +68,14 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 		return (parsing);
 	if (ft_strcmp(lexer.cmd, ""))
 	{
-		parsing.cmd = ft_expand(lexer.cmd, env, *data);
+		if (is_only_space(lexer.cmd))
+		{
+			parsing.cmd = ft_expand_space(lexer.cmd);
+			parsing.path = NULL;
+			return (parsing);
+		}
+		else
+			parsing.cmd = ft_expand(lexer.cmd, env, *data);
 		if (!parsing.cmd)
 			return (parsing);
 		parsing.isbuiltins = isbuiltins(parsing.cmd[0]);

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:23:41 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:29:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ t_node	*new_node(char *name, t_token token)
 	return (node);
 }
 
-void	append_node(t_node **head, char *name, t_token token)
+void	append_node(t_node **head, char **name, t_token token)
 {
 	t_node	*new;
 	t_node	*current;
 
-	new = new_node(name, token);
+	if (!name || !(*name));
+		return ;
+	new = new_node(*name, token);
 	if (*head == NULL)
 		*head = new;
 	else
@@ -40,6 +42,7 @@ void	append_node(t_node **head, char *name, t_token token)
 			current = current->next;
 		current->next = new;
 	}
+	ft_free(1, name);
 }
 
 static void	get_quotes(char *line, int *i, char **buffer)

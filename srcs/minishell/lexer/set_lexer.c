@@ -6,157 +6,92 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:38:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 09:38:41 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:29:42 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_lexer	set_lexer(char *str, t_env *env, t_data data)
+static void	set_lexer_quotes(char *str, int *i, char **buffer, char c)
+{
+	*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+	while (str[(*i)] != c && str[(*i)])
+		*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+	*buffer = ft_strjoinchar_free(buffer, str[(*i)]);
+}
+
+static void	set_lexer_redirection1(char *str, int *i, t_lexer *new_lexer, \
+		t_token token)
+{
+	char	*file_name;
+
+	file_name = NULL;
+	while (str[(*i)] == ' ')
+		(*i)++;
+	while (str[(*i)] != ' ' && str[(*i)])
+	{
+		if (str[(*i)] == '\'')
+		{
+			file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+			while (str[(*i)] != '\'' && str[(*i)])
+				file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+			file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+		}
+		else if (str[(*i)] == '\"')
+		{
+			file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+			while (str[(*i)] != '\"' && str[(*i)])
+				file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+			file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+		}
+		else
+			file_name = ft_strjoinchar_free(&file_name, str[(*i)++]);
+	}
+	append_node(&(new_lexer->head), &file_name, token);
+}
+
+static void	set_lexer_redirection(char *str, int *i, t_lexer *new_lexer,
+		t_token token)
+{
+	char	*file_name;
+	char	c;
+
+	file_name = NULL;
+	if (token == 1)
+		c = '<';
+	else
+		c = '>';
+	(*i)++;
+	if (str[(*i)] == c)
+	{
+		(*i)++;
+		set_lexer_redirection1(str, i, new_lexer, token + 1);
+	}
+	else
+		set_lexer_redirection1(str, i, new_lexer, token);
+	(*i)--;
+}
+
+t_lexer	set_lexer(char *str)
 {
 	t_lexer	new_lexer;
 	int		i;
 	char	*buffer;
-	char	*file_name;
-	char 	**split_temp;
 
 	new_lexer.cmd = NULL;
 	new_lexer.head = NULL;
 	buffer = NULL;
-	file_name = NULL;
 	i = -1;
 	while (str[++i])
 	{
 		if (str[i] == '\"')
-		{
-			buffer = ft_strjoinchar_free(&buffer, str[i]);
-			while (str[i] != '\"' && str[i])
-				buffer = ft_strjoinchar_free(&buffer, str[i++]);
-			buffer = ft_strjoinchar_free(&buffer, str[i]);
-		}
+			set_lexer_quotes(str, &i, &buffer, '\"');
 		else if (str[i] == '\'')
-		{
-			buffer = ft_strjoinchar_free(&buffer, str[i++]);
-			while (str[i] != '\'' && str[i])
-				buffer = ft_strjoinchar_free(&buffer, str[i++]);
-			buffer = ft_strjoinchar_free(&buffer, str[i]);
-		}
+			set_lexer_quotes(str, &i, &buffer, '\'');
 		else if (str[i] == '<')
-		{
-			i++;
-			if (str[i] == '<')
-			{
-				i++;
-				while (str[i] == ' ')
-					i++;
-				while (str[i] != ' ' && str[i])
-				{
-					if (str[i] == '\'')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\'' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else if (str[i] == '\"')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\"' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-				}
-				append_node(&(new_lexer.head), file_name, HEREDOC);
-				ft_free(1, &file_name);
-			}
-			else
-			{
-				while (str[i] == ' ')
-					i++;
-				while (str[i] != ' ' && str[i])
-				{
-					if (str[i] == '\'')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\'' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else if (str[i] == '\"')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\"' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-				}
-				append_node(&(new_lexer.head), file_name, OUTPUT);
-				ft_free(1, &file_name);
-			}
-			i--;
-		}
+			set_lexer_redirection(str, &i, &new_lexer, INPUT);
 		else if (str[i] == '>')
-		{
-			i++;
-			if (str[i] == '>')
-			{
-				i++;
-				while (str[i] == ' ')
-					i++;
-				while (str[i] != ' ' && str[i])
-				{
-					if (str[i] == '\'')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\'' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else if (str[i] == '\"')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\"' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-				}
-				append_node(&(new_lexer.head), file_name, OUTPUT);
-				ft_free(1, &file_name);
-			}
-			else
-			{
-				while (str[i] == ' ')
-					i++;
-				while (str[i] != ' ' && str[i])
-				{
-					if (str[i] == '\'')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\'' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else if (str[i] == '\"')
-					{
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						while (str[i] != '\"' && str[i])
-							file_name = ft_strjoinchar_free(&file_name, str[i++]);
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-					}
-					else
-						file_name = ft_strjoinchar_free(&file_name, str[i++]);
-				}
-				append_node(&(new_lexer.head), file_name, OUTPUT);
-				ft_free(1, &file_name);
-			}
-			i--;
-		}
+			set_lexer_redirection(str, &i, &new_lexer, OUTPUT);
 		else
 			buffer = ft_strjoinchar_free(&buffer, str[i]);
 		if (!str[i])

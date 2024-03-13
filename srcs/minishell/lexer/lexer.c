@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 09:38:34 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 09:42:57 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 	i = -1;
 	while (++i < count)
 	{
-		lexer[i] = set_lexer(split[i], env, *data);
+		lexer[i] = set_lexer(split[i]);
 		ft_expand_redirection(&lexer[i], env, *data);
 	}
 	return (ft_free_matrix(1, &split), ft_free(1, &line), lexer);

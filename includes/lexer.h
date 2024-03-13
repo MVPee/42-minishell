@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 09:38:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:27:31 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 typedef enum e_token
 {
 	INPUT = 1,
-	OUTPUT = 2,
-	APPEND = 3,
-	HEREDOC = 4
+	HEREDOC = 2,
+	OUTPUT = 3,
+	APPEND = 4
 }					t_token;
 
 typedef struct s_node
@@ -40,12 +40,12 @@ typedef struct s_lexer
 
 t_lexer				*ft_lexer(char *line, t_data *data, t_env *head);
 
-t_lexer				set_lexer(char *str, t_env *env, t_data data);
+t_lexer				set_lexer(char *str);
 void				free_lexer(t_lexer *lexer);
 bool				syntax_check(char *line);
 char				**get_cmd_splitted(char *line, int *count);
 int					number_of_cmd(char *line);
-void				append_node(t_node **head, char *name, t_token token);
+void				append_node(t_node **head, char **name, t_token token);
 t_node				*new_node(char *name, t_token token);
 
 bool				check_before(char *line, int i);

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:29:25 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:35:21 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	append_node(t_node **head, char **name, t_token token)
 	t_node	*new;
 	t_node	*current;
 
-	if (!name || !(*name));
+	if (!(*name) || !name)
 		return ;
 	new = new_node(*name, token);
 	if (*head == NULL)

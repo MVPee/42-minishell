@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/07 15:26:07 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:09:20 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static void	error_message(size_t exit_code, char **split_args)
 	else if (exit_code == NUMERICAL_ARGUMENT_NESCESSARY)
 	{
 		ft_printf("exit : %s ", split_args[1]);
-		ft_printf_fd(2, ": numerical argument necessary\n");
+		ft_printf_fd(2, ": numeric argument required\n");
 	}
 }
 
-static size_t	error_handler(char **split_args, size_t nbr_args,
+static int	error_handler(char **split_args, size_t nbr_args,
 		long *exit_code)
 {
 	if (nbr_args >= 2)
@@ -94,7 +94,8 @@ void	ft_exit(t_env *head, t_data *data, char **split)
 		else if (number_of_args == 2)
 			exit_code = (ft_strtol(split[1], NULL, 10) % 256);
 	}
-	error_message(exit_code, split);
+	if (error_handler_status == -1 || error_handler_status == -2)
+		error_message(exit_code, split);
 	if (error_handler_status == 0 || error_handler_status == -1)
 	{
 		ft_free_matrix(1, &split);

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:17:35 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:23:05 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ bool	isbuiltins(char *line)
 
 char	*builtins(t_env **head, t_data *data, t_parsing parsing)
 {
-	char	*result;
-	char	buffer[500];
-
 	if (!ft_strcmp(parsing.cmd[0], "echo"))
 		ft_echo(data, parsing.cmd);
 	else if (!ft_strcmp(parsing.cmd[0], "env"))

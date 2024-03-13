@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_conversion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:03:19 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/09 15:12:17 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:22:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ static void	*conversion_error_handler(char **envp, size_t count)
 
 void	*join_key_and_value(t_env *head, char **envp, size_t index)
 {
-	size_t	joined_string;
 	char	*temp;
 
-	joined_string = ft_strlen(head->key) + ft_strlen(head->value) + 2;
 	envp[index] = no_null_join(head->key, "=");
 	if (!envp[index])
 		return (conversion_error_handler(envp, index));

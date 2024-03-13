@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:28:11 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:23:47 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static void	*add_content(t_env **head, char *line, t_data *data)
 
 void	ft_export(t_env **head, t_data *data, char **split)
 {
-	char	*temp;
 	size_t	index;
 
 	if (ft_splitlen((const char **)split) > 1)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 11:44:54 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:26:14 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env, int i)
+static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 {
 	t_parsing	parsing;
 
@@ -52,7 +52,7 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	i = -1;
 	while (++i < data->nbr_cmd)
 	{
-		parsing[i] = parsing_data(lexer[i], data, env, i);
+		parsing[i] = parsing_data(lexer[i], data, env);
 		if (data->flag)
 			return (free_lexer(lexer), (NULL));
 		if (!parsing[i].cmd)

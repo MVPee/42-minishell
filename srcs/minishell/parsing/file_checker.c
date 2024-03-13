@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 11:47:11 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:26:28 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, \
 		t_data *data)
 {
 	t_node	*node;
-	char	*temp;
-	char	*temp_cmd;
 
 	node = NULL;
 	node = lexer.head;

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:42:44 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:24:35 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_pipe(t_data *data, int i)
 	}
 }
 
-static void	ft_redirection(t_parsing parsing, t_data *data)
+static void	ft_redirection(t_parsing parsing)
 {
 	if (parsing.input != -1)
 	{
@@ -52,7 +52,7 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 	if (parsing.flag)
 		exit(1);
 	ft_pipe(data, i);
-	ft_redirection(parsing, data);
+	ft_redirection(parsing);
 	if (parsing.isbuiltins)
 	{
 		dup2(data->pipefds[i][1], STDOUT_FILENO);

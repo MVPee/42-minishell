@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:38:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:29:42 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:25:05 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ static void	set_lexer_redirection1(char *str, int *i, t_lexer *new_lexer, \
 static void	set_lexer_redirection(char *str, int *i, t_lexer *new_lexer,
 		t_token token)
 {
-	char	*file_name;
 	char	c;
 
-	file_name = NULL;
 	if (token == 1)
 		c = '<';
 	else

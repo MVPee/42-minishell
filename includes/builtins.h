@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:45:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:13:39 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:23:32 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	isbuiltins(char *line);
 bool	ft_isspecial(t_parsing parsing);
 void	ft_echo(t_data *data, char **split);
 void	ft_env(t_data *data, t_env *head, char **split);
-void	ft_pwd(t_data *data, t_env **head);
+void	ft_pwd(t_data *data);
 void	ft_unset(t_env **head, t_data *data, char **split);
 void	ft_export(t_env **head, t_data *data, char **split);
 void	ft_cd(t_env *head, t_data *data, char **split);

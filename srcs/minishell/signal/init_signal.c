@@ -31,7 +31,7 @@ void	signal_handler(int signum)
 
 void	signal_heredoc(int signum)
 {
-	if (g_sig.heredoc)
+	if (g_sig.heredoc && signum == SIGINT)
 		exit(130);
 }
 

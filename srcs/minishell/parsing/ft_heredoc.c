@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:39:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:26:46 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	heredoc(int fd, char **stop, t_env *env, t_data data)
 void	ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 {
 	int		status;
-	bool	flag;
 	pid_t	pid;
 
 	if (data->flag)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_home.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:27:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/11 10:38:59 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:27:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static void	ft_expand_home2(char *line, int *i, char **buffer)
+static void	ft_expand_home2(int *i, char **buffer)
 {
 	char	*value;
 	int		p;
@@ -50,5 +50,5 @@ void	ft_expand_home(char *line, int *i, char **buffer)
 	}
 	else if (line[*i] == '~' && line[*i - 1] == ' ' && (line[*i + 1] == ' ' \
 			|| !line[*i + 1]))
-		ft_expand_home2(line, i, buffer);
+		ft_expand_home2(i, buffer);
 }

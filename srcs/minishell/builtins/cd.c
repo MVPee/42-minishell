@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/13 11:14:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:24:03 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 
 void	ft_cd(t_env *head, t_data *data, char **split)
 {
-	char	buffer[500];
-	char	*temp;
-
 	data->env_var = 0;
 	if (ft_splitlen((const char **)split) > 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/11 17:34:40 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:19:16 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ t_env	*minimal_env(void)
 	current_working_directory = ft_strdup(getcwd(buffer, 500));
 	head = NULL;
 	head = env_add_entry(head, "PWD=");
+	env_add_entry(head, "OLDPWD");
 	env_add_entry(head, "SHLVL=");
 	write_value(&head, "PWD", current_working_directory);
 	return (head);

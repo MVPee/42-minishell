@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 15:44:51 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 17:52:57 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 		parsing.cmd = ft_expand(lexer.cmd, env, *data);
 		if (!parsing.cmd)
 			return (parsing);
+		ft_putsplit(parsing.cmd, "DEBUG");
 		parsing.isbuiltins = isbuiltins(parsing.cmd[0]);
 		parsing.ft_isspecial = ft_isspecial(parsing);
 		parsing.path = path_checker(ft_split((const char *) \

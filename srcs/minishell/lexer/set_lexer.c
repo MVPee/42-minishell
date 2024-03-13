@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:38:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 15:30:54 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 17:20:36 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,11 @@ t_lexer	set_lexer(char *str)
 		else if (str[i] == '>')
 			set_lexer_redirection(str, &i, &new_lexer, OUTPUT);
 		else
+		{
+			if (str[i] == '\\' && str[i + 1])
+				buffer = ft_strjoinchar_free(&buffer, str[i++]);
 			buffer = ft_strjoinchar_free(&buffer, str[i]);
+		}
 		if (!str[i])
 			break ;
 	}

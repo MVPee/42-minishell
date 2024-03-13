@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 09:00:54 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 16:35:01 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,9 @@ bool	syntax_check(char *str)
 			return (ft_free(1, &line), true);
 		if (syntax_check_out(line, &i))
 			return (ft_free(1, &line), true);
-		if (syntax_check2(line, &i))
+		if (line[i] == '\\')
+			i++;
+		else if (syntax_check2(line, &i))
 			return (ft_free(1, &line), true);
 		if (!line[i])
 			break ;

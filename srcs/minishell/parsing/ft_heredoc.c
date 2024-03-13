@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:26:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 17:24:52 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ void	ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 	g_sig.heredoc = false;
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
-	if (data->env_var == 130)
+	if (data->env_var == COMMAND_INTERRUPTED)
 		data->flag = true;
 }

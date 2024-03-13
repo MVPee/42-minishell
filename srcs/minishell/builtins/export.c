@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:23:47 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 15:17:50 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	add_env(t_env **head, char *key, char *value, bool append_content)
 	if (!is_key_valid(key))
 	{
 		error_handler_export(key, value);
-		ft_free(2, &key, &value);
+		ft_free(1, &value);
 		return ;
 	}
 	if (append_content)
@@ -37,7 +37,7 @@ static void	add_env(t_env **head, char *key, char *value, bool append_content)
 		env_entry_update(head, clean_entry);
 		free(clean_entry);
 	}
-	ft_free(2, &key, &value);
+	ft_free(1, &value);
 }
 
 static void	*add_null_content(t_env **head, char *key, t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 14:10:18 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 17:24:43 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_waitpid(t_data *data)
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
 	else
-		data->env_var = 130;
+		data->env_var = COMMAND_INTERRUPTED;
 	g_sig.execve = false;
 	g_sig.minishell = false;
 }
@@ -83,7 +83,7 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 	if (data->flag)
 	{
 		data->flag = false;
-		data->env_var = 130;
+		data->env_var = COMMAND_INTERRUPTED;
 		return ;
 	}
 	if (!parsing || init_executor(data))

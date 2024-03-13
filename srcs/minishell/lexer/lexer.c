@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 09:20:33 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 09:23:38 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ t_lexer	*ft_lexer(char *line, t_data *data, t_env *env)
 		return (ft_free(1, &line), NULL);
 	lexer = malloc(sizeof(t_lexer) * count);
 	if (!lexer)
-		return (ft_free(1, &line), NULL);
+		return (ft_free_matrix(1, &split), ft_free(1, &line), NULL);
 	data->nbr_cmd = count;
 	i = -1;
 	while (++i < count)

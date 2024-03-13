@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:42:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 14:10:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,12 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 		data->env_var = 130;
 		return ;
 	}
-	if (!parsing)
-		return ;
-	if (init_executor(data))
+	if (!parsing || init_executor(data))
 		return ;
 	if (data->nbr_cmd == 1 && parsing[0].ft_isspecial)
 	{
 		builtins(head, data, parsing[0]);
+		free_executor(parsing, data);
 		return ;
 	}
 	i = -1;

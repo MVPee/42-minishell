@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:20:34 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 10:39:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 		return (NULL);
 	i = -1;
 	str = NULL;
-	while (line[++i])
+	while (line[++i] && line[i])
 	{
 		if (line[i] == '$')
 			str = ft_strjoin_free_free(&str, heredoc_expand(line, env, data, \
 					&i));
 		if (line[i])
 			str = ft_strjoinchar_free(&str, line[i]);
+		if (!line[i])
+			break ;
 	}
 	return (ft_free(1, &line), str);
 }

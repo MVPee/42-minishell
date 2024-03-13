@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:06:46 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 09:20:33 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 {
 	t_lexer	new_lexer;
-	t_node	*head;
 	int		i;
 	char	*buffer;
 	char	*file_name;
@@ -23,7 +22,6 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 
 	new_lexer.cmd = NULL;
 	new_lexer.head = NULL;
-	head = NULL;
 	buffer = NULL;
 	file_name = NULL;
 	i = -1;
@@ -33,27 +31,19 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 		{
 			buffer = ft_strjoinchar_free(&buffer, str[i]);
 			while (str[i] != '\"' && str[i])
-			{
-				buffer = ft_strjoinchar_free(&buffer, str[i]);
-				i++;
-			}
+				buffer = ft_strjoinchar_free(&buffer, str[i++]);
 			buffer = ft_strjoinchar_free(&buffer, str[i]);
 		}
 		else if (str[i] == '\'')
 		{
 			buffer = ft_strjoinchar_free(&buffer, str[i++]);
 			while (str[i] != '\'' && str[i])
-			{
-				buffer = ft_strjoinchar_free(&buffer, str[i]);
-				i++;
-			}
+				buffer = ft_strjoinchar_free(&buffer, str[i++]);
 			buffer = ft_strjoinchar_free(&buffer, str[i]);
 		}
-		// INPUT
 		else if (str[i] == '<')
 		{
 			i++;
-			// HEREDOC
 			if (str[i] == '<')
 			{
 				i++;
@@ -65,20 +55,14 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\'' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else if (str[i] == '\"')
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\"' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else
@@ -97,20 +81,14 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\'' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else if (str[i] == '\"')
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\"' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else
@@ -128,11 +106,9 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 			}
 			i--;
 		}
-		// OUTPUT
 		else if (str[i] == '>')
 		{
 			i++;
-			// APPEND
 			if (str[i] == '>')
 			{
 				i++;
@@ -144,20 +120,14 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\'' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else if (str[i] == '\"')
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\"' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else
@@ -183,20 +153,14 @@ static t_lexer	set_lexer(char *str, t_env *env, t_data data)
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\'' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else if (str[i] == '\"')
 					{
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						while (str[i] != '\"' && str[i])
-						{
-							file_name = ft_strjoinchar_free(&file_name, str[i]);
-							i++;
-						}
+							file_name = ft_strjoinchar_free(&file_name, str[i++]);
 						file_name = ft_strjoinchar_free(&file_name, str[i++]);
 					}
 					else

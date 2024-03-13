@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:57:18 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/09 13:14:19 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 18:56:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strjoin_free_free(char **s1, char *s2)
+char	*ft_strjoin_ff(char **s1, char *s2)
 {
 	int		i;
 	int		j;

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 17:43:20 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 18:32:05 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,17 @@ char	**get_cmd_splitted(char *line, int *count)
 	{
 		get_quotes(line, &i, &buffer);
 		if (!line[i])
-			break;
+			break ;
 		if (line[i] == '|')
 		{
 			split = ft_splitjoin(split, buffer);
-			if (split)
-				(*count)++;
 			ft_free(1, &buffer);
 		}
 		else
 			buffer = ft_strjoinchar_free(&buffer, line[i]);
 	}
 	split = ft_splitjoin(split, buffer);
-	if (split)
-		(*count)++;
+	*count = ft_splitlen((const char **)split);
 	return (ft_free(1, &buffer), split);
 }
 

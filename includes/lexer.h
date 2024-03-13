@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 18:07:27 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 08:57:29 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ char				**get_cmd_splitted(char *line, int *count);
 int					number_of_cmd(char *line);
 void				append_node(t_node **head, char *name, t_token token);
 t_node				*new_node(char *name, t_token token);
+
+bool				check_before(char *line, int i);
+bool				check_after(char *line, int i);
 
 #endif

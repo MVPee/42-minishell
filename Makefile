@@ -21,7 +21,8 @@ SRCS = 	main.c \
 		srcs/minishell/executor/child_executor.c \
 		srcs/minishell/lexer/lexer.c \
 		srcs/minishell/lexer/lexer_utils.c \
-		srcs/minishell/lexer/syntax_check.c \
+		srcs/minishell/lexer/syntax/syntax_check.c \
+		srcs/minishell/lexer/syntax/syntax_utils.c \
 		srcs/minishell/signal/init_signal.c \
 		srcs/minishell/parsing/parsing.c \
 		srcs/minishell/parsing/parsing_utils.c \

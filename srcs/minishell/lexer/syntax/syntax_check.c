@@ -6,54 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 17:03:37 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 09:00:54 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-static bool	check_after(char *line, int i)
-{
-	int	j;
-
-	j = i;
-	while (line[++j])
-	{
-		while (line[j] == ' ')
-			j++;
-		if (ft_isprint(line[j]))
-			return (false);
-		else if (line[j] == '|')
-			return (true);
-		else if (!line[j])
-			return (true);
-	}
-	return (true);
-}
-
-static bool	check_before(char *line, int i)
-{
-	int	j;
-
-	j = i;
-	if (j == 0)
-		return (true);
-	while (line[--j])
-	{
-		while (line[j] == ' ')
-			j--;
-		if (ft_isprint(line[j]))
-			return (false);
-		else if (line[j] == '|')
-			return (true);
-		else if (!line[j])
-			return (true);
-		if (j == 0)
-			return (true);
-	}
-	return (false);
-}
-static int syntax_check_in(char *line, int *i)
+static int	syntax_check_in(char *line, int *i)
 {
 	if (line[(*i)] == '<')
 	{
@@ -80,7 +39,7 @@ static int syntax_check_in(char *line, int *i)
 	return (0);
 }
 
-static int syntax_check_out(char *line, int *i)
+static int	syntax_check_out(char *line, int *i)
 {
 	if (line[(*i)] == '>')
 	{
@@ -104,10 +63,24 @@ static int syntax_check_out(char *line, int *i)
 		}
 		i--;
 	}
-    return (0);
+	return (0);
 }
 
-static int syntax_check2(char *line, int *i)
+static int	syntax_check3(char *line, int *i)
+{
+	if (line[(*i)] == ';')
+		return (ft_printf("syntax error near unexpected token ';'\n"));
+	else if (line[(*i)] == '|')
+	{
+		if (check_before(line, (*i)))
+			return (ft_printf("syntax error near unexpected token '|'\n"));
+		if (check_after(line, (*i)))
+			return (ft_printf("syntax error near unexpected token '|'\n"));
+	}
+	return (0);
+}
+
+static int	syntax_check2(char *line, int *i)
 {
 	if (line[(*i)] == '\"')
 	{
@@ -125,15 +98,8 @@ static int syntax_check2(char *line, int *i)
 		if (!line[(*i)])
 			return (ft_printf("syntax error unclosed \' token\n"));
 	}
-	else if (line[(*i)] == ';')
-		return (ft_printf("syntax error near unexpected token ';'\n"));
-	else if (line[(*i)] == '|')
-	{
-		if (check_before(line, (*i)))
-			return (ft_printf("syntax error near unexpected token '|'\n"));
-		if (check_after(line, (*i)))
-			return (ft_printf("syntax error near unexpected token '|'\n"));
-	}
+	if (syntax_check3(line, i))
+		return (1);
 	return (0);
 }
 

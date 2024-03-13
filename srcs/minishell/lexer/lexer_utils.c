@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:35:21 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 15:40:55 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,27 +89,21 @@ char	**get_cmd_splitted(char *line, int *count)
 	return (ft_free(1, &buffer), split);
 }
 
-void	free_lexer(t_lexer *lexer)
-{
-	t_node	*current;
-	t_node	*temp;
+void	free_lexer(t_lexer *lexer, int count)
+{	
+	int i;
+	t_node *node;
 
-	if (lexer)
+	i = -1;
+	while(++i < count)
 	{
-		if (lexer->cmd)
+		node = lexer[i].head;
+		while(node)
 		{
-			free(lexer->cmd);
-			lexer->cmd = NULL;
+			ft_free(1, &node->name);
+			node = node->next;
 		}
-		current = lexer->head;
-		while (current)
-		{
-			temp = current;
-			current = current->next;
-			free(temp->name);
-			free(temp);
-		}
-		lexer->head = NULL;
-		ft_free(1, &lexer);
+		ft_free(1, &lexer[i]);
 	}
+	free(lexer);
 }

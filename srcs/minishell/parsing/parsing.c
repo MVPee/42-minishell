@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 15:00:47 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 15:36:53 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 		return (data->env_var = 2, NULL);
 	parsing = malloc(sizeof(t_parsing) * data->nbr_cmd);
 	if (!parsing)
-		return (free_lexer(lexer), NULL);
+		return (free_lexer(lexer, data->nbr_cmd), NULL);
 	i = -1;
 	while (++i < data->nbr_cmd)
 	{
 		parsing[i] = parsing_data(lexer[i], data, env);
 		if (data->flag)
-			return (free_lexer(lexer), (NULL));
+			return (free_lexer(lexer, data->nbr_cmd), NULL);
 		if (!parsing[i].cmd)
-			return (free_lexer(lexer), free_parsing(parsing, *data), NULL);
+			return (free_lexer(lexer, data->nbr_cmd), free_parsing(parsing, *data), NULL);
 	}
-	return (free_lexer(lexer), parsing);
+	return (free_lexer(lexer, data->nbr_cmd), parsing);
 }

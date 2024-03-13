@@ -35,14 +35,12 @@ void	signal_heredoc(int signum)
 		exit(130);
 }
 
-void	init_signal(t_data *data)
+void	init_signal(void)
 {
 	g_sig.execve = false;
 	g_sig.heredoc = false;
 	g_sig.flag = false;
 	g_sig.minishell = false;
-	data->env_var = 0;
-	data->flag = false;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

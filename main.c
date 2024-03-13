@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:22:13 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 11:36:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ t_signal	g_sig;
 
 static void	print_welcome_message(t_env *head)
 {
-	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" \
-		RED BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
-	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" \
-		RED BOLD "██║  ██║██╔════╝██║     ██║     \n" RESET);
-	ft_printf(GREEN "	██╔████╔██║██║██╔██╗ ██║██║" \
-		RED BOLD "███████║█████╗  ██║     ██║     \n" RESET);
-	ft_printf(BLUE "	██║╚██╔╝██║██║██║╚██╗██║██║" \
-		RED BOLD "██╔══██║██╔══╝  ██║     ██║     \n" RESET);
-	ft_printf(MAGENTA "	██║ ╚═╝ ██║██║██║ ╚████║██║" \
-		RED BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
-	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" \
-		RED BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
+	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" RED \
+	BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
+	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" RED \
+	BOLD "██║  ██║██╔════╝██║     ██║     \n" RESET);
+	ft_printf(GREEN "	██╔████╔██║██║██╔██╗ ██║██║" RED \
+	BOLD "███████║█████╗  ██║     ██║     \n" RESET);
+	ft_printf(BLUE "	██║╚██╔╝██║██║██║╚██╗██║██║" RED \
+	BOLD "██╔══██║██╔══╝  ██║     ██║     \n" RESET);
+	ft_printf(MAGENTA "	██║ ╚═╝ ██║██║██║ ╚████║██║" RED \
+	BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
+	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" RED \
+	BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
 	if (head || find_key(head, "SHLVL"))
 		ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
@@ -48,6 +48,15 @@ char	*get_str_readline(void)
 	return (str_readline);
 }
 
+static void	init_all(t_env **head, t_data *data, char **envs)
+{
+	data->env_var = 0;
+	data->flag = false;
+	*head = env_init(envs);
+	init_signal();
+	print_welcome_message(*head);
+}
+
 int	main(int ac, char **argv, char **envs)
 {
 	t_env	*head;
@@ -57,9 +66,7 @@ int	main(int ac, char **argv, char **envs)
 
 	(void)argv;
 	(void)ac;
-	head = env_init(envs);
-	init_signal(&data);
-	print_welcome_message(head);
+	init_all(&head, &data, envs);
 	while (1)
 	{
 		str_readline = get_str_readline();

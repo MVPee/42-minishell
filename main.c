@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 16:45:05 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 18:34:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_welcome_message(t_env *head)
 	BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
 	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" RED \
 	BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
-	if (head || find_key(head, "SHLVL"))
+	if (find_key(head, "SHLVL"))
 		ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
 
@@ -89,5 +89,5 @@ int	main(int ac, char **argv, char **envs)
 		ft_free(1, &line);
 	}
 	rl_clear_history();
-	return (free_env_list(head), data.env_var);
+	return (free_env_list(head), ft_printf("exit\n"), data.env_var);
 }

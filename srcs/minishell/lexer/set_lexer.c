@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:38:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:25:05 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 18:35:17 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	set_lexer_redirection1(char *str, int *i, t_lexer *new_lexer, \
 	append_node(&(new_lexer->head), &file_name, token);
 }
 
-static void	set_lexer_redirection(char *str, int *i, t_lexer *new_lexer,
+static void	set_lexer_redirection(char *str, int *i, t_lexer *new_lexer, \
 		t_token token)
 {
 	char	c;
@@ -68,6 +68,13 @@ static void	set_lexer_redirection(char *str, int *i, t_lexer *new_lexer,
 	else
 		set_lexer_redirection1(str, i, new_lexer, token);
 	(*i)--;
+}
+
+static void	set_lexer_else(char *str, int *i, char **buffer)
+{
+	if (str[(*i)] == '\\' && str[(*i) + 1])
+		*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+	*buffer = ft_strjoinchar_free(buffer, str[(*i)]);
 }
 
 t_lexer	set_lexer(char *str)
@@ -91,7 +98,7 @@ t_lexer	set_lexer(char *str)
 		else if (str[i] == '>')
 			set_lexer_redirection(str, &i, &new_lexer, OUTPUT);
 		else
-			buffer = ft_strjoinchar_free(&buffer, str[i]);
+			set_lexer_else(str, &i, &buffer);
 		if (!str[i])
 			break ;
 	}

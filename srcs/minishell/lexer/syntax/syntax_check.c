@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 17:03:05 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:03:24 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,9 @@ bool	syntax_check(char *str)
 			return (ft_free(1, &line), true);
 		if (syntax_check_out(line, &i))
 			return (ft_free(1, &line), true);
-		if (syntax_check2(line, &i))
+		if (line[i] == '\\')
+			i++;
+		else if (syntax_check2(line, &i))
 			return (ft_free(1, &line), true);
 		if (!line[i])
 			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:24:35 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 01:04:32 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_redirection(t_parsing parsing)
 	}
 }
 
-static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
+static void	ft_execve_check(t_parsing parsing)
 {
 	if (parsing.path == NULL && !parsing.isbuiltins)
 	{
@@ -51,6 +51,14 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 	}
 	if (parsing.flag)
 		exit(1);
+}
+
+static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
+{
+	char	**env;
+
+	env = env_to_tab(*head);
+	ft_execve_check(parsing);
 	ft_pipe(data, i);
 	ft_redirection(parsing);
 	if (parsing.isbuiltins)
@@ -63,8 +71,9 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 	}
 	else
 	{
-		execve(parsing.path, parsing.cmd, env_to_tab(*head));
+		execve(parsing.path, parsing.cmd, env);
 		perror(parsing.cmd[0]);
+		ft_free_matrix(1, &env);
 		if (errno == EACCES)
 			exit(MISSING_RIGHTS);
 		exit(1);
@@ -76,7 +85,7 @@ void	child_executor(t_env **head, t_data *data, t_parsing *parsing)
 	int	i;
 
 	i = -1;
-	if (!ft_strcmp(parsing->cmd[0], "./minishell"))
+	if (!ft_strcmp(parsing->cmd[0], EXECUTABLE_NAME))
 		g_sig.minishell = true;
 	while (++i < data->nbr_cmd)
 	{

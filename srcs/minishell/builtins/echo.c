@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/07 16:57:56 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 22:56:40 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static bool	echo_option(char *str)
 	i = 0;
 	if (str[0] == '-')
 	{
+		if (!str[1] || str[1] == ' ')
+			return (false);
 		while (str[++i])
 			if (str[i] != 'n')
 				return (false);

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 08:54:15 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/08 17:36:29 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 18:55:04 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char				**ft_splitdup(const char **src);
 size_t				ft_splitlen(const char **src);
 char				*ft_read(int fd);
 char				*ft_strjoin_free(char **s1, char *s2);
-char				*ft_strjoin_free_free(char **s1, char *s2);
+char				*ft_strjoin_ff(char **s1, char *s2);
 int					ft_ischarin(char c, char *str);
 int					ft_strcmp(const char *s1, const char *s2);
 void				ft_free_matrix(unsigned int count, ...);

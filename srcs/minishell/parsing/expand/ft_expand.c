@@ -6,13 +6,13 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:27:10 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 20:15:50 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static char	*ft_expand_double_quotes(char *line, t_env *head, t_data data, \
+static char	*ft_expand_double_quotes(char *line, t_env *head, t_data data,
 		int *i)
 {
 	char	*buffer;
@@ -20,36 +20,67 @@ static char	*ft_expand_double_quotes(char *line, t_env *head, t_data data, \
 	buffer = NULL;
 	while (line[++(*i)] != '\"' && line[*i])
 	{
-		if (line[*i] == '$' && ft_isalpha(line[*i + 1]))
-			buffer = ft_strjoin_free_free(&buffer, ft_expand_env(line, head, \
-					data, i));
+		if (line[*i] == '$' && (ft_isalpha(line[*i + 1]) || line[*i \
+				+ 1] == '?'))
+			buffer = ft_strjoin_ff(&buffer, exp_env(line, head, data, i));
 		else
 			buffer = ft_strjoinchar_free(&buffer, line[*i]);
 	}
 	return (buffer);
 }
 
-char	*ft_expand2(char *line, t_env *head, t_data data, int *i)
+char	*ft_exp2(char *line, t_env *head, t_data data, int *i)
 {
 	char	*buffer;
 
 	buffer = NULL;
-	if (line[*i] == '\"')
-		buffer = ft_strjoin_free_free(&buffer, ft_expand_double_quotes(line, \
-				head, data, i));
-	if (line[*i] == '\'')
+	if (line[*i] == '\\')
+	{
+		if (line[++(*i)])
+			buffer = ft_strjoinchar_free(&buffer, line[(*i)]);
+	}
+	else if (line[*i] == '\"')
+		buffer = ft_strjoin_ff(&buffer, ft_expand_double_quotes(line, head, \
+				data, i));
+	else if (line[*i] == '\'')
 		while (line[++(*i)] != '\'')
 			buffer = ft_strjoinchar_free(&buffer, line[*i]);
-	if (line[*i] == '\\')
-		if (line[++(*i)] == '\\')
-			buffer = ft_strjoinchar_free(&buffer, line[(*i)++]);
-	if (line[*i] == '$')
-		buffer = ft_strjoin_free_free(&buffer, ft_expand_env(line, head, data, \
-				i));
-	else if (ft_isprint(line[*i]) && line[*i] != '\'' && line[*i] != '\"' \
-		&& line[*i] != ' ')
+	else if (ft_isprint(line[*i]) && line[*i] != '\'' && line[*i] != '\"'
+		&& line[*i] != ' ' && line[*i] != '\\')
 		buffer = ft_strjoinchar_free(&buffer, line[*i]);
 	return (buffer);
+}
+
+static void	split_env_var(char **buffer, char ***split)
+{
+	char	**split_temp;
+	int		j;
+
+	split_temp = ft_split(*buffer, " ");
+	if (!split_temp)
+	{
+		ft_free(1, buffer);
+		ft_free_matrix(1, split);
+		return ;
+	}
+	j = -1;
+	while (split_temp[++j])
+		*split = ft_splitjoin(*split, split_temp[j]);
+	ft_free_matrix(1, &split_temp);
+	ft_free(1, buffer);
+}
+
+static bool	ft_expand3(char c, char **buffer, char ***split)
+{
+	if (c == ' ' && c)
+	{
+		if (*buffer)
+			*split = ft_splitjoin(*split, *buffer);
+		ft_free(1, buffer);
+	}
+	if (!c)
+		return (true);
+	return (false);
 }
 
 char	**ft_expand(char *line, t_env *head, t_data data)
@@ -64,15 +95,16 @@ char	**ft_expand(char *line, t_env *head, t_data data)
 	{
 		ft_expand_home(line, &i, &buffer);
 		if (line[i] != ' ')
-			buffer = ft_strjoin_free_free(&buffer, ft_expand2(line, head, data, \
-					&i));
-		if (line[i] == ' ' && line[i])
 		{
-			if (buffer)
-				split = ft_splitjoin(split, buffer);
-			ft_free(1, &buffer);
+			if (line[i] == '$')
+			{
+				buffer = ft_strjoin_ff(&buffer, exp_env(line, head, data, &i));
+				split_env_var(&buffer, &split);
+			}
+			else
+				buffer = ft_strjoin_ff(&buffer, ft_exp2(line, head, data, &i));
 		}
-		if (!line[i])
+		if (ft_expand3(line[i], &buffer, &split))
 			break ;
 	}
 	if (buffer)

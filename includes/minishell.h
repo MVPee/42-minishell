@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 15:32:14 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:04:14 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define BLACK "\033[30m"
 # define LONG_MAX_STRING "9223372036854775807"
 # define LONG_MIN_STRING "-9223372036854775808"
+# define EXECUTABLE_NAME "./minishell"
 
 # include "../srcs/libft/includes/libft.h"
 # include "struct.h"

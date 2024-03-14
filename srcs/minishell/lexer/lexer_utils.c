@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 10:35:21 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 18:32:05 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ void	append_node(t_node **head, char **name, t_token token)
 
 static void	get_quotes(char *line, int *i, char **buffer)
 {
-	if (line[*i] == '\"')
+	if (line[*i] == '\\' && line[*i + 1])
+	{
+		*buffer = ft_strjoinchar_free(buffer, line[(*i)++]);
+		*buffer = ft_strjoinchar_free(buffer, line[(*i)++]);
+	}
+	else if (line[*i] == '\"')
 	{
 		*buffer = ft_strjoinchar_free(buffer, line[*i]);
 		while (line[++(*i)] != '\"' && line[*i])
@@ -73,43 +78,36 @@ char	**get_cmd_splitted(char *line, int *count)
 	while (line[++i])
 	{
 		get_quotes(line, &i, &buffer);
+		if (!line[i])
+			break ;
 		if (line[i] == '|')
 		{
 			split = ft_splitjoin(split, buffer);
-			if (split)
-				(*count)++;
 			ft_free(1, &buffer);
 		}
 		else
 			buffer = ft_strjoinchar_free(&buffer, line[i]);
 	}
 	split = ft_splitjoin(split, buffer);
-	if (split)
-		(*count)++;
+	*count = ft_splitlen((const char **)split);
 	return (ft_free(1, &buffer), split);
 }
 
-void	free_lexer(t_lexer *lexer)
+void	free_lexer(t_lexer *lexer, int count)
 {
-	t_node	*current;
-	t_node	*temp;
+	int		i;
+	t_node	*node;
 
-	if (lexer)
+	i = -1;
+	while (++i < count)
 	{
-		if (lexer->cmd)
+		node = lexer[i].head;
+		while (node)
 		{
-			free(lexer->cmd);
-			lexer->cmd = NULL;
+			ft_free(1, &node->name);
+			node = node->next;
 		}
-		current = lexer->head;
-		while (current)
-		{
-			temp = current;
-			current = current->next;
-			free(temp->name);
-			free(temp);
-		}
-		lexer->head = NULL;
-		ft_free(1, &lexer);
+		ft_free(1, &lexer[i]);
 	}
+	free(lexer);
 }

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 17:24:52 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:03:06 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*heredoc_expand(char *line, t_env *env, t_data data, int *i)
 	str = NULL;
 	if (line[*i + 1] == '?')
 	{
-		str = ft_strjoin_free_free(&str, ft_itoa(data.env_var));
+		str = ft_strjoin_ff(&str, ft_itoa(data.env_var));
 		(*i) += 2;
 	}
 	else if (!ft_isalnum(line[*i + 1]))
@@ -53,7 +53,7 @@ static char	*heredoc_expand(char *line, t_env *env, t_data data, int *i)
 		while (ft_isalpha(line[++(*i)]) || line[*i] == '_' || line[*i] == '?')
 			buffer = ft_strjoinchar_free(&buffer, line[*i]);
 		if (find_key(env, buffer))
-			str = ft_strjoin_free_free(&str, ft_strdup(find_key(env, \
+			str = ft_strjoin_ff(&str, ft_strdup(find_key(env, \
 						buffer)->value));
 		ft_free(1, &buffer);
 	}
@@ -72,7 +72,7 @@ static char	*heredoc_parsing(char *line, t_env *env, t_data data)
 	while (line[++i] && line[i])
 	{
 		if (line[i] == '$')
-			str = ft_strjoin_free_free(&str, heredoc_expand(line, env, data, \
+			str = ft_strjoin_ff(&str, heredoc_expand(line, env, data, \
 					&i));
 		if (line[i])
 			str = ft_strjoinchar_free(&str, line[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:13:39 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:55:30 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_parsing	init_parsing(void);
 void		free_parsing(t_parsing *parsing, t_data data);
 
 char		**ft_expand(char *line, t_env *head, t_data data);
-char		*ft_expand_env(char *line, t_env *head, t_data data, int *i);
+char		*exp_env(char *line, t_env *head, t_data data, int *i);
 void		ft_expand_home(char *line, int *i, char **buffer);
 
 #endif

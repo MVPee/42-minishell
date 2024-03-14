@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_env.c                                    :+:      :+:    :+:   */
+/*   exp_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:12:55 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 13:55:15 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:00:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static void	ft_expand_env2(char *line, t_env *head, int *i, char **buffer)
+static void	exp_env2(char *line, t_env *head, int *i, char **buffer)
 {
 	char	*buffer2;
 	char	*value;
@@ -33,7 +33,7 @@ static void	ft_expand_env2(char *line, t_env *head, int *i, char **buffer)
 	(*i)--;
 }
 
-char	*ft_expand_env(char *line, t_env *head, t_data data, int *i)
+char	*exp_env(char *line, t_env *head, t_data data, int *i)
 {
 	char	*value;
 	char	*buffer;
@@ -53,7 +53,7 @@ char	*ft_expand_env(char *line, t_env *head, t_data data, int *i)
 	else if (line[*i + 1] == ' ' || !line[*i + 1])
 		buffer = ft_strjoinchar_free(&buffer, '$'); 
 	else
-		ft_expand_env2(line, head, i, &buffer);
+		exp_env2(line, head, i, &buffer);
 	if (line[*i + 1] != '\"')
 		i++;
 	return (buffer);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/12 10:15:52 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:04:14 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define BLACK "\033[30m"
 # define LONG_MAX_STRING "9223372036854775807"
 # define LONG_MIN_STRING "-9223372036854775808"
+# define EXECUTABLE_NAME "./minishell"
 
 # include "../srcs/libft/includes/libft.h"
 # include "struct.h"
@@ -61,5 +62,6 @@ void	shell_lvl_handler(t_env *head);
 void	update_content_of_node(t_env **created_node, char **splitted_arguments);
 char	*no_null_join(char *s1, char *s2);
 t_env	*minimal_env(void);
+void	free_env_element(t_env *node);
 
 #endif

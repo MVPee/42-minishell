@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 09:40:20 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 09:53:57 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ void	ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 	g_sig.heredoc = false;
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
-	if (data->env_var == 130)
+	if (data->env_var == COMMAND_INTERRUPTED)
 		data->flag = true;
 }

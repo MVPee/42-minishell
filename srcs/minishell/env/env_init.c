@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/12 18:24:54 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 15:31:53 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_env	*env_remove_entry(t_env **head, char *key)
 		if (next_entry)
 			next_entry->prv = previous_entry;
 	}
-	free(current_entry);
+	free_env_element(current_entry);
 	return (*head);
 }
 

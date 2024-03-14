@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:26:28 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/13 17:24:47 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, \
 		if (parsing->input == -1)
 			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
-	if (data->env_var == 130)
+	if (data->env_var == COMMAND_INTERRUPTED)
 		return (false);
 	return (true);
 }

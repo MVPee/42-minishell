@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 19:15:24 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 01:04:32 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	child_executor(t_env **head, t_data *data, t_parsing *parsing)
 	int	i;
 
 	i = -1;
-	if (!ft_strcmp(parsing->cmd[0], "./minishell"))
+	if (!ft_strcmp(parsing->cmd[0], EXECUTABLE_NAME))
 		g_sig.minishell = true;
 	while (++i < data->nbr_cmd)
 	{

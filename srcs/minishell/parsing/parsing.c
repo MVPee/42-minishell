@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 20:41:55 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 09:50:29 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,18 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 	parsing = init_parsing();
 	if (!file_checker(&parsing, lexer, env, data))
 		return (parsing);
-	if (data->flag)
-		return (parsing);
-	if (ft_strcmp(lexer.cmd, ""))
+	if (is_only_space(lexer.cmd))
 	{
-		if (is_only_space(lexer.cmd))
-		{
-			parsing.cmd = ft_expand_space(lexer.cmd);
-			parsing.path = NULL;
-			return (parsing);
-		}
-		else
-			parsing.cmd = ft_expand(lexer.cmd, env, *data);
-		if (!parsing.cmd)
-			return (parsing);
-		parsing.isbuiltins = isbuiltins(parsing.cmd[0]);
-		parsing.ft_isspecial = ft_isspecial(parsing);
-		parsing.path = path_checker(ft_split((const char *) \
-			get_value(find_key(env, "PATH")), ":"), parsing);
+		parsing.cmd = ft_expand_space(lexer.cmd);
+		parsing.path = NULL;
+		return (parsing);
 	}
+	else
+		parsing.cmd = ft_expand(lexer.cmd, env, *data);
+	parsing.isbuiltins = isbuiltins(parsing.cmd[0]);
+	parsing.ft_isspecial = ft_isspecial(parsing);
+	parsing.path = path_checker(ft_split((const char *) \
+		get_value(find_key(env, "PATH")), ":"), parsing);
 	return (parsing);
 }
 
@@ -106,7 +99,8 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	{
 		parsing[i] = parsing_data(lexer[i], data, env);
 		if (data->flag)
-			return (free_lexer(lexer, data->nbr_cmd), NULL);
+			return (free_lexer(lexer, data->nbr_cmd), ft_free(1, &parsing), \
+				NULL);
 		if (!parsing[i].cmd)
 			return (free_lexer(lexer, data->nbr_cmd), free_parsing(parsing, \
 					*data), NULL);

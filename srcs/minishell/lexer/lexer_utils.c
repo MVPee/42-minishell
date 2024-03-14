@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:39:00 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 18:32:05 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 09:24:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	free_lexer(t_lexer *lexer, int count)
 {
 	int		i;
 	t_node	*node;
+	t_node	*temp;
 
 	i = -1;
 	while (++i < count)
@@ -105,7 +106,9 @@ void	free_lexer(t_lexer *lexer, int count)
 		while (node)
 		{
 			ft_free(1, &node->name);
+			temp = node;
 			node = node->next;
+			ft_free(1, &temp);
 		}
 		ft_free(1, &lexer[i]);
 	}

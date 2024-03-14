@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/13 17:09:20 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:15:45 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	error_message(size_t exit_code, char **split_args)
 		ft_printf_fd(2, "exit : Too many arguments\n");
 	else if (exit_code == NUMERICAL_ARGUMENT_NESCESSARY)
 	{
-		ft_printf("exit : %s ", split_args[1]);
+		ft_printf_fd(2, "exit : %s ", split_args[1]);
 		ft_printf_fd(2, ": numeric argument required\n");
 	}
 }

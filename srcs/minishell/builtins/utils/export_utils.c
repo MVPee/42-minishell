@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:48:08 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/12 18:28:38 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 10:16:10 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*reconstructed_entry(char *s1, char *s2)
 	if (!s1)
 		return (NULL);
 	joined_string = ft_strjoin(s1, "=");
-	joined_string = ft_strjoin(joined_string, s2);
+	joined_string = ft_strjoin_free(&joined_string, s2);
 	return (joined_string);
 }
 

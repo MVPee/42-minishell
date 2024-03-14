@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 01:04:57 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:20:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	add_env(t_env **head, char *key, char *value, bool append_content)
 		env_entry_update(head, clean_entry);
 		free(clean_entry);
 	}
-	ft_free(1, &value);
+	ft_free(2, &value);
 }
 
 static void	*add_null_content(t_env **head, char *key, t_data *data)

@@ -6,11 +6,21 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:18:05 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 17:44:24 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 22:22:53 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static void	ft_redirection_check(char ***split_temp, t_node **node)
+{
+	if (*split_temp)
+	{
+		ft_free(1, &(*node)->name);
+		(*node)->name = ft_strdup(*split_temp[0]);
+		ft_free_matrix(1, split_temp);
+	}
+}
 
 static void	ft_expand_redirection(t_lexer *lexer, t_env *env, t_data data)
 {
@@ -32,9 +42,7 @@ static void	ft_expand_redirection(t_lexer *lexer, t_env *env, t_data data)
 			else
 			{
 				split_temp = ft_expand(node->name, env, data);
-				ft_free(1, &node->name);
-				node->name = ft_strdup(split_temp[0]);
-				ft_free_matrix(1, &split_temp);
+				ft_redirection_check(&split_temp, &node);
 			}
 		}
 		node = node->next;

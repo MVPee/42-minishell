@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 01:04:32 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:49:50 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static void	ft_execve_check(t_parsing parsing)
 {
 	if (parsing.path == NULL && !parsing.isbuiltins)
 	{
-		ft_printf_fd(2, "%s: command not found\n", parsing.cmd[0]);
+		if (ft_ischarin('/', parsing.cmd[0]))
+			ft_printf_fd(2, "%s: No such file or directory\n", parsing.cmd[0]);
+		else
+			ft_printf_fd(2, "%s: command not found\n", parsing.cmd[0]);
 		exit(127);
 	}
 	if (parsing.flag)

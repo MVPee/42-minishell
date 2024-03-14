@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 01:03:24 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:46:14 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,11 @@ static int	syntax_check2(char *line, int *i)
 	{
 		(*i)++;
 		while (line[(*i)] && line[(*i)] != '\"')
+		{
+			if (line[(*i)] == '\\' && line[(*i) + 1])
+				(*i)++;
 			(*i)++;
+		}
 		if (!line[(*i)])
 			return (ft_printf("syntax error unclosed \" token\n"));
 	}

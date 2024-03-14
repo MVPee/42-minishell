@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 13:06:48 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 14:45:59 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 	parsing = init_parsing();
 	if (!file_checker(&parsing, lexer, env, data))
 		return (parsing);
+	if (!lexer.cmd)
+		return (parsing.cmd = NULL, parsing);
 	if (is_only_space(lexer.cmd))
 	{
 		parsing.cmd = ft_expand_space(lexer.cmd);

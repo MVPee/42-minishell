@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 13:44:03 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 14:46:37 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ char	*get_str_readline(void)
 	ft_free(2, &str_pwd, &temp);
 	if (!str_readline)
 	{
-		str_readline = ft_strjoin_free(&str_readline, RED BOLD "minihell "RESET);
-		str_readline = ft_strjoin_free(&str_readline, YELLOW BOLD "???" RESET);
+		str_readline = ft_strjoin_free(&str_readline, \
+			RED BOLD "minihell "RESET);
+		str_readline = ft_strjoin_free(&str_readline, \
+			YELLOW BOLD "???" RESET);
 		str_readline = ft_strjoin_free(&str_readline, "$ ");
 		return (str_readline);
 	}

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 09:38:20 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 18:35:17 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 14:36:54 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,24 @@
 
 static void	set_lexer_quotes(char *str, int *i, char **buffer, char c)
 {
-	*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
-	while (str[(*i)] != c && str[(*i)])
+	if (c == '\"')
+	{
 		*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
-	*buffer = ft_strjoinchar_free(buffer, str[(*i)]);
+		while (str[(*i)] != '\"' && str[(*i)])
+		{
+			if (str[(*i)] == '\\' && str[(*i) + 1])
+				*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+			*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+		}
+		*buffer = ft_strjoinchar_free(buffer, str[(*i)]);
+	}
+	else
+	{
+		*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+		while (str[(*i)] != c && str[(*i)])
+			*buffer = ft_strjoinchar_free(buffer, str[(*i)++]);
+		*buffer = ft_strjoinchar_free(buffer, str[(*i)]);
+	}
 }
 
 static void	set_lexer_redirection1(char *str, int *i, t_lexer *new_lexer, \

@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 13:06:25 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 14:42:07 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static char	*ft_expand_double_quotes(char *line, t_env *head, t_data data,
 	buffer = NULL;
 	while (line[++(*i)] != '\"' && line[*i])
 	{
-		if (line[*i] == '$' && (ft_isalpha(line[*i + 1]) || line[*i \
-				+ 1] == '?'))
+		if (line[*i] == '\\' && line[*i + 1])
+			buffer = ft_strjoinchar_free(&buffer, line[++(*i)]);
+		else if (line[*i] == '$' && (ft_isalpha(line[*i + 1]) \
+			|| line[*i + 1] == '?'))
 			buffer = ft_strjoin_ff(&buffer, exp_env(line, head, data, i));
 		else
 			buffer = ft_strjoinchar_free(&buffer, line[*i]);

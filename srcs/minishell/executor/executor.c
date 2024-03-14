@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 16:05:11 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 16:08:09 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ static bool	ft_pipe(t_data *data)
 
 void	executor(t_env **head, t_data *data, t_parsing *parsing)
 {
-	int	i;
-
 	if (data->flag)
 	{
 		data->flag = false;
@@ -109,6 +107,6 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 		g_sig.execve = true;
 		child_executor(head, data, parsing);
 		ft_waitpid(data);
-		free_executor(parsing, data);
 	}
+	free_executor(parsing, data);
 }

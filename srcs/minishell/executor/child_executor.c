@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 15:40:05 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 16:24:04 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 		builtins(head, data, parsing);
 		exit(0);
 	}
+	execve(parsing.path, parsing.cmd, env);
+	if (access(parsing.cmd[0], X_OK) == 0)
+		ft_printf_fd(2, "%s: Is a directory\n", parsing.cmd[0]);
 	else
-	{
-		execve(parsing.path, parsing.cmd, env);
 		perror(parsing.cmd[0]);
-		ft_free_matrix(1, &env);
-		if (errno == EACCES)
-			exit(MISSING_RIGHTS);
-		exit(1);
-	}
+	ft_free_matrix(1, &env);
+	if (errno == EACCES)
+		exit(MISSING_RIGHTS);
+	exit(1);
 }
 
 void	child_executor(t_env **head, t_data *data, t_parsing *parsing)

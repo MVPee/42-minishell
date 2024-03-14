@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 20:15:50 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/14 13:06:25 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	split_env_var(char **buffer, char ***split)
 	char	**split_temp;
 	int		j;
 
+	if (!(*buffer) || !buffer)
+		return ;
 	split_temp = ft_split(*buffer, " ");
 	if (!split_temp)
 	{

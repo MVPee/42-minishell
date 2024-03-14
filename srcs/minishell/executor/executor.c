@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 01:03:42 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:05:11 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ static void	ft_waitpid(t_data *data)
 
 	i = -1;
 	while (++i < data->nbr_cmd)
+	{
+		close(data->pipefds[i][0]);
+		close(data->pipefds[i][1]);
+	}
+	i = -1;
+	while (++i < data->nbr_cmd)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
@@ -64,16 +70,20 @@ static void	ft_waitpid(t_data *data)
 	g_sig.minishell = false;
 }
 
-static void	ft_close(t_data *data)
+static bool	ft_pipe(t_data *data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data->nbr_cmd)
 	{
-		close(data->pipefds[i][0]);
-		close(data->pipefds[i][1]);
+		if (pipe(data->pipefds[i]) == -1)
+		{
+			perror("pipe");
+			return (false);
+		}
 	}
+	return (true);
 }
 
 void	executor(t_env **head, t_data *data, t_parsing *parsing)
@@ -94,12 +104,11 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 		free_executor(parsing, data);
 		return ;
 	}
-	i = -1;
-	while (++i < data->nbr_cmd)
-		pipe(data->pipefds[i]);
-	g_sig.execve = true;
-	child_executor(head, data, parsing);
-	ft_close(data);
-	ft_waitpid(data);
-	free_executor(parsing, data);
+	if (ft_pipe(data))
+	{
+		g_sig.execve = true;
+		child_executor(head, data, parsing);
+		ft_waitpid(data);
+		free_executor(parsing, data);
+	}
 }

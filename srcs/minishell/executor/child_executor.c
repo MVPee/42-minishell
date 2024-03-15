@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 15:03:57 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:30:50 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	ft_execve(t_parsing parsing, t_env **head, t_data *data, int i)
 	char	**env;
 
 	env = env_to_tab(*head);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	ft_execve_check(parsing);
 	ft_pipe(data, i);
 	ft_redirection(parsing);
@@ -98,8 +100,6 @@ void	child_executor(t_env **head, t_data *data, t_parsing *parsing)
 		}
 		if (data->pid[i] == 0)
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
 			if (parsing[i].cmd == NULL)
 			{
 				if (parsing[i].input != -1 || parsing[i].output != -1)

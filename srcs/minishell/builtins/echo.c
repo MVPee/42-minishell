@@ -3,31 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/13 22:56:40 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 15:51:26 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static bool	echo_option(char *str)
+static bool	check_after_option(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (str[0] == '-')
+	while (str[++i])
 	{
-		if (!str[1] || str[1] == ' ')
-			return (false);
-		while (str[++i])
-			if (str[i] != 'n')
-				return (false);
+		if (!str[i])
+			break ;
+		if (str[i] != 'n')
+			return (true);
 	}
-	else
-		return (false);
-	return (true);
+	return (false);
+}
+
+static void	echo_option(char **split, bool *flag, int *i)
+{
+	int	j;
+
+	j = 0;
+	while (split[++(*i)])
+	{
+		if (split[*i][0] == '-')
+		{
+			if (check_after_option(split[*i]))
+			{
+				(*i)--;
+				break ;
+			}
+			else
+				*flag = true;
+		}
+		else
+		{
+			(*i)--;
+			break ;
+		}
+	}
 }
 
 void	ft_echo(t_data *data, char **split)
@@ -35,15 +57,15 @@ void	ft_echo(t_data *data, char **split)
 	bool	flag;
 	int		i;
 
+	flag = false;
 	i = 0;
 	if (!split[1])
 	{
+		data->env_var = 0;
 		ft_printf("\n");
 		return ;
 	}
-	flag = echo_option(split[1]);
-	if (flag)
-		i++;
+	echo_option(split, &flag, &i);
 	while (split[++i])
 	{
 		ft_printf("%s", split[i]);

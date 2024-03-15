@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:24 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/08 22:25:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 11:16:35 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*path_checker(char **paths, t_parsing parsing)
 	char	*temp;
 	char	buffer[500];
 
-	if (access(parsing.cmd[0], F_OK) == 0)
+	if (access(parsing.cmd[0], F_OK) == 0 && ft_ischarin('/', parsing.cmd[0]))
 		return (ft_free_matrix(1, &paths), ft_strdup(parsing.cmd[0]));
 	path = find_executable_path(paths, parsing);
 	if (!path)

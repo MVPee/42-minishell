@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 09:53:57 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 12:48:00 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	heredoc(int fd, char **stop, t_env *env, t_data data)
 	bool	flag;
 
 	signal(SIGINT, signal_heredoc);
-	signal(SIGQUIT, SIG_DFL);
 	*stop = check_heredoc_stop(stop, &flag);
 	while (1)
 	{
@@ -117,14 +116,13 @@ void	ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 
 	if (data->flag)
 		return ;
-	g_sig.heredoc = true;
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
 		heredoc(fd, stop, env, *data);
 	waitpid(pid, &status, 0);
-	g_sig.heredoc = false;
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
-	if (data->env_var == COMMAND_INTERRUPTED)
+	if (data->env_var == 1)
 		data->flag = true;
 }

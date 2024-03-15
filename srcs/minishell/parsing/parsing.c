@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 14:45:59 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 12:48:16 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	t_parsing	*parsing;
 	int			i;
 
-	if (g_sig.flag)
+	if (g_sig.flag == SIGINT)
 	{
-		g_sig.flag = false;
+		g_sig.flag = 0;
 		data->env_var = 1;
 	}
 	if (!lexer)

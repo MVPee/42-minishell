@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 16:08:09 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 12:03:17 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ static void	ft_waitpid(t_data *data)
 		data->env_var = WEXITSTATUS(status);
 	else
 		data->env_var = COMMAND_INTERRUPTED;
-	g_sig.execve = false;
-	g_sig.minishell = false;
 }
 
 static bool	ft_pipe(t_data *data)
@@ -91,7 +89,6 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 	if (data->flag)
 	{
 		data->flag = false;
-		data->env_var = COMMAND_INTERRUPTED;
 		return ;
 	}
 	if (!parsing || init_executor(data))
@@ -102,11 +99,13 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 		free_executor(parsing, data);
 		return ;
 	}
+	signal(SIGINT, SIG_IGN);
 	if (ft_pipe(data))
 	{
-		g_sig.execve = true;
 		child_executor(head, data, parsing);
 		ft_waitpid(data);
 	}
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	free_executor(parsing, data);
 }

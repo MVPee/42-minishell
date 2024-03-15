@@ -14,33 +14,35 @@
 
 void	signal_handler(int signum)
 {
-	if (signum == SIGINT && !g_sig.execve && !g_sig.heredoc)
+	if (signum == SIGINT)
 	{
 		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_sig.flag = true;
-	}
-	else if (!g_sig.minishell && signum == SIGINT)
-	{
-		if (g_sig.heredoc)
-			ft_printf("\n");
+		g_sig.flag = SIGINT;
 	}
 }
 
 void	signal_heredoc(int signum)
 {
-	if (g_sig.heredoc && signum == SIGINT)
-		exit(COMMAND_INTERRUPTED);
+	if (signum == SIGINT)
+	{
+		ft_printf("\n");
+		exit(1);
+	}
+}
+
+void	signal_quit(int signum)
+{
+	if (signum == SIGQUIT)
+		ft_printf_fd(2, "\nQuit\n");
+	exit(131);
 }
 
 void	init_signal(void)
 {
-	g_sig.execve = false;
-	g_sig.heredoc = false;
-	g_sig.flag = false;
-	g_sig.minishell = false;
+	g_sig.flag = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

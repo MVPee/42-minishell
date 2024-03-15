@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:01:16 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 12:48:16 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:14:58 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
 		parsing.path = path_checker(ft_split((const char *) \
 			get_value(find_key(env, "PATH")), ":"), parsing);
 	}
+	else
+		data->env_var = 0;
 	return (parsing);
 }
 

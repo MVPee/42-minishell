@@ -43,6 +43,7 @@ void	signal_quit(int signum)
 		ft_printf_fd(2, "%s\n", sig);
 	else
 		ft_printf_fd(2, "malloc fail\n", sig);
+	ft_free(1, &sig);
 	g_sig.flag = signum;
 }
 

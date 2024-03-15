@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/15 17:31:05 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:40:32 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ static bool	check_after_option(char *str)
 
 static void	echo_option(char **split, bool *flag, int *i)
 {
-	int	j;
-
-	j = 0;
 	while (split[++(*i)])
 	{
 		if (split[*i][0] == '-')

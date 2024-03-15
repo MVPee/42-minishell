@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:27:13 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ t_signal	g_sig;
 
 static void	print_welcome_message(t_env *head)
 {
+	t_env	*target_node;
+
+	target_node = find_key(head, "SHLVL");
 	ft_printf(RED "\n\n	███╗   ███╗██╗███╗   ██╗██╗" RED \
 	BOLD "██╗  ██╗███████╗██╗     ██╗     \n" RESET);
 	ft_printf(YELLOW "	████╗ ████║██║████╗  ██║██║" RED \
@@ -28,8 +31,9 @@ static void	print_welcome_message(t_env *head)
 	BOLD "██║  ██║███████╗███████╗███████╗\n" RESET);
 	ft_printf(CYAN "	╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝" RED \
 	BOLD "╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n\n" RESET);
-	if (find_key(head, "SHLVL"))
-		ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
+	if (target_node)
+		if (ft_strcmp(target_node->value, ""))
+			ft_printf("SHLVL=%s\n", find_key(head, "SHLVL")->value);
 }
 
 char	*get_str_readline(void)

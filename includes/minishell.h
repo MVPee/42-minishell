@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:35:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 01:04:14 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:16:28 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,12 @@
 # include "builtins.h"
 # include "signal.h"
 # include "executor.h"
+# include "env.h"
 # include <stdio.h>
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
 # include <sys/wait.h>
-
-// Env Init
-t_env	*env_init(char **envs);
-
-// Env Operations
-char	**env_to_tab(t_env *head);
-char	**env_split(char *env);
-t_env	*tab_to_env(char **envp);
-t_env	*env_add_entry(t_env *head, char *entry);
-t_env	*env_remove_entry(t_env **head, char *key);
-t_env	*find_key(t_env *head, char *key);
-char	*get_value(t_env *target_node);
-t_env	*remove_top_node(t_env **head);
-t_env	*get_last_entry(t_env **head);
-void	write_value(t_env **head, char *key, char *value);
-void	free_env_list(t_env *head);
-void	shell_lvl_handler(t_env *head);
-void	update_content_of_node(t_env **created_node, char **splitted_arguments);
-char	*no_null_join(char *s1, char *s2);
-t_env	*minimal_env(void);
-void	free_env_element(t_env *node);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/13 15:19:16 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:27:02 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,32 @@ char	**env_split(char *env)
 
 void	shell_lvl_handler(t_env *head)
 {
-	t_env	*tmp;
+	t_env	*target_node;
+	int		target_node_value;
 
-	if (find_key(head, "SHLVL") == NULL)
-		head = env_add_entry(head, "SHLVL=0");
+	target_node = find_key(head, SHLVL_KEY);
+	if (!target_node)
+		head = env_add_entry(head, BASE_SHLVL);
 	else
 	{
-		tmp = find_key(head, "SHLVL");
-		if (ft_atoi(tmp->value) >= 1000)
-			tmp->value = ft_itoa(1);
+		if (!ft_is_string_number(get_value(target_node)))
+		{
+			env_remove_entry(&head, SHLVL_KEY);
+			head = env_add_entry(head, BASE_SHLVL);
+		}
+		else
+		{
+			target_node_value = ft_atoi(target_node->value) + 1;
+			env_remove_entry(&head, SHLVL_KEY);
+			if (target_node_value < 0)
+				head = env_add_entry(head, SHLVL_ZERO);
+			else if (target_node_value > 999)
+				head = env_add_entry(head, SHLVL_EMPTY);
+			else
+				head = env_add_entry(head, ft_strjoin(SHLVL_EMPTY, ft_itoa(target_node_value)));
+		}
 	}
 }
-
-void	update_content_of_node(t_env **created_node, char **splitted_arguments)
-{
-	if (!ft_strcmp((*created_node)->key, "SHLVL"))
-		(*created_node)->value = ft_itoa(ft_atoi(splitted_arguments[1]) + 1);
-	else
-		(*created_node)->value = ft_strtrim(splitted_arguments[1], " ");
-}
-
 char	*no_null_join(char *s1, char *s2)
 {
 	int		i;

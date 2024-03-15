@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 13:20:06 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 15:15:54 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	*add_null_content(t_env **head, char *key, t_data *data)
 		(*data).env_var = UNSUCCESSFUL_COMMAND;
 		return (non_valid_arg(key));
 	}
+	if (find_key(*head, key))
+		return (NULL);
 	add_env(head, key, NULL, false);
 	(*data).env_var = SUCCESSFUL_COMMAND;
 	return (NULL);

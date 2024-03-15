@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 13:19:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/13 15:31:53 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:28:19 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_env	*create_node(char *entry)
 		created_node->key = ft_strdup(splitted_arguments[0]);
 	created_node->value = NULL;
 	if (splitted_arguments[1])
-		update_content_of_node(&created_node, splitted_arguments);
+		created_node->value = ft_strtrim(splitted_arguments[1], " ");
 	created_node->next = NULL;
 	created_node->prv = NULL;
 	ft_free_matrix(1, &splitted_arguments);

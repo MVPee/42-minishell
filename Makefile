@@ -25,14 +25,14 @@ SRCS = 	main.c \
 		srcs/minishell/lexer/syntax/syntax_check.c \
 		srcs/minishell/lexer/syntax/syntax_utils.c \
 		srcs/minishell/signal/init_signal.c \
-		srcs/minishell/parsing/parsing.c \
-		srcs/minishell/parsing/parsing_utils.c \
-		srcs/minishell/parsing/path_checker.c \
-		srcs/minishell/parsing/file_checker.c \
-		srcs/minishell/parsing/ft_heredoc.c \
-		srcs/minishell/parsing/expand/ft_expand.c \
-		srcs/minishell/parsing/expand/ft_expand_env.c \
-		srcs/minishell/parsing/expand/ft_expand_home.c \
+		srcs/minishell/parser/parser.c \
+		srcs/minishell/parser/parser_utils.c \
+		srcs/minishell/parser/path_checker.c \
+		srcs/minishell/parser/file_checker.c \
+		srcs/minishell/parser/ft_heredoc.c \
+		srcs/minishell/parser/expand/ft_expand.c \
+		srcs/minishell/parser/expand/ft_expand_env.c \
+		srcs/minishell/parser/expand/ft_expand_home.c \
 
 OBJS = $(SRCS:.c=.o)
 

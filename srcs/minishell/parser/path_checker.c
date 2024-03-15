@@ -6,23 +6,23 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:24 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 11:16:35 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static char	*find_executable_path(char **paths, t_parsing parsing)
+static char	*find_executable_path(char **paths, t_parser parser)
 {
 	int		i;
 	char	*path;
 	char	*temp;
 
-	if (!parsing.cmd)
+	if (!parser.cmd)
 		return (NULL);
 	if (!paths)
 		return (NULL);
-	if (parsing.cmd[0][0] == '.' && parsing.cmd[0][1] == '/')
+	if (parser.cmd[0][0] == '.' && parser.cmd[0][1] == '/')
 		return (ft_free_matrix(1, &paths), NULL);
 	i = -1;
 	while (paths[++i])
@@ -30,7 +30,7 @@ static char	*find_executable_path(char **paths, t_parsing parsing)
 		temp = ft_strjoin(paths[i], "/");
 		if (!temp)
 			return (ft_free_matrix(1, &paths), NULL);
-		path = ft_strjoin(temp, parsing.cmd[0]);
+		path = ft_strjoin(temp, parser.cmd[0]);
 		if (!path)
 			return (ft_free_matrix(1, &paths), ft_free(1, &temp), NULL);
 		if (access(path, F_OK) == 0)
@@ -40,18 +40,18 @@ static char	*find_executable_path(char **paths, t_parsing parsing)
 	return (ft_free_matrix(1, &paths), NULL);
 }
 
-char	*path_checker(char **paths, t_parsing parsing)
+char	*path_checker(char **paths, t_parser parser)
 {
 	char	*path;
 	char	*temp;
 	char	buffer[500];
 
-	if (access(parsing.cmd[0], F_OK) == 0 && ft_ischarin('/', parsing.cmd[0]))
-		return (ft_free_matrix(1, &paths), ft_strdup(parsing.cmd[0]));
-	path = find_executable_path(paths, parsing);
+	if (access(parser.cmd[0], F_OK) == 0 && ft_ischarin('/', parser.cmd[0]))
+		return (ft_free_matrix(1, &paths), ft_strdup(parser.cmd[0]));
+	path = find_executable_path(paths, parser);
 	if (!path)
 	{
-		temp = ft_strtrim(parsing.cmd[0], ". ");
+		temp = ft_strtrim(parser.cmd[0], ". ");
 		if (!temp)
 			return (NULL);
 		path = ft_strjoin(getcwd(buffer, 500), temp);

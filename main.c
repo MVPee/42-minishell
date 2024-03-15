@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 21:37:59 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 10:46:00 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	main(int ac, char **argv, char **envs)
 		if (ft_strcmp(line, "\0"))
 		{
 			add_history(line);
-			executor(&head, &data, ft_parsing(ft_lexer(ft_strtrim(line, " "), \
+			executor(&head, &data, ft_parser(ft_lexer(ft_strtrim(line, " "), \
 						&data, head), &data, head));
 		}
 		ft_free(1, &line);

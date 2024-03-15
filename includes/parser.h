@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parser.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,7 +17,7 @@
 # include "minishell.h"
 # include <stdbool.h>
 
-typedef struct s_parsing
+typedef struct s_parser
 {
 	char	**cmd;
 	int		input;
@@ -26,17 +26,17 @@ typedef struct s_parsing
 	bool	ft_isspecial;
 	bool	flag;
 	char	*path;
-}			t_parsing;
+}			t_parser;
 
-t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *head);
-char		*path_checker(char **paths, t_parsing parsing);
-bool		file_checker(t_parsing *parsing, t_lexer lexer, t_env *env,
+t_parser	*ft_parser(t_lexer *lexer, t_data *data, t_env *head);
+char		*path_checker(char **paths, t_parser parser);
+bool		file_checker(t_parser *parser, t_lexer lexer, t_env *env,
 				t_data *data);
 
 void		ft_heredoc(int fd, char **stop, t_env *env, t_data *data);
 
-t_parsing	init_parsing(void);
-void		free_parsing(t_parsing *parsing, t_data data);
+t_parser	init_parser(void);
+void		free_parser(t_parser *parser, t_data data);
 
 char		**ft_expand(char *line, t_env *head, t_data data);
 char		*exp_env(char *line, t_env *head, t_data data, int *i);

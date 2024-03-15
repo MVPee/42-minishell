@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 17:24:47 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,28 @@ static int	ft_open(char *file, t_token token)
 	return (-1);
 }
 
-static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, \
+static bool	input_check(t_parser *parser, t_node *node, t_env *env, \
 		t_data *data)
 {
-	if (parsing->input != -1)
-		close(parsing->input);
-	parsing->input = ft_open(node->name, node->token);
-	if (parsing->input == -1)
+	if (parser->input != -1)
+		close(parser->input);
+	parser->input = ft_open(node->name, node->token);
+	if (parser->input == -1)
 	{
 		if (node->token == INPUT)
 		{
 			perror(node->name);
-			parsing->flag = true;
+			parser->flag = true;
 		}
 		else
 			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
 	if (node->token == HEREDOC)
 	{
-		ft_heredoc(parsing->input, &node->name, env, data);
-		close(parsing->input);
-		parsing->input = open(".heredoc", O_RDONLY, 0644);
-		if (parsing->input == -1)
+		ft_heredoc(parser->input, &node->name, env, data);
+		close(parser->input);
+		parser->input = open(".heredoc", O_RDONLY, 0644);
+		if (parser->input == -1)
 			return (ft_printf_fd(2, RED "CHMOD 777 .heredoc\n" RESET), false);
 	}
 	if (data->env_var == COMMAND_INTERRUPTED)
@@ -54,19 +54,19 @@ static bool	input_check(t_parsing *parsing, t_node *node, t_env *env, \
 	return (true);
 }
 
-static void	output_check(t_parsing *parsing, t_node *node)
+static void	output_check(t_parser *parser, t_node *node)
 {
-	if (parsing->output != -1)
-		close(parsing->output);
-	parsing->output = ft_open(node->name, node->token);
-	if (parsing->output == -1)
+	if (parser->output != -1)
+		close(parser->output);
+	parser->output = ft_open(node->name, node->token);
+	if (parser->output == -1)
 	{
 		perror(node->name);
-		parsing->flag = true;
+		parser->flag = true;
 	}
 }
 
-bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, \
+bool	file_checker(t_parser *parser, t_lexer lexer, t_env *env, \
 		t_data *data)
 {
 	t_node	*node;
@@ -76,10 +76,10 @@ bool	file_checker(t_parsing *parsing, t_lexer lexer, t_env *env, \
 	while (node)
 	{
 		if (node->token == INPUT || node->token == HEREDOC)
-			if (!input_check(parsing, node, env, data))
+			if (!input_check(parser, node, env, data))
 				return (false);
 		if (node->token == OUTPUT || node->token == APPEND)
-			output_check(parsing, node);
+			output_check(parser, node);
 		node = node->next;
 	}
 	return (true);

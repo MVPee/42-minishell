@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 12:48:00 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*heredoc_expand(char *line, t_env *env, t_data data, int *i)
 	return (str);
 }
 
-static char	*heredoc_parsing(char *line, t_env *env, t_data data)
+static char	*heredoc_parser(char *line, t_env *env, t_data data)
 {
 	char	*str;
 	int		i;
@@ -98,7 +98,7 @@ void	heredoc(int fd, char **stop, t_env *env, t_data data)
 			break ;
 		}
 		if (!flag)
-			line = heredoc_parsing(line, env, data);
+			line = heredoc_parser(line, env, data);
 		if (line)
 		{
 			write(fd, line, ft_strlen(line));

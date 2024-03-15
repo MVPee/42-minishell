@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:06:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:35:29 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-bool	ft_isspecial(t_parsing parsing)
+bool	ft_isspecial(t_parser parser)
 {
-	if (!ft_strcmp("unset", parsing.cmd[0]) || !ft_strcmp("cd", parsing.cmd[0])
-		|| !ft_strcmp("exit", parsing.cmd[0]))
+	if (!ft_strcmp("unset", parser.cmd[0]) || !ft_strcmp("cd", parser.cmd[0])
+		|| !ft_strcmp("exit", parser.cmd[0]))
 		return (true);
-	if (!ft_strcmp("export", parsing.cmd[0]) && parsing.cmd[1])
+	if (!ft_strcmp("export", parser.cmd[0]) && parser.cmd[1])
 		return (true);
 	return (false);
 }
@@ -34,21 +34,21 @@ bool	isbuiltins(char *line)
 	return (false);
 }
 
-char	*builtins(t_env **head, t_data *data, t_parsing parsing)
+char	*builtins(t_env **head, t_data *data, t_parser parser)
 {
-	if (!ft_strcmp(parsing.cmd[0], "echo"))
-		ft_echo(data, parsing.cmd);
-	else if (!ft_strcmp(parsing.cmd[0], "env"))
-		ft_env(data, *head, parsing.cmd);
-	else if (!ft_strcmp(parsing.cmd[0], "pwd"))
+	if (!ft_strcmp(parser.cmd[0], "echo"))
+		ft_echo(data, parser.cmd);
+	else if (!ft_strcmp(parser.cmd[0], "env"))
+		ft_env(data, *head, parser.cmd);
+	else if (!ft_strcmp(parser.cmd[0], "pwd"))
 		ft_pwd(data);
-	else if (!ft_strcmp(parsing.cmd[0], "unset"))
-		ft_unset(head, data, parsing.cmd);
-	else if (!ft_strcmp(parsing.cmd[0], "export"))
-		ft_export(head, data, parsing.cmd);
-	else if (!ft_strcmp(parsing.cmd[0], "cd"))
-		ft_cd(*head, data, parsing.cmd);
-	else if (!ft_strcmp(parsing.cmd[0], "exit"))
-		ft_exit(*head, data, parsing.cmd);
+	else if (!ft_strcmp(parser.cmd[0], "unset"))
+		ft_unset(head, data, parser.cmd);
+	else if (!ft_strcmp(parser.cmd[0], "export"))
+		ft_export(head, data, parser.cmd);
+	else if (!ft_strcmp(parser.cmd[0], "cd"))
+		ft_cd(*head, data, parser.cmd);
+	else if (!ft_strcmp(parser.cmd[0], "exit"))
+		ft_exit(*head, data, parser.cmd);
 	return (NULL);
 }

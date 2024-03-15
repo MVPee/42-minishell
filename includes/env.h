@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 16:14:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 16:32:46 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:32:25 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
-#define ENV_H
+# define ENV_H
 
 # define SHLVL_EMPTY "SHLVL="
 # define BASE_SHLVL "SHLVL=1"
-# define SHLVL_KEY "SHLVL"   
+# define SHLVL_KEY "SHLVL"
 # define SHLVL_ZERO "SHLVL=0"
 
 // Env Init

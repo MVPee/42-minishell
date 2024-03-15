@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -57,38 +57,38 @@ static char	**ft_expand_space(char *str)
 	return (split);
 }
 
-static t_parsing	parsing_data(t_lexer lexer, t_data *data, t_env *env)
+static t_parser	parser_data(t_lexer lexer, t_data *data, t_env *env)
 {
-	t_parsing	parsing;
+	t_parser	parser;
 
-	parsing = init_parsing();
-	if (!file_checker(&parsing, lexer, env, data))
-		return (parsing);
+	parser = init_parser();
+	if (!file_checker(&parser, lexer, env, data))
+		return (parser);
 	if (!lexer.cmd)
-		return (parsing.cmd = NULL, parsing);
+		return (parser.cmd = NULL, parser);
 	if (is_only_space(lexer.cmd))
 	{
-		parsing.cmd = ft_expand_space(lexer.cmd);
-		parsing.path = NULL;
-		return (parsing);
+		parser.cmd = ft_expand_space(lexer.cmd);
+		parser.path = NULL;
+		return (parser);
 	}
 	else
-		parsing.cmd = ft_expand(lexer.cmd, env, *data);
-	if (parsing.cmd)
+		parser.cmd = ft_expand(lexer.cmd, env, *data);
+	if (parser.cmd)
 	{
-		parsing.isbuiltins = isbuiltins(parsing.cmd[0]);
-		parsing.ft_isspecial = ft_isspecial(parsing);
-		parsing.path = path_checker(ft_split((const char *) \
-			get_value(find_key(env, "PATH")), ":"), parsing);
+		parser.isbuiltins = isbuiltins(parser.cmd[0]);
+		parser.ft_isspecial = ft_isspecial(parser);
+		parser.path = path_checker(ft_split((const char *) \
+			get_value(find_key(env, "PATH")), ":"), parser);
 	}
 	else
 		data->env_var = 0;
-	return (parsing);
+	return (parser);
 }
 
-t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
+t_parser	*ft_parser(t_lexer *lexer, t_data *data, t_env *env)
 {
-	t_parsing	*parsing;
+	t_parser	*parser;
 	int			i;
 
 	if (g_sig.flag == SIGINT)
@@ -98,19 +98,19 @@ t_parsing	*ft_parsing(t_lexer *lexer, t_data *data, t_env *env)
 	}
 	if (!lexer)
 		return (data->env_var = 2, NULL);
-	parsing = malloc(sizeof(t_parsing) * data->nbr_cmd);
-	if (!parsing)
+	parser = malloc(sizeof(t_parser) * data->nbr_cmd);
+	if (!parser)
 		return (free_lexer(lexer, data->nbr_cmd), NULL);
 	i = -1;
 	while (++i < data->nbr_cmd)
 	{
-		parsing[i] = parsing_data(lexer[i], data, env);
+		parser[i] = parser_data(lexer[i], data, env);
 		if (data->flag)
-			return (free_lexer(lexer, data->nbr_cmd), ft_free(1, &parsing), \
+			return (free_lexer(lexer, data->nbr_cmd), ft_free(1, &parser), \
 				NULL);
-		if (!parsing[i].cmd)
-			return (free_lexer(lexer, data->nbr_cmd), free_parsing(parsing, \
+		if (!parser[i].cmd)
+			return (free_lexer(lexer, data->nbr_cmd), free_parser(parser, \
 					*data), NULL);
 	}
-	return (free_lexer(lexer, data->nbr_cmd), parsing);
+	return (free_lexer(lexer, data->nbr_cmd), parser);
 }

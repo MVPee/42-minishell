@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:45:36 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 11:23:32 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "minishell.h"
 
 // Builtins
-char	*builtins(t_env **head, t_data *data, t_parsing parsing);
+char	*builtins(t_env **head, t_data *data, t_parser parser);
 bool	isbuiltins(char *line);
-bool	ft_isspecial(t_parsing parsing);
+bool	ft_isspecial(t_parser parser);
 void	ft_echo(t_data *data, char **split);
 void	ft_env(t_data *data, t_env *head, char **split);
 void	ft_pwd(t_data *data);

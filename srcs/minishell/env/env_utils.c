@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 17:27:02 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:33:20 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**env_split(char *env)
 void	shell_lvl_handler(t_env *head)
 {
 	t_env	*target_node;
-	int		target_node_value;
+	int		node_value;
 
 	target_node = find_key(head, SHLVL_KEY);
 	if (!target_node)
@@ -50,17 +50,18 @@ void	shell_lvl_handler(t_env *head)
 		}
 		else
 		{
-			target_node_value = ft_atoi(target_node->value) + 1;
+			node_value = ft_atoi(target_node->value) + 1;
 			env_remove_entry(&head, SHLVL_KEY);
-			if (target_node_value < 0)
+			if (node_value < 0)
 				head = env_add_entry(head, SHLVL_ZERO);
-			else if (target_node_value > 999)
+			else if (node_value > 999)
 				head = env_add_entry(head, SHLVL_EMPTY);
 			else
-				head = env_add_entry(head, ft_strjoin(SHLVL_EMPTY, ft_itoa(target_node_value)));
+				head = env_add_entry(head, ft_strjoin(SHLVL_EMPTY, ft_itoa(node_value)));
 		}
 	}
 }
+
 char	*no_null_join(char *s1, char *s2)
 {
 	int		i;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parser_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,33 +12,33 @@
 
 #include "../../../includes/minishell.h"
 
-t_parsing	init_parsing(void)
+t_parser	init_parser(void)
 {
-	t_parsing	parsing;
+	t_parser	parser;
 
-	parsing.cmd = NULL;
-	parsing.input = -1;
-	parsing.output = -1;
-	parsing.isbuiltins = false;
-	parsing.ft_isspecial = false;
-	parsing.path = NULL;
-	parsing.flag = false;
-	return (parsing);
+	parser.cmd = NULL;
+	parser.input = -1;
+	parser.output = -1;
+	parser.isbuiltins = false;
+	parser.ft_isspecial = false;
+	parser.path = NULL;
+	parser.flag = false;
+	return (parser);
 }
 
-void	free_parsing(t_parsing *parsing, t_data data)
+void	free_parser(t_parser *parser, t_data data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data.nbr_cmd)
 	{
-		ft_free_matrix(1, &parsing[i].cmd);
-		ft_free(1, &parsing[i].path);
-		if (parsing[i].input != -1)
-			close(parsing[i].input);
-		if (parsing[i].output != -1)
-			close(parsing[i].output);
+		ft_free_matrix(1, &parser[i].cmd);
+		ft_free(1, &parser[i].path);
+		if (parser[i].input != -1)
+			close(parser[i].input);
+		if (parser[i].output != -1)
+			close(parser[i].output);
 	}
-	ft_free(1, &parsing);
+	ft_free(1, &parser);
 }

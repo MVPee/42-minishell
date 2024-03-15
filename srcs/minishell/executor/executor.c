@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 15:07:15 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	init_executor(t_data *data)
 	return (false);
 }
 
-static void	free_executor(t_parsing *parsing, t_data *data)
+static void	free_executor(t_parser *parser, t_data *data)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ static void	free_executor(t_parsing *parsing, t_data *data)
 	while (++i < data->nbr_cmd)
 		ft_free(1, &data->pipefds[i]);
 	ft_free(1, &data->pipefds);
-	free_parsing(parsing, *data);
+	free_parser(parser, *data);
 }
 
 static void	ft_waitpid(t_data *data)
@@ -89,30 +89,30 @@ static bool	ft_pipe(t_data *data)
 	return (true);
 }
 
-void	executor(t_env **head, t_data *data, t_parsing *parsing)
+void	executor(t_env **head, t_data *data, t_parser *parser)
 {
 	if (data->flag)
 	{
 		data->flag = false;
 		return ;
 	}
-	if (!parsing || init_executor(data))
+	if (!parser || init_executor(data))
 		return ;
-	if (data->nbr_cmd == 1 && parsing[0].ft_isspecial)
+	if (data->nbr_cmd == 1 && parser[0].ft_isspecial)
 	{
-		builtins(head, data, parsing[0]);
-		free_executor(parsing, data);
+		builtins(head, data, parser[0]);
+		free_executor(parser, data);
 		return ;
 	}
 	signal(SIGINT, SIG_IGN);
-	if (ft_strcmp(parsing[0].cmd[0], EXECUTABLE_NAME))
+	if (ft_strcmp(parser[0].cmd[0], EXECUTABLE_NAME))
 		signal(SIGQUIT, signal_quit);
 	if (ft_pipe(data))
 	{
-		child_executor(head, data, parsing);
+		child_executor(head, data, parser);
 		ft_waitpid(data);
 	}
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-	free_executor(parsing, data);
+	free_executor(parser, data);
 }

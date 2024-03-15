@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 18:27:08 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 19:45:43 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,24 @@ char	**env_split(char *env)
 static void	apply_shlvl_value(t_env *head, t_env *target_node)
 {
 	int		target_node_value;
+	char	*string_entry;
+	char	*entry;
 
 	if (!target_node)
 		return ;
 	target_node_value = ft_atoi(target_node->value) + 1;
 	env_remove_entry(&head, SHLVL_KEY);
 	if (target_node_value < 0)
-		head = env_add_entry(head, SHLVL_ZERO);
+		env_add_entry(head, SHLVL_ZERO);
 	else if (target_node_value > 999)
-		head = env_add_entry(head, SHLVL_EMPTY);
+		env_add_entry(head, SHLVL_EMPTY);
 	else
-		head = env_add_entry(head, \
-			ft_strjoin(SHLVL_EMPTY, ft_itoa(target_node_value)));
+	{
+		string_entry = ft_itoa(target_node_value);
+		entry = ft_strjoin(SHLVL_EMPTY, string_entry);
+		env_add_entry(head, entry);
+		ft_free(2, &entry, &string_entry);
+	}
 }
 
 void	shell_lvl_handler(t_env *head)

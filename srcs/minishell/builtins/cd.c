@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/13 14:49:43 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/15 16:20:06 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,17 @@ static int	ft_cd_others(t_env *head, char **split)
 
 	if (chdir(split[1]) != 0)
 		return (perror(split[1]), 1);
-	if (find_key(head, "OLDPWD") && find_key(head, "PWD"))
-		ft_switch_cd(find_key(head, "OLDPWD"), find_key(head, "PWD")->value);
+	if (find_key(head, "OLDPWD"))
+	{
+		if (find_key(head, "PWD"))
+			ft_switch_cd(find_key(head, "OLDPWD"), find_key(head, \
+					"PWD")->value);
+		else
+		{
+			ft_free(1, &find_key(head, "OLDPWD")->value);
+			find_key(head, "OLDPWD")->value = ft_strdup("");
+		}
+	}
 	if (find_key(head, "PWD"))
 		ft_switch_cd(find_key(head, "PWD"), getcwd(buffer, 500));
 	return (0);
@@ -38,17 +47,22 @@ static int	ft_cd_with_minus(t_env *head, char **split)
 	char	buffer[500];
 
 	if (!find_key(head, "OLDPWD"))
-	{
-		ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]);
-		return (1);
-	}
+		return (ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]), 1);
+	if (!ft_strcmp(find_key(head, "OLDPWD")->value, ""))
+		return (ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]), 1);
 	if (chdir(find_key(head, "OLDPWD")->value) != 0)
-		return (ft_printf_fd(2, "cd: %s: No such file or directory\n",
+		return (ft_printf_fd(2, "cd: %s: No such file or directory\n", \
 				find_key(head, "OLDPWD")->value), 1);
 	if (find_key(head, "OLDPWD"))
 	{
-		ft_printf("%s\n", find_key(head, "OLDPWD")->value);
-		ft_switch_cd(find_key(head, "OLDPWD"), getcwd(buffer, 500));
+		if (find_key(head, "PWD"))
+			ft_switch_cd(find_key(head, "OLDPWD"), find_key(head,
+					"PWD")->value);
+		else
+		{
+			ft_free(1, &find_key(head, "OLDPWD")->value);
+			find_key(head, "OLDPWD")->value = ft_strdup("");
+		}
 	}
 	if (find_key(head, "PWD"))
 		ft_switch_cd(find_key(head, "PWD"), getcwd(buffer, 500));
@@ -67,7 +81,16 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 	else
 		return (ft_printf_fd(2, "cd: HOME not set\n"));
 	if (find_key(head, "OLDPWD"))
-		ft_switch_cd(find_key(head, "OLDPWD"), getcwd(buffer, 500));
+	{
+		if (find_key(head, "PWD"))
+			ft_switch_cd(find_key(head, "OLDPWD"), find_key(head, \
+					"PWD")->value);
+		else
+		{
+			ft_free(1, &find_key(head, "OLDPWD")->value);
+			find_key(head, "OLDPWD")->value = ft_strdup("");
+		}
+	}
 	if (find_key(head, "PWD"))
 		ft_switch_cd(find_key(head, "PWD"), getcwd(buffer, 500));
 	return (0);

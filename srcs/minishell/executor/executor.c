@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 12:03:17 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:07:15 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ static void	ft_waitpid(t_data *data)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
+	else if (g_sig.flag == SIGQUIT)
+	{
+		g_sig.flag = 0;
+		data->env_var = 131;
+	}
 	else
 		data->env_var = COMMAND_INTERRUPTED;
 }
@@ -100,6 +105,8 @@ void	executor(t_env **head, t_data *data, t_parsing *parsing)
 		return ;
 	}
 	signal(SIGINT, SIG_IGN);
+	if (ft_strcmp(parsing[0].cmd[0], EXECUTABLE_NAME))
+		signal(SIGQUIT, signal_quit);
 	if (ft_pipe(data))
 	{
 		child_executor(head, data, parsing);

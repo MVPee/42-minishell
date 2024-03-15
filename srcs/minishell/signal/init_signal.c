@@ -20,7 +20,7 @@ void	signal_handler(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_sig.flag = SIGINT;
+		g_sig.flag = signum;
 	}
 }
 
@@ -35,9 +35,15 @@ void	signal_heredoc(int signum)
 
 void	signal_quit(int signum)
 {
-	if (signum == SIGQUIT)
-		ft_printf_fd(2, "\nQuit\n");
-	exit(131);
+	char	*sig;
+
+	sig = ft_itoa(signum);
+	ft_printf_fd(2, "Quit: ");
+	if (sig)
+		ft_printf_fd(2, "%s\n", sig);
+	else
+		ft_printf_fd(2, "malloc fail\n", sig);
+	g_sig.flag = signum;
 }
 
 void	init_signal(void)

@@ -6,12 +6,12 @@
 /*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 16:14:21 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 16:32:46 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:40:30 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
-#define ENV_H
+# define ENV_H
 
 # define SHLVL_EMPTY "SHLVL="
 # define BASE_SHLVL "SHLVL=1"

@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 17:27:02 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:40:11 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,26 @@ char	**env_split(char *env)
 	return (result);
 }
 
+static void	apply_shlvl_value(t_env *head, t_env *target_node)
+{
+	int		target_node_value;
+
+	if (!target_node)
+		return ;
+	target_node_value = ft_atoi(target_node->value) + 1;
+	env_remove_entry(&head, SHLVL_KEY);
+	if (target_node_value < 0)
+		head = env_add_entry(head, SHLVL_ZERO);
+	else if (target_node_value > 999)
+		head = env_add_entry(head, SHLVL_EMPTY);
+	else
+		head = env_add_entry(head, \
+			ft_strjoin(SHLVL_EMPTY, ft_itoa(target_node_value)));
+}
+
 void	shell_lvl_handler(t_env *head)
 {
 	t_env	*target_node;
-	int		target_node_value;
 
 	target_node = find_key(head, SHLVL_KEY);
 	if (!target_node)
@@ -49,18 +65,10 @@ void	shell_lvl_handler(t_env *head)
 			head = env_add_entry(head, BASE_SHLVL);
 		}
 		else
-		{
-			target_node_value = ft_atoi(target_node->value) + 1;
-			env_remove_entry(&head, SHLVL_KEY);
-			if (target_node_value < 0)
-				head = env_add_entry(head, SHLVL_ZERO);
-			else if (target_node_value > 999)
-				head = env_add_entry(head, SHLVL_EMPTY);
-			else
-				head = env_add_entry(head, ft_strjoin(SHLVL_EMPTY, ft_itoa(target_node_value)));
-		}
+			apply_shlvl_value(head, target_node);
 	}
 }
+
 char	*no_null_join(char *s1, char *s2)
 {
 	int		i;

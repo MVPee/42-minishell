@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/16 11:30:13 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/16 11:57:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool	input_check(t_parser *parser, t_node *node, t_env *env, \
 	if (parser->input != -1)
 		close(parser->input);
 	temp = ft_expand(node->name, env, *data);
-	if (node->token == INPUT && !temp && is_only_space(node->name))
+	if (node->token == INPUT && !temp && !only_space(node->name))
 		return (ft_printf_fd(2, "%s: ambiguous redirect\n", node->name), \
 		parser->flag = true, ft_free_matrix(1, &temp), true);
 	ft_free_matrix(1, &temp);
@@ -77,7 +77,7 @@ static bool	output_check(t_parser *parser, t_node *node, t_env *env, \
 	if (parser->output != -1)
 		close(parser->output);
 	temp = ft_expand(node->name, env, *data);
-	if (!temp && is_only_space(node->name))
+	if (!only_space(node->name) && !temp)
 		return (ft_printf_fd(2, "%s: ambiguous redirect\n", node->name), \
 		parser->flag = true, ft_free_matrix(1, &temp), true);
 	ft_free_matrix(1, &temp);

@@ -42,4 +42,6 @@ char		**ft_expand(char *line, t_env *head, t_data data);
 char		*exp_env(char *line, t_env *head, t_data data, int *i);
 void		ft_expand_home(char *line, int *i, char **buffer);
 
+bool		is_only_space(char *line);
+
 #endif

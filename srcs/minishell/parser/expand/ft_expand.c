@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 12:12:13 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/16 09:56:31 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/16 11:37:39 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**ft_expand(char *line, t_env *head, t_data data)
 	char	*buffer;
 	int		i;
 
-	split = NULL;
+	ft_null(2, &buffer, &split);
 	i = -1;
 	while (line[++i])
 	{

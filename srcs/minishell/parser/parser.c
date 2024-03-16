@@ -12,7 +12,7 @@
 
 #include "../../../includes/minishell.h"
 
-static bool	is_only_space(char *line)
+bool	is_only_space(char *line)
 {
 	int	i;
 

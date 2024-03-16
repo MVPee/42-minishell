@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 14:16:17 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 19:45:43 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:33:13 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ t_env	*minimal_env(void)
 	env_add_entry(head, "OLDPWD");
 	env_add_entry(head, "SHLVL=");
 	write_value(&head, "PWD", current_working_directory);
+	ft_free(1, &current_working_directory);
 	return (head);
 }

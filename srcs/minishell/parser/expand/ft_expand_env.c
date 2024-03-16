@@ -25,6 +25,11 @@ static void	exp_env2(char *line, t_env *head, int *i, char **buffer)
 	if (find_key(head, buffer2))
 	{
 		value = ft_strdup(find_key(head, buffer2)->value);
+		if (!value)
+		{
+			ft_free(1, &buffer2);
+			return ;
+		}
 		p = -1;
 		while (value[++p])
 			*buffer = ft_strjoinchar_free(buffer, value[p]);
@@ -54,7 +59,5 @@ char	*exp_env(char *line, t_env *head, t_data data, int *i)
 		buffer = ft_strjoinchar_free(&buffer, '$'); 
 	else
 		exp_env2(line, head, i, &buffer);
-	if (line[*i + 1] != '\"')
-		i++;
 	return (buffer);
 }

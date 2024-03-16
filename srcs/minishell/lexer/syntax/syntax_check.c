@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:52:14 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/14 14:46:14 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/16 17:43:33 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static int	syntax_check_out(char *line, int *i)
 static int	syntax_check3(char *line, int *i)
 {
 	if (line[(*i)] == ';')
-		return (ft_printf("syntax error near unexpected token ';'\n"));
+		return (ft_printf("syntax error near unexpected token `;'\n"));
 	else if (line[(*i)] == '|')
 	{
 		if (check_before(line, (*i)))
-			return (ft_printf("syntax error near unexpected token '|'\n"));
+			return (ft_printf("syntax error near unexpected token `|'\n"));
 		if (check_after(line, (*i)))
-			return (ft_printf("syntax error near unexpected token '|'\n"));
+			return (ft_printf("syntax error near unexpected token `|'\n"));
 	}
 	return (0);
 }

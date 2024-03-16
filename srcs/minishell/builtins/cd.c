@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/15 16:20:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/16 09:41:07 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_cd_others(t_env *head, char **split)
 	char	buffer[500];
 
 	if (chdir(split[1]) != 0)
-		return (perror(split[1]), 1);
+		return (ft_printf_fd(2, "cd: "), perror(split[1]), 1);
 	if (find_key(head, "OLDPWD"))
 	{
 		if (find_key(head, "PWD"))

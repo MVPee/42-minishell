@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 08:56:30 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/13 08:56:56 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/16 17:41:48 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ bool	check_after(char *line, int i)
 {
 	int	j;
 
+	ft_printf("LINE: %s\n", line);
 	j = i;
 	while (line[++j])
 	{
 		while (line[j] == ' ')
 			j++;
-		if (ft_isprint(line[j]))
-			return (false);
-		else if (line[j] == '|')
+		if (line[j] == '|')
 			return (true);
+		else if (ft_isprint(line[j]))
+			return (false);
 		else if (!line[j])
 			return (true);
 	}

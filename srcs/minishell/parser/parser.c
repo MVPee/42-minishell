@@ -93,7 +93,7 @@ static t_parser	parser_data(t_lexer lexer, t_data *data, t_env *env)
 			get_value(find_key(env, "PATH")), ":"), parser);
 	}
 	else
-		data->env_var = 0;
+		data->env_var = SUCCESSFUL_COMMAND;
 	return (parser);
 }
 
@@ -105,10 +105,10 @@ t_parser	*ft_parser(t_lexer *lexer, t_data *data, t_env *env)
 	if (g_sig.flag == SIGINT)
 	{
 		g_sig.flag = 0;
-		data->env_var = 1;
+		data->env_var = UNSUCCESSFUL_COMMAND;
 	}
 	if (!lexer)
-		return (data->env_var = 2, NULL);
+		return (data->env_var = NUMERICAL_ARGUMENT_NESCESSARY, NULL);
 	parser = malloc(sizeof(t_parser) * data->nbr_cmd);
 	if (!parser)
 		return (free_lexer(lexer, data->nbr_cmd), NULL);

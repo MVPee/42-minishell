@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:46:20 by mvan-pee          #+#    #+#             */
-/*   Updated: 2024/03/16 15:12:57 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/17 20:14:11 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_echo(t_data *data, char **split)
 
 	flag = false;
 	i = 0;
-	data->env_var = 0;
+	data->env_var = SUCCESSFUL_COMMAND;
 	if (!split[1])
 	{
 		ft_printf("\n");

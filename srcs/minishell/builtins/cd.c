@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/16 09:41:07 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/17 20:13:49 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ static int	ft_cd_with_no_arguments(t_env *head, char **split)
 
 void	ft_cd(t_env *head, t_data *data, char **split)
 {
-	data->env_var = 0;
 	if (ft_splitlen((const char **)split) > 2)
 	{
 		ft_printf_fd(2, "%s: too many arguments\n", split[0]);
-		data->env_var = 1;
+		data->env_var = TOO_MANY_ARGUMENTS;
 	}
 	else if (!split[1])
 		data->env_var = ft_cd_with_no_arguments(head, split);

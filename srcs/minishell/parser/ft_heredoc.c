@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:38:04 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:15:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ void	ft_heredoc(int fd, char **stop, t_env *env, t_data *data)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
-	if (data->env_var == 1)
+	if (data->env_var == UNSUCCESSFUL_COMMAND)
 		data->flag = true;
 }

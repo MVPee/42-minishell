@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 18:25:05 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:12:18 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	ft_waitpid(t_data *data)
 	else if (g_sig.flag == SIGQUIT)
 	{
 		g_sig.flag = 0;
-		data->env_var = 131;
+		data->env_var = COMMAND_INTERRUPTED_QUIT;
 	}
 	else
 		data->env_var = COMMAND_INTERRUPTED;

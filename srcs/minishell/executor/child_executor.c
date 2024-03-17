@@ -6,7 +6,7 @@
 /*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/16 11:18:07 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/17 20:11:44 by mvpee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_execve_check(t_parser parser)
 			ft_printf_fd(2, "%s: No such file or directory\n", parser.cmd[0]);
 		else
 			ft_printf_fd(2, "%s: command not found\n", parser.cmd[0]);
-		exit(127);
+		exit(COMMAND_NOT_FOUND);
 	}
 	if (parser.flag)
 		exit(1);

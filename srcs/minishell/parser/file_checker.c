@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_checker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:37:09 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/16 11:57:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/18 11:57:04 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,12 @@ bool	file_checker(t_parser *parser, t_lexer lexer, t_env *env, t_data *data)
 				return (true);
 		}
 		if (node->token == OUTPUT || node->token == APPEND)
+		{
 			if (output_check(parser, node, env, data))
 				return (true);
+			if (parser->flag)
+				return (true);
+		}
 		node = node->next;
 	}
 	return (true);

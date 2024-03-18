@@ -6,7 +6,7 @@
 /*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:39:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/18 09:59:21 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:02:06 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define COMMAND_INTERRUPTED 130
 # define COMMAND_INTERRUPTED_QUIT 131
 // EXIT RELATED ERROR CODES
-# define NUMERICAL_ARGUMENT_NESCESSARY 2
+# define NUMERICAL_ARGUMENT_NESCESSARY 255
 # define TOO_MANY_ARGUMENTS 1
 
 #endif

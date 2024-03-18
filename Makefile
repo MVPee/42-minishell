@@ -36,7 +36,7 @@ SRCS = 	main.c \
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -I $(LIBFT) -g -I /Users/$(shell whoami)/.brew/opt/readline/include -g  -Wall -Werror -Wextra #-ggdb3 -fsanitize=address
+CFLAGS = -I $(LIBFT) -g -I /Users/$(shell whoami)/.brew/opt/readline/include -g  #-Wall -Werror -Wextra #-ggdb3 -fsanitize=address
 LDFLAGS = -lft -lreadline -L $(LIBFT) -g -L /Users/$(shell whoami)/.brew/opt/readline/lib -g #-ggdb3 -fsanitize=address
 
 RED=\033[0;31m

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_executor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 22:43:58 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/17 20:11:44 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/18 12:01:11 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ static void	ft_execve(t_parser parser, t_env **head, t_data *data, int i)
 	}
 	execve(parser.path, parser.cmd, env);
 	if (access(parser.cmd[0], X_OK) == 0)
-		ft_printf_fd(2, "%s: Is a directory\n", parser.cmd[0]);
+		ft_printf_fd(2, "%s: is a directory\n", parser.cmd[0]);
 	else
 		perror(parser.cmd[0]);
 	ft_free_matrix(1, &env);
 	if (errno == EACCES)
 		exit(MISSING_RIGHTS);
-	exit(1);
+	exit(COMMAND_NOT_FOUND);
 }
 
 void	child_executor(t_env **head, t_data *data, t_parser *parser)

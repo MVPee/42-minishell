@@ -6,23 +6,23 @@
 /*   By: nechaara <nechaara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:48:51 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/15 15:15:54 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:40:13 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	add_env(t_env **head, char *key, char *value, bool append_content)
+static int	add_env(t_env **head, char *key, char *value, bool append_content)
 {
 	char	*clean_entry;
 
 	if (!key)
-		return ;
+		return (UNSUCCESSFUL_COMMAND);
 	if (!is_key_valid(key))
 	{
 		error_handler_export(key, value);
-		ft_free(1, &value);
-		return ;
+		ft_free(2, &key, &value);
+		return (UNSUCCESSFUL_COMMAND);
 	}
 	if (append_content)
 		write_value(head, key, value);
@@ -37,12 +37,18 @@ static void	add_env(t_env **head, char *key, char *value, bool append_content)
 		env_entry_update(head, clean_entry);
 		free(clean_entry);
 	}
-	ft_free(1, &value);
+	ft_free(2, &key, &value);
+	return (SUCCESSFUL_COMMAND);
 }
 
 static void	*add_null_content(t_env **head, char *key, t_data *data)
 {
+	char	*dupped_key;
+
 	if (!key)
+		return (NULL);
+	dupped_key = ft_strdup(key);
+	if (!dupped_key)
 		return (NULL);
 	if (!is_key_valid(key))
 	{
@@ -51,8 +57,7 @@ static void	*add_null_content(t_env **head, char *key, t_data *data)
 	}
 	if (find_key(*head, key))
 		return (NULL);
-	add_env(head, key, NULL, false);
-	(*data).env_var = SUCCESSFUL_COMMAND;
+	(*data).env_var = add_env(head, dupped_key, NULL, false);
 	return (NULL);
 }
 
@@ -79,8 +84,7 @@ static void	*add_content(t_env **head, char *line, t_data *data)
 	if (!key)
 		return (NULL);
 	value = ft_strdup(equal_address + 1);
-	add_env(head, key, value, append_content);
-	(*data).env_var = SUCCESSFUL_COMMAND;
+	(*data).env_var = add_env(head, key, value, append_content);
 	return (NULL);
 }
 

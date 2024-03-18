@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/14 16:29:28 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/18 11:08:24 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_exit(t_env *head, t_data *data, char **split)
 	if (error_handler_status == 0)
 	{
 		if (number_of_args == 1)
-			exit_code = 0;
+			exit_code = data->env_var;
 		else if (number_of_args == 2)
 			exit_code = (ft_strtol(split[1], NULL, 10) % 256);
 	}

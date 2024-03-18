@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 12:39:03 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/17 20:12:15 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/03/18 09:59:21 by mvan-pee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MISSING_RIGHTS 126
 # define COMMAND_NOT_FOUND 127
 # define COMMAND_INTERRUPTED 130
-# define COMMAND_INTERRUPTED_QUIT 130
+# define COMMAND_INTERRUPTED_QUIT 131
 // EXIT RELATED ERROR CODES
 # define NUMERICAL_ARGUMENT_NESCESSARY 2
 # define TOO_MANY_ARGUMENTS 1

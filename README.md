@@ -1,7 +1,7 @@
 ![image](https://github.com/MVPee/42-minishell/assets/93082514/76d8a8e8-8a1a-4fd7-85c7-5189286eab48)
 
 <h1 align="center">
-	💥 Minishell
+	💥 42-Minishell
 </h1>
 
 <p align="center">

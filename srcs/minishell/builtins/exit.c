@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:08:28 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/18 11:08:24 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/04/13 01:24:10 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void	ft_exit(t_env *head, t_data *data, char **split)
 		free_env_list(head);
 		exit(exit_code);
 	}
-	else 
+	else
 		data->env_var = exit_code;
 }

@@ -56,7 +56,7 @@ char	*exp_env(char *line, t_env *head, t_data data, int *i)
 		ft_free(1, &value);
 	}
 	else if (line[*i + 1] == ' ' || !line[*i + 1])
-		buffer = ft_strjoinchar_free(&buffer, '$'); 
+		buffer = ft_strjoinchar_free(&buffer, '$');
 	else
 		exp_env2(line, head, i, &buffer);
 	return (buffer);

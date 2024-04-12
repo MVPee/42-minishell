@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-pee <mvan-pee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 13:10:12 by mvpee             #+#    #+#             */
-/*   Updated: 2024/03/18 09:59:06 by mvan-pee         ###   ########.fr       */
+/*   Updated: 2024/04/13 01:26:33 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,15 @@ static void	ft_waitpid(t_data *data)
 	int	i;
 	int	status;
 
-	i = -1;
-	while (++i < data->nbr_cmd)
-	{
-		close(data->pipefds[i][0]);
-		close(data->pipefds[i][1]);
-	}
+	clean_fds(data);
 	i = -1;
 	while (++i < data->nbr_cmd)
 		waitpid(data->pid[i], &status, 0);
 	if (WIFEXITED(status))
 		data->env_var = WEXITSTATUS(status);
-	else if (g_sig.flag == SIGQUIT)
+	else if (g_flag == SIGQUIT)
 	{
-		g_sig.flag = 0;
+		g_flag = 0;
 		data->env_var = COMMAND_INTERRUPTED_QUIT;
 	}
 	else
@@ -83,6 +78,7 @@ static bool	ft_pipe(t_data *data)
 		if (pipe(data->pipefds[i]) == -1)
 		{
 			perror("pipe");
+			clean_fds(data);
 			return (false);
 		}
 	}

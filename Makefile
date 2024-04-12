@@ -18,6 +18,7 @@ SRCS = 	main.c \
 		srcs/minishell/builtins/utils/export_sort.c \
 		srcs/minishell/builtins/cd.c \
 		srcs/minishell/executor/executor.c \
+		srcs/minishell/executor/executor_utils.c \
 		srcs/minishell/executor/child_executor.c \
 		srcs/minishell/lexer/lexer.c \
 		srcs/minishell/lexer/set_lexer.c \

@@ -13,12 +13,7 @@
 #ifndef SIGNAL_H
 # define SIGNAL_H
 
-typedef struct s_signal
-{
-	int			flag;
-}				t_signal;
-
-extern t_signal	g_sig;
+extern int	g_flag;
 
 char			*get_str_readline(void);
 void			init_signal(void);

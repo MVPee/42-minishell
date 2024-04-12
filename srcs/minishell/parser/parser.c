@@ -102,9 +102,9 @@ t_parser	*ft_parser(t_lexer *lexer, t_data *data, t_env *env)
 	t_parser	*parser;
 	int			i;
 
-	if (g_sig.flag == SIGINT)
+	if (g_flag == SIGINT)
 	{
-		g_sig.flag = 0;
+		g_flag = 0;
 		data->env_var = UNSUCCESSFUL_COMMAND;
 	}
 	if (!lexer)

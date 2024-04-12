@@ -20,7 +20,7 @@ void	signal_handler(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_sig.flag = signum;
+		g_flag = signum;
 	}
 }
 
@@ -44,12 +44,12 @@ void	signal_quit(int signum)
 	else
 		ft_printf_fd(2, "malloc fail\n", sig);
 	ft_free(1, &sig);
-	g_sig.flag = signum;
+	g_flag = signum;
 }
 
 void	init_signal(void)
 {
-	g_sig.flag = 0;
+	g_flag = 0;
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

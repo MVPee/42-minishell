@@ -24,7 +24,11 @@
 This project is about creating a simple shell. Yes, your own little bash. You will learn a lot about processes and file descriptors.
 
 ## 🚀 Running
-
+>You need to install readline
+```
+sudo apt-get update
+sudo apt-get install libreadline-dev
+```
 ```bash
 make run
 ```

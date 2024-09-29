@@ -79,7 +79,7 @@ Will launch the previously compiled project with `make` and run it.
     A beautiful, colorful prompt that displays the current `PWD` at the beginning
 
 <p align="center">
-	<img src="./.imgs/screenshoot.png" width=500>
+	<img src="./.imgs/screenshot.png" width=500>
 </p>
 
 ---

@@ -10,20 +10,20 @@
 </p>
 
 <h3 align="center">
-	<a href="#-about-the-project">About</a>
+	<a href="#-about">About</a>
 	<span> · </span>
-	<a href="#-running-the-project">Running</a>
+	<a href="#-running">Running</a>
 	<span> · </span>
 	<a href="#-features">Features</a>
 </h3>
 
 
-# 💡 About the project
+# 💡 About
 >As beautiful as a shell
 
 This project is about creating a simple shell. Yes, your own little bash. You will learn a lot about processes and file descriptors.
 
-## 🚀 Running the project 
+## 🚀 Running
 
 ```bash
 make run
@@ -77,6 +77,10 @@ Will launch the previously compiled project with `make` and run it.
     Updates `OLDPWD` after a `cd` command or if no `OLDPWD` is present in the environment
   -- *Prompt*  
     A beautiful, colorful prompt that displays the current `PWD` at the beginning
+
+<p align="center">
+	<img src="./.imgs/screenshoot.png" width=500>
+</p>
 
 ---
 

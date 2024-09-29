@@ -10,11 +10,11 @@
 </p>
 
 <h3 align="center">
-	<a href="#-about-the-project">Running</a>
+	<a href="#-about-the-project">About</a>
 	<span> · </span>
-	<a href="#-running-the-project">Configuration</a>
+	<a href="#-running-the-project">Running</a>
 	<span> · </span>
-	<a href="#-features">Key features</a>
+	<a href="#-features">Features</a>
 </h3>
 
 
@@ -47,8 +47,37 @@ Will launch the previously compiled project with `make` and run it.
 - **`'` `"`**  
   -- Supports proper parsing of single and double quotes for string handling
 
+- **Redirections**  
+  -- Supports input (`<`), here-doc (`<<`), output (`>`), and append (`>>`) redirections
 
-  
+- **Environnemts variables**  
+  -- Supports retrieving, setting, and expanding environment variables
+
+- **`$?`**  
+  -- Displays the exit status of the last executed command
+
+- **Signals**  
+  -- Handles signals like CTRL-C (`interrupt`), CTRL-D (`EOF`), and CTRL-\ (`quit`)
+
+- **Builtins**  
+  -- `echo` with -n option  
+  -- `cd` with relative, absolute, and `- ($OLDPWD)` paths  
+  -- `pwd`  
+  -- `export`  
+  -- `unset`  
+  -- `env`  
+  -- `exit`  
+
+- **Others**  
+  -- *`$SHLEVEL`*  
+    Increments `SHLVL` by one. Sets it to one if `SHLVL` is invalid (not between 1 and 999)  
+  -- *`$PWD`*  
+    Updates `PWD` to reflect the current directory after a `cd` command or if no `PWD` is present in the environment  
+  -- *`$OLDPWD`*  
+    Updates `OLDPWD` after a `cd` command or if no `OLDPWD` is present in the environment
+  -- *Prompt*  
+    A beautiful, colorful prompt that displays the current `PWD` at the beginning
+
 ---
 
 This group project was done by [MVPee](https://github.com/MVPee) and [Nour Echaara](https://github.com/noureh10)

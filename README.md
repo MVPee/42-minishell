@@ -74,12 +74,12 @@ Will launch the previously compiled project with `make` and run it.
   -- *`$PWD`*  
     Updates `PWD` to reflect the current directory after a `cd` command or if no `PWD` is present in the environment  
   -- *`$OLDPWD`*  
-    Updates `OLDPWD` after a `cd` command or if no `OLDPWD` is present in the environment
+    Updates `OLDPWD` after a `cd` command or if no `OLDPWD` is present in the environment  
   -- *Prompt*  
-    A beautiful, colorful prompt that displays the current `PWD` at the beginning
+    A beautiful, colorful prompt that displays the current `PWD` at the beginning  
 
 <p align="center">
-	<img src="./.imgs/screenshot.png" width=500>
+	<img src="./.imgs/screenshot.png" width=650>
 </p>
 
 ---

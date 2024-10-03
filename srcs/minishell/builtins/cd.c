@@ -6,7 +6,7 @@
 /*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/10/03 14:55:44 by nechaara         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:57:17 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_cd_with_minus(t_env *head, char **split)
 {
 	char	buffer[500];
 	t_env	*tmp;
-	
+
 	tmp = find_key(head, "OLDPWD");
 	if (!tmp || !tmp->value)
 		return (ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]), 1);

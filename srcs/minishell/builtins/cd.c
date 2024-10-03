@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvpee <mvpee@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nechaara <nechaara@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:08:04 by nechaara          #+#    #+#             */
-/*   Updated: 2024/03/17 20:13:49 by mvpee            ###   ########.fr       */
+/*   Updated: 2024/10/03 14:55:44 by nechaara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ static int	ft_cd_others(t_env *head, char **split)
 static int	ft_cd_with_minus(t_env *head, char **split)
 {
 	char	buffer[500];
-
-	if (!find_key(head, "OLDPWD"))
+	t_env	*tmp;
+	
+	tmp = find_key(head, "OLDPWD");
+	if (!tmp || !tmp->value)
 		return (ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]), 1);
 	if (!ft_strcmp(find_key(head, "OLDPWD")->value, ""))
 		return (ft_printf_fd(2, "%s: OLDPWD not set\n", split[0]), 1);
